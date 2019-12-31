@@ -1,0 +1,256 @@
+﻿@model BroomServiceWeb.Models.ChatListVM
+@using BroomServiceWeb.Resources;
+
+@{
+    ViewBag.Title = "ChatListing";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2 class="heading-top">@Resource.chat_list</h2>
+ 
+
+
+        <div class="row chat_main_box py-4">
+            <div class="col-md-4">
+                <div class="recent-chat-header">@Resource.recent_chat</div>
+                <div class="recent_chat_search">
+                    <input type="text" name="" id="myInput" onkeyup="myFunction()" class=" form-control search_input">
+                    <button class="btn search_btn"><img src="~/Images/search_btn.png"></button>
+                </div>
+                <ul id="myUL">
+                    @if (Model != null)
+                    {
+                        if (Model.chatUser != null)
+                        {
+                            if (Model.chatUser.Count > 0)
+                            {
+                                for (int i = 0; i < Model.chatUser.Count; i++)
+                                {
+                                    <li id="@Model.chatUser[i].UserId">
+                                        <div class="chat_user_main">
+                                            @if (!string.IsNullOrEmpty(Model.chatUser[i].PicturePath))
+                                            {
+                                                <img src="~/Images/User/@Model.chatUser[i].PicturePath">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/image_placeholder.jpg">
+                                            }
+
+                                            <div class="chat_user_details">
+                                                <h1>@Model.chatUser[i].Name</h1>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-md-8">
+                <div class="chat_box">
+
+                    @if (Model.chatUser != null)
+                    {
+                        if (Model.chatUser.Count > 0)
+                        {
+                            <img class="selected-img" src="~/Content/images/image_placeholder.jpg">
+
+                            <div class="selected_user_name">@Model.chatUser[0].Name</div>
+                            <input id="userId" name="userId" type="hidden" value="@Model.chatUser[0].UserId" />
+                        }
+                    }
+                    <input id="sessionInput" type="hidden" value='@Session["AdminId"]' />
+
+
+                    <div class="chat_detail_main">
+                        <div class="conversation" id="dvChat">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message_send_box">
+                    <input type="text" name="text" id="text" class="form-control search_input">
+                    <button id="btnSend" class="btn search_btn"><img src="/Content/images/sent-mail.png"></button>
+                </div>
+            </div>
+        </div>
+ 
+        <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script>
+    var currentUserId = $("#userId").val();
+
+    function myFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("div")[0];
+            txtValue = a.textContent || a.innerText;
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    jQuery('#text').on('input', function () {
+        if ($(this).val().length != 0)
+            $('#btnSend').attr('disabled', false);
+        else
+            $('#btnSend').attr('disabled', true);
+    });
+
+    $(window).load(function () {
+        bindChat();
+        var objDiv = document.getElementById("dvChat");
+        if (objDiv != null) {
+            objDiv.scrollTop = objDiv.scrollHeight;
+        }
+
+        $('#myUL li:first-child').addClass('active');
+    });
+
+    $(document).ready(function () {
+        $('#btnSend').prop('disabled', true);
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAk37twU5CzSbzUGbu6k46DuQsbBJju7k0",
+            authDomain: "broomserviceapp-1cf32.firebaseio.com/",
+            databaseURL: "https://broomserviceapp-1cf32.firebaseio.com/",
+            projectId: "broomserviceapp-1cf32",
+            messagingSenderId: "679114337944"
+        };
+        firebase.initializeApp(config);
+    });
+
+
+    $('#text').keypress(function (e) {
+        if (e.which == 13) {
+            if ($(this).val().length > 0) {
+                AddChatMessage();
+            }
+        }
+    });
+
+    function AddChatMessage() {
+        var text = $("#text").val();
+        var timestamp = firebase.database.ServerValue.TIMESTAMP;
+            $("#text").val('');
+        var date = new Date();
+        date = date.toLocaleString('en-GB');
+
+        @*var relativeDate ="@Common.RelativeDate(DateTime.Now)";*@
+
+        var html = '<div class="chat_2">' + text + '<p>' + date + '</p></div>';
+         $("#dvChat").append(html);
+         var objDiv = document.getElementById("dvChat");
+         objDiv.scrollTop = objDiv.scrollHeight;
+        $('#btnSend').prop('disabled', true);
+
+
+        firebase.database().ref('Chat/' + $("#sessionInput").val() + '/' + currentUserId + '/').push().set({
+            'IsSender': true,
+            'TimeStamp': timestamp,
+            'RecieverUserId': currentUserId,
+            'SenderUserId': $("#sessionInput").val(),
+            'UserMessage': text,
+            'UserMessageTime': date,
+        });
+
+        firebase.database().ref('Chat/' + currentUserId + '/' + $("#sessionInput").val() + '/').push().set({
+            'IsSender': false,
+            'TimeStamp': timestamp,
+            'RecieverUserId': $("#sessionInput").val(),
+            'SenderUserId': currentUserId,
+            'UserMessage': text,
+            'UserMessageTime': date,
+        });
+
+
+                    $.ajax({
+                        url: "@Url.Action("SendMessage", "Admin")",
+                        data: { "userId": currentUserId, "text": text },
+            dataType: "json",
+            type: "Post",
+            error: function () {
+                //alert(" An error occurred.");
+            },
+                        success: function (data) {
+                            if (data.status) {
+
+                            }
+                }
+            });
+    }
+
+    $("#btnSend").click(function () {
+         AddChatMessage();
+    });
+
+    window.setInterval(function () {
+        bindChat();
+    }, 5000);
+
+    function bindChat() {
+        var userId = $("#userId").val();
+                       $.ajax({
+                url: "@Url.Action("GetChat", "Admin")",
+                           data: { "userId": currentUserId},
+                dataType: "json",
+                type: "GET",
+                error: function () {
+                    // alert(" An error occurred.");
+                },
+                           success: function (data) {
+                               
+                $('.chat_detail_main #dvChat').empty();
+                $('#btnSend').prop('disabled', true);
+
+                    var i;
+                    var html = '';
+                    for (i = 0; i < data.length; i++) {
+                       // text += data[i] + "<br>";
+                        if (data[i].IsSender) {
+                            html += '<div class="chat_2">' + data[i].UserMessage + '<p>' + data[i].UserMessageTime + '</p></div>';
+                        }
+                        else {
+                            html += '<div class="chat_1">' + data[i].UserMessage + '<p>' + data[i].UserMessageTime + '</p> </div>';
+                        }
+                    }
+                $("#dvChat").html(html);
+                var objDiv = document.getElementById("dvChat");
+                if (objDiv != null) {
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                }
+                }
+            });
+        }
+
+
+    $('#myUL li').click(function () {
+        var getId = $(this).attr('id');
+        $('#myUL li.active').removeClass('active');
+        $(this).addClass('active');
+        currentUserId = getId;
+
+        var txtValue = $(this).children().children().children().html();
+        var imgValue = $(this).find('.chat_user_main').find('img').prop('src');
+
+        $('.selected_user_name').text(txtValue);
+        $('.selected-img').attr('src', imgValue);
+        bindChat();
+    });
+
+        </script>

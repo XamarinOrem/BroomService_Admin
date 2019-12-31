@@ -1,0 +1,133 @@
+﻿@model BroomServiceWeb.Models.Testimonial
+@using BroomServiceWeb.Resources;
+
+@{
+    ViewBag.Title = "Add Testimonial";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h2 class="heading-top">@TempData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-title">
+                <a href="@Url.Action("GetTestimonials", "Admin")"><i class="fa fa-arrow-left"></i><span>Testimonials List</span></a>
+            </div>
+            <div class="card-body">
+                <div class="basic-elements">
+
+                    @using (Html.BeginForm("AddTestimonials", "Admin", FormMethod.Post, new { @class = "login-form", enctype = "multipart/form-data" }))
+                    {
+                    <form>
+
+                        <div class="form-group">
+                            <label>@Resource.image</label>
+                            <br />
+                            @if (Model != null && !string.IsNullOrEmpty(Model.Image))
+                            {
+                                <img id="img_Picture" height="100" width="100"
+                                     src="~/Images/Testimonial/@Model.Image" data-zoom-image="~/Images/Testimonial/@Model.Image" />
+
+                            }
+                            else
+                            {
+                                <img id="img_Picture" height="100" width="100"
+                                     src="~/Content/images/image_placeholder.jpg" />
+                            }
+
+
+                            <input type="file" title="search image" id="file" name="file" style="margin-top:10px" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>@Resource.name</label>
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Resource.enter_name, @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>@Resource.title</label>
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = Resource.enter_title, @required = "required" })
+                            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>@Resource.description</label>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = Resource.enter_description, @required = "required",@rows="5" ,@maxLength="500"})
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary submit-button">@Resource.submit</button>
+                    </form>
+
+
+                        <br />
+                        if (TempData["ErrorMsg"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["ErrorMsg"]
+                            </div>
+                        }
+                        if (TempData["SuccessMsg"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["SuccessMsg"]
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- /.login-box-body -->
+<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#file').on('change', function () {
+
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img_Picture').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+                else {
+                    $('#img_Picture').attr('src', '../Template/imgs/user_profle.png');
+                }
+            });
+
+            $('#fileIcon').on('change', function () {
+
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img_Icon').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+                else {
+                    $('#img_Icon').attr('src', '../Template/imgs/user_profle.png');
+                }
+            });
+        });
+
+</script>
+
+

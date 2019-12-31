@@ -1,0 +1,376 @@
+﻿@model BroomServiceWeb.Models.PropertyModel
+@using BroomServiceWeb.Resources
+@{
+    ViewBag.Title = "Add Property";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+
+    List<SelectListItem> typeListItems = new List<SelectListItem>();
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.apartment,
+        Value = "Apartment"
+    });
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.duplex,
+        Value = "Duplex",
+    });
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.penthouse,
+        Value = "Penthouse"
+    });
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.villa,
+        Value = "Villa"
+    });
+
+    List<SelectListItem> numberListItems = new List<SelectListItem>();
+    for (int i = 1; i <= 10; i++)
+    {
+        numberListItems.Add(new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString(),
+        });
+    }
+
+    List<SelectListItem> duvetListItems = new List<SelectListItem>();
+
+    duvetListItems.Add(new SelectListItem
+    {
+        Text = Resource.small,
+        Value = "Small"
+    });
+
+    duvetListItems.Add(new SelectListItem
+    {
+        Text = Resource.medium,
+        Value = "Medium"
+    });
+
+    duvetListItems.Add(new SelectListItem
+    {
+        Text = Resource.large,
+        Value = "Large"
+    });
+}
+
+<div id="add_properties_main" class="add_properties_main">
+    <div class="container-fluid">
+        <h2 class="text-center">@ViewBag.TitleText</h2>
+        <h5 class="text-center">@Resource.add_property_heading </h5>
+        @using (Html.BeginForm("AddProperty", "Property", FormMethod.Post, new { @class = "row" }))
+        {
+
+            @Html.HiddenFor(a => a.Id)
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.name_property</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control input_csutom", placeholder = Resource.name_property, @required = "required" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.type_of_property</label>
+                    <div class="styled_select">
+                        @Html.DropDownListFor(model => model.Type, typeListItems, Resource.type_of_property, new { required = "required" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.short_term_airbnb_apartment</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.ShortTermApartment, true, new { @checked = true, @id = "ShortTermApartment" })
+                            <label for="ShortTermApartment">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.ShortTermApartment, false, new { @id = "ShortTermApartment1" })
+                            <label for="ShortTermApartment1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.address</label>
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control input_csutom", placeholder = Resource.write_the_address, @required = "required" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.floor</label>
+                    @Html.TextBoxFor(m => m.FloorNumber, new { @class = "form-control input_csutom", placeholder = Resource.write_the_floor_number, @type = "number", @required = "required" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.apartment_number</label>
+                    @Html.TextBoxFor(m => m.ApartmentNumber, new { @class = "form-control input_csutom", placeholder = Resource.write_apt_number, @type = "number", @required = "required" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.building_code</label>
+                    @Html.TextBoxFor(m => m.BuildingCode, new { @class = "form-control input_csutom", placeholder = Resource.write_building_code, @required = "required" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.property_access</label>
+                    @Html.TextBoxFor(m => m.AccessToProperty, new { @class = "form-control input_csutom", placeholder = Resource.access_property_options })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_bathrooms</label>
+                    @Html.TextBoxFor(m => m.NoOfBathrooms, new { @class = "form-control input_csutom", placeholder = Resource.write_number_of_bathrooms, @type = "number" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.no_of_toilets</label>
+                    @Html.TextBoxFor(m => m.NoOfToilets, new { @class = "form-control input_csutom", placeholder = Resource.write_number_of_toilets, @type = "number" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.no_of_bed_rooms</label>
+                    @Html.TextBoxFor(m => m.NoOfBedRooms, new { @class = "form-control input_csutom", placeholder = Resource.write_number_of_bedrooms, @type = "number" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.size</label>
+                    @Html.TextBoxFor(m => m.Size, new { @class = "form-control input_csutom", placeholder = Resource.write_size, @type = "number" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_queen_beds</label>
+                    <div class="styled_select">
+                        @Html.DropDownListFor(model => model.NoOfQueenBeds, numberListItems, Resource.select_number_of_queen_beds)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_double_beds</label>
+                    <div class="styled_select">
+                        @Html.DropDownListFor(model => model.NoOfDoubleBeds, numberListItems, Resource.select_number_of_double_beds)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_single_beds</label>
+                    <div class="styled_select">
+                        @Html.DropDownListFor(model => model.NoOfSingleBeds, numberListItems, Resource.select_number_of_single_beds)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_single_sopha_beds</label>
+                    <div class="styled_select">
+                        @Html.DropDownListFor(model => model.NoOfSingleSofaBeds, numberListItems, Resource.select_no_of_single_sopha_beds)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_double_sopha_beds</label>
+                    <div class="styled_select">
+                        @Html.DropDownListFor(model => model.NoOfDoubleSofaBeds, numberListItems, Resource.select_no_of_double_sopha_beds)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.duvet_size</label>
+                    <div class="styled_select">
+                        @Html.DropDownListFor(model => model.DuvetSize, duvetListItems, Resource.select_duvet_size)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_duvets</label>
+                    @Html.TextBoxFor(m => m.NoOfDuvet, new { @class = "form-control input_csutom", placeholder = Resource.write_number_of_duvets, @type = "number" })
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label>@Resource.number_of_pillows</label>
+                    @Html.TextBoxFor(m => m.NoOfPillows, new { @class = "form-control input_csutom", placeholder = Resource.write_number_of_pillows, @type = "number" })
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.doorman</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Doorman, true, new { @checked = true, @id = "Doorman" })
+                            <label for="Doorman">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Doorman, false, new { @id = "Doorman1" })
+                            <label for="Doorman1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.parking</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Parking, true, new { @checked = true, @id = "Parking" })
+                            <label for="Parking">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Parking, false, new { @id = "Parking1" })
+                            <label for="Parking1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.balcony</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Balcony, true, new { @checked = true, @id = "Balcony" })
+                            <label for="Balcony">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Balcony, false, new { @id = "Balcony1" })
+                            <label for="Balcony1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.dishwasher</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Dishwasher, true, new { @checked = true, @id = "Dishwasher" })
+                            <label for="Dishwasher">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Dishwasher, false, new { @id = "Dishwasher1" })
+                            <label for="Dishwasher1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.pool</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Pool, true, new { @checked = true, @id = "Pool" })
+                            <label for="Pool">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Pool, false, new { @id = "Pool1" })
+                            <label for="Pool1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.garden</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Garden, true, new { @checked = true, @id = "Garden" })
+                            <label for="Garden">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Garden, false, new { @id = "Garden1" })
+                            <label for="Garden1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <div class="form-group custom_radio">
+                    <label>@Resource.elevator</label>
+                    <p>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Elevator, true, new { @checked = true, @id = "Elevator" })
+                            <label for="Elevator">@Resource.yes</label>
+                        </span>
+                        <span>
+                            @Html.RadioButtonFor(a => a.Elevator, false, new { @id = "Elevator1" })
+                            <label for="Elevator1">@Resource.no</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 mt-5 text-center">
+                <button type="submit" class="property_submit">
+                    @Resource.done
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    $(window).load(function () {
+        $('.navbar-nav li a').each(function () {
+            $(this).parent().removeClass('active');
+            var $this = $(this);
+            matching_value = $this.attr('href');
+            if (matching_value == "/Property/MyProperties") {
+                $(this).parent().addClass('active');
+            }
+        });
+
+
+        $('.footer_nav li a').each(function () {
+            $(this).parent().removeClass('active');
+            var $this = $(this);
+            matching_value = $this.attr('href');
+            if (matching_value == "/Property/MyProperties") {
+                $(this).parent().addClass('active');
+            }
+        });
+
+    });
+</script>
+

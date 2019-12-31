@@ -1,0 +1,301 @@
+﻿@using BroomServiceWeb.Helpers;
+@using BroomServiceWeb.Resources;
+
+@model BroomServiceWeb.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WebIndexLayout.cshtml";
+}
+<!-- property list section -->
+<section id="property_list" class="property_list_slider">
+    <div class="container-fluid">
+        @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+        {
+            <h2 class="text-center">@Resource.properties_list</h2>
+            if (Model.Properties.Count > 0)
+            {
+                <div class="property_slider_main">
+                    <div class="owl-carousel owl-theme" id="property_slider">
+                        @for (int i = 0; i < Model.Properties.Count; i++)
+                        {
+                            <div class="item">
+                                <div class="property_list_main">
+                                    <div class="property_list_box">
+                                        <h3>@Model.Properties[i].Name</h3>
+                                        <h4>@Resource.type_of_property <span>@Model.Properties[i].Type</span></h4>
+                                        <div class="location_div">
+                                            <img src="~/Images/location_pin.png" alt="location pin" />
+                                            <div class="location_address">
+                                                @Model.Properties[i].Address
+                                            </div>
+                                        </div>
+                                        @if (@Model.Properties[i].ShortTermApartment.Value)
+                                        {
+                                            <div class="apartment_div">
+                                                <div class="location_address">
+                                                    @Resource.short_term_airbnb_apartment
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="view_detail_box">
+                                            <a class="view-details" href="#" id="@Model.Properties[i].Id"><span>@Resource.view_details </span><img src="~/Images/view_detail_arrow.png" alt="next" /></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="no_data">
+                    <img src="~/Images/nodata.png" />
+                    <label class="no_data_heading">@Resource.no_data_heading</label>
+                    <label class="no_data_sub_heading">
+                        @Resource.no_data_property
+                    </label>
+                </div>
+            }
+
+            <div class="col-12 mt-5 text-center">
+
+                <button type="button" onclick="addPropertyClick()" class="property_submit">
+                    <a style="color:#fff !important;">@Resource.add_property</a>
+                </button>
+            </div>
+        }
+        else
+        {
+            <h2 class="text-center">@Resource.bookings_list</h2>
+
+            if (Model.MyBookings != null)
+            {
+                if (Model.MyBookings.Count > 0)
+                {
+                    <div class="property_slider_main">
+                        <div class="owl-carousel owl-theme" id="property_slider">
+                            @for (int i = 0; i < Model.MyBookings.Count; i++)
+                            {
+                                <div class="item">
+                                    <div class="property_list_main">
+                                        <div class="my_booking_list_box">
+                                            <div class="name_edit d-block d-sm-flex d-md-block d-lg-flex justify-content-between">
+                                                @if (Model.MyBookings[i].Category != null)
+                                                {
+                                                    <h3 class="my_booking_box_heading">@Model.MyBookings[i].Category.Name</h3>
+                                                }
+
+                                                <div class="my_booking_view_detail_box">
+                                                    <a class="view-details" href="#" id="@Model.MyBookings[i].Id"><span>@Resource.view_details </span><img src="~/Images/view_detail_arrow.png" alt="next"></a>
+                                                </div>
+                                            </div>
+                                            <div class="worker_box d-flex ">
+                                                @if (string.IsNullOrEmpty(Model.MyBookings[i].CustomerImage))
+                                                {
+                                                    <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Images/User/@Model.MyBookings[i].CustomerImage" alt="images" />
+                                                }
+                                                <div class="worker_category">
+                                                    @if (!string.IsNullOrEmpty(Model.MyBookings[i].CustomerName))
+                                                    {
+                                                        <h4>@Model.MyBookings[i].CustomerName</h4>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h4>@Resource.user_name</h4>
+                                                    }
+                                                    <p>@Resource.customer_name</p>
+                                                </div>
+                                            </div>
+                                            <div class="my_boking_time_location">
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/calendar.png" alt="calendar" />
+                                                    <div class="location_time_details">@Model.MyBookings[i].JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")<span>|</span>@Model.MyBookings[i].JobStartDatetime.Value.ToString("hh:mm tt")</div>
+                                                </div>
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/location_pin.png" alt="pin" />
+                                                    <div class="location_time_details">@Model.MyBookings[i].PropertyAddress</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="no_data">
+                        <img src="~/Images/nodata.png" />
+                        <label class="no_data_heading">@Resource.no_data_heading</label>
+                        <label class="no_data_sub_heading">
+                            @Resource.no_data_progress_booking
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no_data">
+                    <img src="~/Images/nodata.png" />
+                    <label class="no_data_heading">@Resource.no_data_heading</label>
+                    <label class="no_data_sub_heading">
+                        @Resource.no_data_progress_booking
+                    </label>
+                </div>
+            }
+        }
+    </div>
+</section>
+<!-- Our Services section -->
+<section id="our_services" class="our_services">
+    <div class="container-fluid">
+        <h2 class="text-center">@Resource.our_services</h2>
+        <div class="row">
+            @if (Model.Categories != null)
+            {
+                <div class="owl-carousel owl-theme" id="service_slider">
+                    @for (int i = 0; i < Model.Categories.Count; i++)
+                    {
+                        <div class="item">
+                            <div class="services_list_main">
+                                <div class="service_main_box">
+                                    <div class="img_box">
+                                        @if (string.IsNullOrEmpty(Model.Categories[i].Picture))
+                                        {
+                                            <img src="~/Images/no_image_available.png" class="w-100 h-100" alt="service image" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Images/Category/@Model.Categories[i].Picture" class="w-100 h-100" alt="service image" />
+                                        }
+                                    </div>
+                                    <h3>@Model.Categories[i].Name</h3>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="about_box d-md-flex d-sm-block">
+                                    <div class="about_heading">
+                                        <div class="text_v">@Resource.about</div>
+                                    </div>
+                                    <div class="about_image_text">
+                                        <img src="~/Images/about_image.png" class="img-fluid" alt="work" />
+                                        <div class="about_text_box">
+                                            <div class="box_text_main">
+                                                <h3>@Resource.about_us</h3>
+                                                <span>
+                                                    @Html.Raw((@Model.AboutUsText.Length > 300 ? @Model.AboutUsText.Substring(0, 300) + "..." : @Model.AboutUsText))
+                                                </span>
+                                                <a href="/Profile/AboutUs" class="about-read-more">@Resource.read_more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </section>
+<!-- Testimonials Section  -->
+<section id="testimonials" class="user_views">
+
+    @if (Model.Testimonials.Count > 0)
+    {
+        <div class="testimonial_bg">
+            <h2>@Resource.testimonials</h2>
+        </div>
+        <div class="container-fluid">
+            <div class="testimonial_slider_main">
+                <div class="owl-carousel owl-theme" id="testimonial_slider">
+                    @for (int i = 0; i < Model.Testimonials.Count; i++)
+                    {
+                        <div class="item">
+                            <div class="testimonial_main_box text-center mx-auto">
+                                <div class="testimonial_user_image mx-auto mb-5">
+                                    @if (string.IsNullOrEmpty(Model.Testimonials[i].Image))
+                                    {
+                                        <img src="~/Content/images/image_placeholder.jpg" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/Testimonial/@Model.Testimonials[i].Image" alt="client" />
+                                    }
+                                </div>
+                                <div class="client_message_heading">
+                                    “@Model.Testimonials[i].Title”
+                                </div>
+                                <div class="client_message_content">
+                                    @Model.Testimonials[i].Description
+                                </div>
+                                <div class="client_name">@Model.Testimonials[i].Name</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+</section>
+
+<div class="modal fade" id="booking_view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">@Resource.property_details</h5>
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="job_view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">Job Details</h5>
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<script>
+    $('.property_list_box').on('click', '.view-details', function (e) {
+        var propertyID = $(this).attr('id');
+        $(this).attr('data-target', '#booking_view_modal');
+        $(this).attr('data-toggle', 'modal');
+        $('.modal-body').load('/Property/PropertyDetails?id=' + propertyID);
+    });
+
+    $('.my_booking_list_box').on('click', '.view-details', function (e) {
+        var jobID = $(this).attr('id');
+        window.location.href = '/Bookings/JobDetails?jobId=' + jobID;
+    });
+
+    function addPropertyClick() {
+        window.location.href = "/Property/AddProperty?id=0";
+    }
+</script>
+
+

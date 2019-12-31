@@ -1,0 +1,1201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BroomServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BroomServiceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AboutUs" EntityType="BroomServiceModel.AboutU" />
+    <EntitySet Name="Categories" EntityType="BroomServiceModel.Category" />
+    <EntitySet Name="ContactUs" EntityType="BroomServiceModel.ContactU" />
+    <EntitySet Name="Countries" EntityType="BroomServiceModel.Country" />
+    <EntitySet Name="JobRequestCheckLists" EntityType="BroomServiceModel.JobRequestCheckList" />
+    <EntitySet Name="JobRequestRefImages" EntityType="BroomServiceModel.JobRequestRefImage" />
+    <EntitySet Name="JobRequestSubSubCategories" EntityType="BroomServiceModel.JobRequestSubSubCategory" />
+    <EntitySet Name="Notifications" EntityType="BroomServiceModel.Notification" />
+    <EntitySet Name="Properties" EntityType="BroomServiceModel.Property" />
+    <EntitySet Name="RejectJobRequests" EntityType="BroomServiceModel.RejectJobRequest" />
+    <EntitySet Name="Settings" EntityType="BroomServiceModel.Setting" />
+    <EntitySet Name="SubCategories" EntityType="BroomServiceModel.SubCategory" />
+    <EntitySet Name="SubSubCategories" EntityType="BroomServiceModel.SubSubCategory" />
+    <EntitySet Name="TempJobRequests" EntityType="BroomServiceModel.TempJobRequest" />
+    <EntitySet Name="TempJobRequestCheckLists" EntityType="BroomServiceModel.TempJobRequestCheckList" />
+    <EntitySet Name="TempJobRequestRefImages" EntityType="BroomServiceModel.TempJobRequestRefImage" />
+    <EntitySet Name="TempJobRequestSubSubCategories" EntityType="BroomServiceModel.TempJobRequestSubSubCategory" />
+    <EntitySet Name="TermsConditions" EntityType="BroomServiceModel.TermsCondition" />
+    <EntitySet Name="Testimonials" EntityType="BroomServiceModel.Testimonial" />
+    <EntitySet Name="Users" EntityType="BroomServiceModel.User" />
+    <EntitySet Name="UserChats" EntityType="BroomServiceModel.UserChat" />
+    <EntitySet Name="UserJobReviews" EntityType="BroomServiceModel.UserJobReview" />
+    <EntitySet Name="UserReviews" EntityType="BroomServiceModel.UserReview" />
+    <EntitySet Name="UserSubCategories" EntityType="BroomServiceModel.UserSubCategory" />
+    <AssociationSet Name="FK__SubCatego__CatId__3C69FB99" Association="BroomServiceModel.FK__SubCatego__CatId__3C69FB99">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="SubCategory" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__Categ__6319B466" Association="BroomServiceModel.FK__TempJobRe__Categ__6319B466">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ContactUs__UserI__60A75C0F" Association="BroomServiceModel.FK__ContactUs__UserI__60A75C0F">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ContactU" EntitySet="ContactUs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_country" Association="BroomServiceModel.fk_user_country">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="fk_JobRequestSubSubCategoryId" Association="BroomServiceModel.fk_JobRequestSubSubCategoryId">
+      <End Role="SubSubCategory" EntitySet="SubSubCategories" />
+      <End Role="JobRequestSubSubCategory" EntitySet="JobRequestSubSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__FromU__55F4C372" Association="BroomServiceModel.FK__Notificat__FromU__55F4C372">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__FromU__59C55456" Association="BroomServiceModel.FK__Notificat__FromU__59C55456">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__ToUse__56E8E7AB" Association="BroomServiceModel.FK__Notificat__ToUse__56E8E7AB">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__ToUse__5AB9788F" Association="BroomServiceModel.FK__Notificat__ToUse__5AB9788F">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__Prope__67DE6983" Association="BroomServiceModel.FK__TempJobRe__Prope__67DE6983">
+      <End Role="Property" EntitySet="Properties" />
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__Prope__68D28DBC" Association="BroomServiceModel.FK__TempJobRe__Prope__68D28DBC">
+      <End Role="Property" EntitySet="Properties" />
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_property" Association="BroomServiceModel.fk_user_property">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Property" EntitySet="Properties" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RejectJob__UserI__634EBE90" Association="BroomServiceModel.FK__RejectJob__UserI__634EBE90">
+      <End Role="User" EntitySet="Users" />
+      <End Role="RejectJobRequest" EntitySet="RejectJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SubSubCat__SubCa__29221CFB" Association="BroomServiceModel.FK__SubSubCat__SubCa__29221CFB">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="SubSubCategory" EntitySet="SubSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__SubCa__6501FCD8" Association="BroomServiceModel.FK__TempJobRe__SubCa__6501FCD8">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__SubCa__65F62111" Association="BroomServiceModel.FK__TempJobRe__SubCa__65F62111">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__SubCa__66EA454A" Association="BroomServiceModel.FK__TempJobRe__SubCa__66EA454A">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserSubCa__SubCa__5E8A0973" Association="BroomServiceModel.FK__UserSubCa__SubCa__5E8A0973">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="UserSubCategory" EntitySet="UserSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__SubSu__79FD19BE" Association="BroomServiceModel.FK__TempJobRe__SubSu__79FD19BE">
+      <End Role="SubSubCategory" EntitySet="SubSubCategories" />
+      <End Role="TempJobRequestSubSubCategory" EntitySet="TempJobRequestSubSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserSubCa__SubSu__5D95E53A" Association="BroomServiceModel.FK__UserSubCa__SubSu__5D95E53A">
+      <End Role="SubSubCategory" EntitySet="SubSubCategories" />
+      <End Role="UserSubCategory" EntitySet="UserSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__Servi__640DD89F" Association="BroomServiceModel.FK__TempJobRe__Servi__640DD89F">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__TempJ__6F7F8B4B" Association="BroomServiceModel.FK__TempJobRe__TempJ__6F7F8B4B">
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+      <End Role="TempJobRequestCheckList" EntitySet="TempJobRequestCheckLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__TempJ__762C88DA" Association="BroomServiceModel.FK__TempJobRe__TempJ__762C88DA">
+      <End Role="TempJobRequest" EntitySet="TempJobRequests" />
+      <End Role="TempJobRequestRefImage" EntitySet="TempJobRequestRefImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserChat__FromUs__19DFD96B" Association="BroomServiceModel.FK__UserChat__FromUs__19DFD96B">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserChat" EntitySet="UserChats" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserChat__ToUser__1AD3FDA4" Association="BroomServiceModel.FK__UserChat__ToUser__1AD3FDA4">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserChat" EntitySet="UserChats" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserJobRe__Custo__11158940" Association="BroomServiceModel.FK__UserJobRe__Custo__11158940">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserJobReview" EntitySet="UserJobReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserJobRe__ToUse__1209AD79" Association="BroomServiceModel.FK__UserJobRe__ToUse__1209AD79">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserJobReview" EntitySet="UserJobReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRevie__Custo__0B5CAFEA" Association="BroomServiceModel.FK__UserRevie__Custo__0B5CAFEA">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserReview" EntitySet="UserReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserRevie__ToUse__0C50D423" Association="BroomServiceModel.FK__UserRevie__ToUse__0C50D423">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserReview" EntitySet="UserReviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserSubCa__UserI__5F7E2DAC" Association="BroomServiceModel.FK__UserSubCa__UserI__5F7E2DAC">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserSubCategory" EntitySet="UserSubCategories" />
+    </AssociationSet>
+    <EntitySet Name="JobRequests" EntityType="BroomServiceModel.JobRequest" />
+    <AssociationSet Name="FK__JobReques__Categ__47A6A41B" Association="BroomServiceModel.FK__JobReques__Categ__47A6A41B">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="JobRequest" EntitySet="JobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobReques__JobRe__7F2BE32F" Association="BroomServiceModel.FK__JobReques__JobRe__7F2BE32F">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="JobRequestCheckList" EntitySet="JobRequestCheckLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobReques__Servi__498EEC8D" Association="BroomServiceModel.FK__JobReques__Servi__498EEC8D">
+      <End Role="User" EntitySet="Users" />
+      <End Role="JobRequest" EntitySet="JobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobReques__SubCa__489AC854" Association="BroomServiceModel.FK__JobReques__SubCa__489AC854">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="JobRequest" EntitySet="JobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__JobReques__SubCa__7B5B524B" Association="BroomServiceModel.FK__JobReques__SubCa__7B5B524B">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="JobRequest" EntitySet="JobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__JobRe__55009F39" Association="BroomServiceModel.FK__Notificat__JobRe__55009F39">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Notificat__JobRe__58D1301D" Association="BroomServiceModel.FK__Notificat__JobRe__58D1301D">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="Notification" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RejectJob__JobRe__625A9A57" Association="BroomServiceModel.FK__RejectJob__JobRe__625A9A57">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="RejectJobRequest" EntitySet="RejectJobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobRe__TempJ__17036CC0" Association="BroomServiceModel.FK__TempJobRe__TempJ__17036CC0">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="TempJobRequestSubSubCategory" EntitySet="TempJobRequestSubSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TempJobReques__SubCa__489AC854" Association="BroomServiceModel.FK__TempJobReques__SubCa__489AC854">
+      <End Role="SubCategory" EntitySet="SubCategories" />
+      <End Role="JobRequest" EntitySet="JobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserJobRe__JobRe__10216507" Association="BroomServiceModel.FK__UserJobRe__JobRe__10216507">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="UserJobReview" EntitySet="UserJobReviews" />
+    </AssociationSet>
+    <AssociationSet Name="fk_JobRequestId" Association="BroomServiceModel.fk_JobRequestId">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="JobRequestSubSubCategory" EntitySet="JobRequestSubSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="fk_JobRequestRefImagesJobRequestId" Association="BroomServiceModel.fk_JobRequestRefImagesJobRequestId">
+      <End Role="JobRequest" EntitySet="JobRequests" />
+      <End Role="JobRequestRefImage" EntitySet="JobRequestRefImages" />
+    </AssociationSet>
+    <AssociationSet Name="fk_propertyId_JobRequest" Association="BroomServiceModel.fk_propertyId_JobRequest">
+      <End Role="Property" EntitySet="Properties" />
+      <End Role="JobRequest" EntitySet="JobRequests" />
+    </AssociationSet>
+    <AssociationSet Name="fk_propertyId_TempJobRequest" Association="BroomServiceModel.fk_propertyId_TempJobRequest">
+      <End Role="Property" EntitySet="Properties" />
+      <End Role="JobRequest" EntitySet="JobRequests" />
+    </AssociationSet>
+    <EntitySet Name="PrivacyPolicies" EntityType="BroomServiceModel.PrivacyPolicy" />
+  </EntityContainer>
+  <EntityType Name="AboutU">
+    <Key>
+      <PropertyRef Name="AboutUsId" />
+    </Key>
+    <Property Name="AboutUsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Picture" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="HasPrice" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Icon" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ForWorkers" Type="Boolean" />
+    <NavigationProperty Name="SubCategories" Relationship="BroomServiceModel.FK__SubCatego__CatId__3C69FB99" FromRole="Category" ToRole="SubCategory" />
+    <NavigationProperty Name="TempJobRequests" Relationship="BroomServiceModel.FK__TempJobRe__Categ__6319B466" FromRole="Category" ToRole="TempJobRequest" />
+    <NavigationProperty Name="JobRequests" Relationship="BroomServiceModel.FK__JobReques__Categ__47A6A41B" FromRole="Category" ToRole="JobRequest" />
+    <Property Name="DisplayOrder" Type="Int32" />
+    <Property Name="Name_Russian" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name_Hebrew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name_French" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_Russian" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_Hebrew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_French" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ContactU">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int64" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__ContactUs__UserI__60A75C0F" FromRole="ContactU" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="CountryCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="BroomServiceModel.fk_user_country" FromRole="Country" ToRole="User" />
+  </EntityType>
+  <EntityType Name="JobRequestCheckList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaskDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobRequestId" Type="Int64" />
+    <Property Name="IsDone" Type="Boolean" />
+    <NavigationProperty Name="JobRequest" Relationship="BroomServiceModel.FK__JobReques__JobRe__7F2BE32F" FromRole="JobRequestCheckList" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="JobRequestRefImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PicturePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="JobRequestId" Type="Int64" />
+    <NavigationProperty Name="JobRequest" Relationship="BroomServiceModel.fk_JobRequestRefImagesJobRequestId" FromRole="JobRequestRefImage" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="JobRequestSubSubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubSubCategoryId" Type="Int64" />
+    <Property Name="JobRequestId" Type="Int64" />
+    <NavigationProperty Name="SubSubCategory" Relationship="BroomServiceModel.fk_JobRequestSubSubCategoryId" FromRole="JobRequestSubSubCategory" ToRole="SubSubCategory" />
+    <NavigationProperty Name="JobRequest" Relationship="BroomServiceModel.fk_JobRequestId" FromRole="JobRequestSubSubCategory" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobRequestId" Type="Int64" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FromUserId" Type="Int64" />
+    <Property Name="ToUserId" Type="Int64" />
+    <Property Name="NotificationStatus" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="QuotePrice" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__Notificat__FromU__55F4C372" FromRole="Notification" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="BroomServiceModel.FK__Notificat__FromU__59C55456" FromRole="Notification" ToRole="User" />
+    <NavigationProperty Name="User2" Relationship="BroomServiceModel.FK__Notificat__ToUse__56E8E7AB" FromRole="Notification" ToRole="User" />
+    <NavigationProperty Name="User3" Relationship="BroomServiceModel.FK__Notificat__ToUse__5AB9788F" FromRole="Notification" ToRole="User" />
+    <NavigationProperty Name="JobRequest" Relationship="BroomServiceModel.FK__Notificat__JobRe__55009F39" FromRole="Notification" ToRole="JobRequest" />
+    <NavigationProperty Name="JobRequest1" Relationship="BroomServiceModel.FK__Notificat__JobRe__58D1301D" FromRole="Notification" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="Property">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ShortTermApartment" Type="Boolean" />
+    <Property Name="FloorNumber" Type="Int32" />
+    <Property Name="ApartmentNumber" Type="Int32" />
+    <Property Name="BuildingCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AccessToProperty" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="NoOfBathrooms" Type="Int32" />
+    <Property Name="NoOfQueenBeds" Type="Int32" />
+    <Property Name="NoOfDoubleBeds" Type="Int32" />
+    <Property Name="NoOfSingleBeds" Type="Int32" />
+    <Property Name="NoOfSingleSofaBeds" Type="Int32" />
+    <Property Name="NoOfDoubleSofaBeds" Type="Int32" />
+    <Property Name="DuvetSize" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NoOfDuvet" Type="Int32" />
+    <Property Name="NoOfPillows" Type="Int32" />
+    <Property Name="Doorman" Type="Boolean" />
+    <Property Name="Parking" Type="Boolean" />
+    <Property Name="Balcony" Type="Boolean" />
+    <Property Name="Dishwasher" Type="Boolean" />
+    <Property Name="Pool" Type="Boolean" />
+    <Property Name="Garden" Type="Boolean" />
+    <Property Name="Elevator" Type="Boolean" />
+    <Property Name="CreatedBy" Type="Int64" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TempJobRequests" Relationship="BroomServiceModel.FK__TempJobRe__Prope__67DE6983" FromRole="Property" ToRole="TempJobRequest" />
+    <NavigationProperty Name="TempJobRequests1" Relationship="BroomServiceModel.FK__TempJobRe__Prope__68D28DBC" FromRole="Property" ToRole="TempJobRequest" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.fk_user_property" FromRole="Property" ToRole="User" />
+    <Property Name="Latitude" Type="Decimal" Precision="18" Scale="12" />
+    <Property Name="Longitude" Type="Decimal" Precision="18" Scale="12" />
+    <NavigationProperty Name="JobRequests" Relationship="BroomServiceModel.fk_propertyId_JobRequest" FromRole="Property" ToRole="JobRequest" />
+    <NavigationProperty Name="JobRequests1" Relationship="BroomServiceModel.fk_propertyId_TempJobRequest" FromRole="Property" ToRole="JobRequest" />
+    <Property Name="NoOfToilets" Type="Int32" />
+    <Property Name="NoOfBedRooms" Type="Int32" />
+    <Property Name="Size" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RejectJobRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobRequestId" Type="Int64" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int64" />
+    <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__RejectJob__UserI__634EBE90" FromRole="RejectJobRequest" ToRole="User" />
+    <NavigationProperty Name="JobRequest" Relationship="BroomServiceModel.FK__RejectJob__JobRe__625A9A57" FromRole="RejectJobRequest" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="Setting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminPricePer" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="CatId" Type="Int64" />
+    <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Icon" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ClientPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="HasSubSubCategories" Type="Boolean" />
+    <NavigationProperty Name="Category" Relationship="BroomServiceModel.FK__SubCatego__CatId__3C69FB99" FromRole="SubCategory" ToRole="Category" />
+    <NavigationProperty Name="SubSubCategories" Relationship="BroomServiceModel.FK__SubSubCat__SubCa__29221CFB" FromRole="SubCategory" ToRole="SubSubCategory" />
+    <NavigationProperty Name="TempJobRequests" Relationship="BroomServiceModel.FK__TempJobRe__SubCa__6501FCD8" FromRole="SubCategory" ToRole="TempJobRequest" />
+    <NavigationProperty Name="TempJobRequests1" Relationship="BroomServiceModel.FK__TempJobRe__SubCa__65F62111" FromRole="SubCategory" ToRole="TempJobRequest" />
+    <NavigationProperty Name="TempJobRequests2" Relationship="BroomServiceModel.FK__TempJobRe__SubCa__66EA454A" FromRole="SubCategory" ToRole="TempJobRequest" />
+    <NavigationProperty Name="UserSubCategories" Relationship="BroomServiceModel.FK__UserSubCa__SubCa__5E8A0973" FromRole="SubCategory" ToRole="UserSubCategory" />
+    <NavigationProperty Name="JobRequests" Relationship="BroomServiceModel.FK__JobReques__SubCa__489AC854" FromRole="SubCategory" ToRole="JobRequest" />
+    <NavigationProperty Name="JobRequests1" Relationship="BroomServiceModel.FK__JobReques__SubCa__7B5B524B" FromRole="SubCategory" ToRole="JobRequest" />
+    <NavigationProperty Name="JobRequests2" Relationship="BroomServiceModel.FK__TempJobReques__SubCa__489AC854" FromRole="SubCategory" ToRole="JobRequest" />
+    <Property Name="Name_Russian" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name_Hebrew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name_French" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_Russian" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_Hebrew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_French" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SubSubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="SubCatId" Type="Int64" />
+    <Property Name="ClientPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Icon" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="JobRequestSubSubCategories" Relationship="BroomServiceModel.fk_JobRequestSubSubCategoryId" FromRole="SubSubCategory" ToRole="JobRequestSubSubCategory" />
+    <NavigationProperty Name="SubCategory" Relationship="BroomServiceModel.FK__SubSubCat__SubCa__29221CFB" FromRole="SubSubCategory" ToRole="SubCategory" />
+    <NavigationProperty Name="TempJobRequestSubSubCategories" Relationship="BroomServiceModel.FK__TempJobRe__SubSu__79FD19BE" FromRole="SubSubCategory" ToRole="TempJobRequestSubSubCategory" />
+    <NavigationProperty Name="UserSubCategories" Relationship="BroomServiceModel.FK__UserSubCa__SubSu__5D95E53A" FromRole="SubSubCategory" ToRole="UserSubCategory" />
+    <Property Name="Name_Russian" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name_French" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name_Hebrew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_French" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_Russian" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_Hebrew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TempJobRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PropertyId" Type="Int64" />
+    <Property Name="CategoryId" Type="Int64" />
+    <Property Name="SubCategoryId" Type="Int64" />
+    <Property Name="JobStartDatetime" Type="DateTime" Precision="3" />
+    <Property Name="JobEndDatetime" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ServiceProviderId" Type="Int64" />
+    <Property Name="JobStatus" Type="Int32" />
+    <Property Name="QuotePrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IsQuoteApproved" Type="Boolean" />
+    <Property Name="TimerStartTime" Type="Time" Precision="7" />
+    <Property Name="TimerEndTime" Type="Time" Precision="7" />
+    <Property Name="PaymentMethod" Type="Int32" />
+    <Property Name="IsPaymentDone" Type="Boolean" />
+    <NavigationProperty Name="Category" Relationship="BroomServiceModel.FK__TempJobRe__Categ__6319B466" FromRole="TempJobRequest" ToRole="Category" />
+    <NavigationProperty Name="Property" Relationship="BroomServiceModel.FK__TempJobRe__Prope__67DE6983" FromRole="TempJobRequest" ToRole="Property" />
+    <NavigationProperty Name="Property1" Relationship="BroomServiceModel.FK__TempJobRe__Prope__68D28DBC" FromRole="TempJobRequest" ToRole="Property" />
+    <NavigationProperty Name="SubCategory" Relationship="BroomServiceModel.FK__TempJobRe__SubCa__6501FCD8" FromRole="TempJobRequest" ToRole="SubCategory" />
+    <NavigationProperty Name="SubCategory1" Relationship="BroomServiceModel.FK__TempJobRe__SubCa__65F62111" FromRole="TempJobRequest" ToRole="SubCategory" />
+    <NavigationProperty Name="SubCategory2" Relationship="BroomServiceModel.FK__TempJobRe__SubCa__66EA454A" FromRole="TempJobRequest" ToRole="SubCategory" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__TempJobRe__Servi__640DD89F" FromRole="TempJobRequest" ToRole="User" />
+    <NavigationProperty Name="TempJobRequestCheckLists" Relationship="BroomServiceModel.FK__TempJobRe__TempJ__6F7F8B4B" FromRole="TempJobRequest" ToRole="TempJobRequestCheckList" />
+    <NavigationProperty Name="TempJobRequestRefImages" Relationship="BroomServiceModel.FK__TempJobRe__TempJ__762C88DA" FromRole="TempJobRequest" ToRole="TempJobRequestRefImage" />
+  </EntityType>
+  <EntityType Name="TempJobRequestCheckList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaskDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TempJobRequestId" Type="Int64" />
+    <Property Name="IsDone" Type="Boolean" />
+    <NavigationProperty Name="TempJobRequest" Relationship="BroomServiceModel.FK__TempJobRe__TempJ__6F7F8B4B" FromRole="TempJobRequestCheckList" ToRole="TempJobRequest" />
+  </EntityType>
+  <EntityType Name="TempJobRequestRefImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PicturePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="TempJobRequestId" Type="Int64" />
+    <NavigationProperty Name="TempJobRequest" Relationship="BroomServiceModel.FK__TempJobRe__TempJ__762C88DA" FromRole="TempJobRequestRefImage" ToRole="TempJobRequest" />
+  </EntityType>
+  <EntityType Name="TempJobRequestSubSubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubSubCategoryId" Type="Int64" />
+    <Property Name="TempJobRequestId" Type="Int64" />
+    <NavigationProperty Name="SubSubCategory" Relationship="BroomServiceModel.FK__TempJobRe__SubSu__79FD19BE" FromRole="TempJobRequestSubSubCategory" ToRole="SubSubCategory" />
+    <NavigationProperty Name="JobRequest" Relationship="BroomServiceModel.FK__TempJobRe__TempJ__17036CC0" FromRole="TempJobRequestSubSubCategory" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="TermsCondition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TermsConditionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Testimonial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CountryCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="DeviceId" Type="Int32" />
+    <Property Name="DeviceToken" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UserType" Type="Int32" />
+    <Property Name="CountryId" Type="Int64" />
+    <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Zipcode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="EmailVerified" Type="Boolean" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="PicturePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentMethod" Type="Int32" />
+    <NavigationProperty Name="ContactUs" Relationship="BroomServiceModel.FK__ContactUs__UserI__60A75C0F" FromRole="User" ToRole="ContactU" />
+    <NavigationProperty Name="Country" Relationship="BroomServiceModel.fk_user_country" FromRole="User" ToRole="Country" />
+    <NavigationProperty Name="Notifications" Relationship="BroomServiceModel.FK__Notificat__FromU__55F4C372" FromRole="User" ToRole="Notification" />
+    <NavigationProperty Name="Notifications1" Relationship="BroomServiceModel.FK__Notificat__FromU__59C55456" FromRole="User" ToRole="Notification" />
+    <NavigationProperty Name="Notifications2" Relationship="BroomServiceModel.FK__Notificat__ToUse__56E8E7AB" FromRole="User" ToRole="Notification" />
+    <NavigationProperty Name="Notifications3" Relationship="BroomServiceModel.FK__Notificat__ToUse__5AB9788F" FromRole="User" ToRole="Notification" />
+    <NavigationProperty Name="Properties" Relationship="BroomServiceModel.fk_user_property" FromRole="User" ToRole="Property" />
+    <NavigationProperty Name="RejectJobRequests" Relationship="BroomServiceModel.FK__RejectJob__UserI__634EBE90" FromRole="User" ToRole="RejectJobRequest" />
+    <NavigationProperty Name="TempJobRequests" Relationship="BroomServiceModel.FK__TempJobRe__Servi__640DD89F" FromRole="User" ToRole="TempJobRequest" />
+    <NavigationProperty Name="UserChats" Relationship="BroomServiceModel.FK__UserChat__FromUs__19DFD96B" FromRole="User" ToRole="UserChat" />
+    <NavigationProperty Name="UserChats1" Relationship="BroomServiceModel.FK__UserChat__ToUser__1AD3FDA4" FromRole="User" ToRole="UserChat" />
+    <NavigationProperty Name="UserJobReviews" Relationship="BroomServiceModel.FK__UserJobRe__Custo__11158940" FromRole="User" ToRole="UserJobReview" />
+    <NavigationProperty Name="UserJobReviews1" Relationship="BroomServiceModel.FK__UserJobRe__ToUse__1209AD79" FromRole="User" ToRole="UserJobReview" />
+    <NavigationProperty Name="UserReviews" Relationship="BroomServiceModel.FK__UserRevie__Custo__0B5CAFEA" FromRole="User" ToRole="UserReview" />
+    <NavigationProperty Name="UserReviews1" Relationship="BroomServiceModel.FK__UserRevie__ToUse__0C50D423" FromRole="User" ToRole="UserReview" />
+    <NavigationProperty Name="UserSubCategories" Relationship="BroomServiceModel.FK__UserSubCa__UserI__5F7E2DAC" FromRole="User" ToRole="UserSubCategory" />
+    <NavigationProperty Name="JobRequests" Relationship="BroomServiceModel.FK__JobReques__Servi__498EEC8D" FromRole="User" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="UserChat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FromUserId" Type="Int64" />
+    <Property Name="ToUserId" Type="Int64" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__UserChat__FromUs__19DFD96B" FromRole="UserChat" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="BroomServiceModel.FK__UserChat__ToUser__1AD3FDA4" FromRole="UserChat" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UserJobReview">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int64" />
+    <Property Name="JobRequestId" Type="Int64" />
+    <Property Name="ToUserId" Type="Int64" />
+    <Property Name="Rating" Type="Int32" />
+    <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__UserJobRe__Custo__11158940" FromRole="UserJobReview" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="BroomServiceModel.FK__UserJobRe__ToUse__1209AD79" FromRole="UserJobReview" ToRole="User" />
+    <NavigationProperty Name="JobRequest" Relationship="BroomServiceModel.FK__UserJobRe__JobRe__10216507" FromRole="UserJobReview" ToRole="JobRequest" />
+  </EntityType>
+  <EntityType Name="UserReview">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int64" />
+    <Property Name="ToUserId" Type="Int64" />
+    <Property Name="Rating" Type="Int32" />
+    <Property Name="Review" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__UserRevie__Custo__0B5CAFEA" FromRole="UserReview" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="BroomServiceModel.FK__UserRevie__ToUse__0C50D423" FromRole="UserReview" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UserSubCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int64" />
+    <Property Name="SubCategoryId" Type="Int64" />
+    <Property Name="SubSubCategoryId" Type="Int64" />
+    <NavigationProperty Name="SubCategory" Relationship="BroomServiceModel.FK__UserSubCa__SubCa__5E8A0973" FromRole="UserSubCategory" ToRole="SubCategory" />
+    <NavigationProperty Name="SubSubCategory" Relationship="BroomServiceModel.FK__UserSubCa__SubSu__5D95E53A" FromRole="UserSubCategory" ToRole="SubSubCategory" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__UserSubCa__UserI__5F7E2DAC" FromRole="UserSubCategory" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__SubCatego__CatId__3C69FB99">
+    <End Type="BroomServiceModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubCategory">
+        <PropertyRef Name="CatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__Categ__6319B466">
+    <End Type="BroomServiceModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequest">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ContactUs__UserI__60A75C0F">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.ContactU" Role="ContactU" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ContactU">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_country">
+    <End Type="BroomServiceModel.Country" Role="Country" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_JobRequestSubSubCategoryId">
+    <End Type="BroomServiceModel.SubSubCategory" Role="SubSubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequestSubSubCategory" Role="JobRequestSubSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequestSubSubCategory">
+        <PropertyRef Name="SubSubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__FromU__55F4C372">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__FromU__59C55456">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__ToUse__56E8E7AB">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__ToUse__5AB9788F">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__Prope__67DE6983">
+    <End Type="BroomServiceModel.Property" Role="Property" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequest">
+        <PropertyRef Name="PropertyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__Prope__68D28DBC">
+    <End Type="BroomServiceModel.Property" Role="Property" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequest">
+        <PropertyRef Name="PropertyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_property">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.Property" Role="Property" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Property">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RejectJob__UserI__634EBE90">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.RejectJobRequest" Role="RejectJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="RejectJobRequest">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SubSubCat__SubCa__29221CFB">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.SubSubCategory" Role="SubSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubSubCategory">
+        <PropertyRef Name="SubCatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__SubCa__6501FCD8">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequest">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__SubCa__65F62111">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequest">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__SubCa__66EA454A">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequest">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserSubCa__SubCa__5E8A0973">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserSubCategory" Role="UserSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserSubCategory">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__SubSu__79FD19BE">
+    <End Type="BroomServiceModel.SubSubCategory" Role="SubSubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequestSubSubCategory" Role="TempJobRequestSubSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequestSubSubCategory">
+        <PropertyRef Name="SubSubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserSubCa__SubSu__5D95E53A">
+    <End Type="BroomServiceModel.SubSubCategory" Role="SubSubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserSubCategory" Role="UserSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserSubCategory">
+        <PropertyRef Name="SubSubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__Servi__640DD89F">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="TempJobRequest">
+        <PropertyRef Name="ServiceProviderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__TempJ__6F7F8B4B">
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequestCheckList" Role="TempJobRequestCheckList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TempJobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequestCheckList">
+        <PropertyRef Name="TempJobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__TempJ__762C88DA">
+    <End Type="BroomServiceModel.TempJobRequest" Role="TempJobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequestRefImage" Role="TempJobRequestRefImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TempJobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequestRefImage">
+        <PropertyRef Name="TempJobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserChat__FromUs__19DFD96B">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserChat" Role="UserChat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserChat">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserChat__ToUser__1AD3FDA4">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserChat" Role="UserChat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserChat">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserJobRe__Custo__11158940">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserJobReview" Role="UserJobReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserJobReview">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserJobRe__ToUse__1209AD79">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserJobReview" Role="UserJobReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserJobReview">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRevie__Custo__0B5CAFEA">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserReview" Role="UserReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserReview">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserRevie__ToUse__0C50D423">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserReview" Role="UserReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserReview">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserSubCa__UserI__5F7E2DAC">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserSubCategory" Role="UserSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserSubCategory">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="JobRequest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PropertyId" Type="Int64" />
+    <Property Name="CategoryId" Type="Int64" />
+    <Property Name="SubCategoryId" Type="Int64" />
+    <Property Name="JobStartDatetime" Type="DateTime" Precision="3" />
+    <Property Name="JobEndDatetime" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ServiceProviderId" Type="Int64" />
+    <Property Name="JobStatus" Type="Int32" />
+    <Property Name="QuotePrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IsQuoteApproved" Type="Boolean" />
+    <Property Name="TimerStartTime" Type="DateTime" Precision="3" />
+    <Property Name="TimerEndTime" Type="DateTime" Precision="3" />
+    <Property Name="PaymentMethod" Type="Int32" />
+    <Property Name="IsPaymentDone" Type="Boolean" />
+    <Property Name="ClientQuotePrice" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Category" Relationship="BroomServiceModel.FK__JobReques__Categ__47A6A41B" FromRole="JobRequest" ToRole="Category" />
+    <NavigationProperty Name="JobRequestCheckLists" Relationship="BroomServiceModel.FK__JobReques__JobRe__7F2BE32F" FromRole="JobRequest" ToRole="JobRequestCheckList" />
+    <NavigationProperty Name="User" Relationship="BroomServiceModel.FK__JobReques__Servi__498EEC8D" FromRole="JobRequest" ToRole="User" />
+    <NavigationProperty Name="SubCategory" Relationship="BroomServiceModel.FK__JobReques__SubCa__489AC854" FromRole="JobRequest" ToRole="SubCategory" />
+    <NavigationProperty Name="SubCategory1" Relationship="BroomServiceModel.FK__JobReques__SubCa__7B5B524B" FromRole="JobRequest" ToRole="SubCategory" />
+    <NavigationProperty Name="Notifications" Relationship="BroomServiceModel.FK__Notificat__JobRe__55009F39" FromRole="JobRequest" ToRole="Notification" />
+    <NavigationProperty Name="Notifications1" Relationship="BroomServiceModel.FK__Notificat__JobRe__58D1301D" FromRole="JobRequest" ToRole="Notification" />
+    <NavigationProperty Name="RejectJobRequests" Relationship="BroomServiceModel.FK__RejectJob__JobRe__625A9A57" FromRole="JobRequest" ToRole="RejectJobRequest" />
+    <NavigationProperty Name="TempJobRequestSubSubCategories" Relationship="BroomServiceModel.FK__TempJobRe__TempJ__17036CC0" FromRole="JobRequest" ToRole="TempJobRequestSubSubCategory" />
+    <NavigationProperty Name="SubCategory2" Relationship="BroomServiceModel.FK__TempJobReques__SubCa__489AC854" FromRole="JobRequest" ToRole="SubCategory" />
+    <NavigationProperty Name="UserJobReviews" Relationship="BroomServiceModel.FK__UserJobRe__JobRe__10216507" FromRole="JobRequest" ToRole="UserJobReview" />
+    <NavigationProperty Name="JobRequestSubSubCategories" Relationship="BroomServiceModel.fk_JobRequestId" FromRole="JobRequest" ToRole="JobRequestSubSubCategory" />
+    <NavigationProperty Name="JobRequestRefImages" Relationship="BroomServiceModel.fk_JobRequestRefImagesJobRequestId" FromRole="JobRequest" ToRole="JobRequestRefImage" />
+    <NavigationProperty Name="Property" Relationship="BroomServiceModel.fk_propertyId_JobRequest" FromRole="JobRequest" ToRole="Property" />
+    <NavigationProperty Name="Property1" Relationship="BroomServiceModel.fk_propertyId_TempJobRequest" FromRole="JobRequest" ToRole="Property" />
+    <Property Name="HasPrice" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK__JobReques__Categ__47A6A41B">
+    <End Type="BroomServiceModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequest">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobReques__JobRe__7F2BE32F">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequestCheckList" Role="JobRequestCheckList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequestCheckList">
+        <PropertyRef Name="JobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobReques__Servi__498EEC8D">
+    <End Type="BroomServiceModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="JobRequest">
+        <PropertyRef Name="ServiceProviderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobReques__SubCa__489AC854">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequest">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__JobReques__SubCa__7B5B524B">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequest">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__JobRe__55009F39">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="JobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Notificat__JobRe__58D1301D">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.Notification" Role="Notification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notification">
+        <PropertyRef Name="JobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RejectJob__JobRe__625A9A57">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.RejectJobRequest" Role="RejectJobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RejectJobRequest">
+        <PropertyRef Name="JobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobRe__TempJ__17036CC0">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.TempJobRequestSubSubCategory" Role="TempJobRequestSubSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TempJobRequestSubSubCategory">
+        <PropertyRef Name="TempJobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TempJobReques__SubCa__489AC854">
+    <End Type="BroomServiceModel.SubCategory" Role="SubCategory" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequest">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserJobRe__JobRe__10216507">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.UserJobReview" Role="UserJobReview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserJobReview">
+        <PropertyRef Name="JobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_JobRequestId">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequestSubSubCategory" Role="JobRequestSubSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequestSubSubCategory">
+        <PropertyRef Name="JobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_JobRequestRefImagesJobRequestId">
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequestRefImage" Role="JobRequestRefImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequestRefImage">
+        <PropertyRef Name="JobRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_propertyId_JobRequest">
+    <End Type="BroomServiceModel.Property" Role="Property" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequest">
+        <PropertyRef Name="PropertyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_propertyId_TempJobRequest">
+    <End Type="BroomServiceModel.Property" Role="Property" Multiplicity="0..1" />
+    <End Type="BroomServiceModel.JobRequest" Role="JobRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Property">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobRequest">
+        <PropertyRef Name="PropertyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PrivacyPolicy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PrivacyPolicyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

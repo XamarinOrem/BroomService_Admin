@@ -1,0 +1,799 @@
+﻿@model BroomServiceWeb.ViewModels.JobRequestVM
+@using BroomServiceWeb.Resources;
+
+@{
+    ViewBag.Title = "AddJobRequest";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+
+    List<SelectListItem> typeListItems = new List<SelectListItem>();
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.apartment,
+        Value = "Apartment"
+    });
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.duplex,
+        Value = "Duplex",
+    });
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.penthouse,
+        Value = "Penthouse"
+    });
+    typeListItems.Add(new SelectListItem
+    {
+        Text = Resource.villa,
+        Value = "Villa"
+    });
+}
+
+<div id="job_request_main" class="job_request_main">
+    <div class="container-fluid">
+        <h2 class="text-center">@Resource.job_request</h2>
+        <h5 class="text-center"></h5>
+        <form action="" id="wizard">
+            <!-- SECTION 1 -->
+            <h2></h2>
+            @if (Model.Categories != null)
+            {
+                <section class="first-section">
+                    <div class="inner">
+                        <div class="form-content">
+                            <h3 class="choose_category">
+                                @Resource.choose_service
+                            </h3>
+                            <div class="choose_category_box">
+                                <div class="row">
+                                    @for (int i = 0; i < Model.Categories.Count; i++)
+                                    {
+                                        <div class="col-sm-6 col-lg-4 mb-5">
+                                            @{string categoryPicture = string.Empty;}
+                                            @if (!string.IsNullOrEmpty(Model.Categories[i].Picture))
+                                            {
+                                                categoryPicture = "../Images/Category/" + Model.Categories[i].Picture;
+                                            }
+                                            else
+                                            {
+                                                categoryPicture = "/Content/images/image_placeholder.jpg";
+                                            }
+                                            <div class="category_list_box" id="@Model.Categories[i].Id" style="background:url('@categoryPicture')">
+                                                <input type="hidden" name="has-price-div" id="has-price-div" value="@Model.Categories[i].HasPrice.ToString()" />
+                                                <div class="category_logo_name">
+                                                    <div class="category_logo_name_box align-self-center">
+                                                        @if (!string.IsNullOrEmpty(Model.Categories[i].Icon))
+                                                        {
+                                                            <img src="~/Images/Category/@Model.Categories[i].Icon">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Content/images/logo.png">
+                                                        }
+                                                        <label>@Model.Categories[i].Name</label>
+                                                        <div class="description_readmore_box">
+                                                            <p class="cat_description">@Model.Categories[i].Description</p>
+                                                            @if (!string.IsNullOrEmpty(Model.Categories[i].Description))
+                                                            {
+                                                                <a id="@Model.Categories[i].Id" class="cat_read_more" href="#">@Resource.read_more</a>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="check_select" style="display:none;"><i class="fas fa-check" aria-hidden="true"></i></div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            }
+            <!-- SECTION 2 -->
+            <h2></h2>
+            <section class="sub-category-section">
+                <div class="inner">
+                    <div class="form-content">
+                        <h3 class="choose_category">
+                            @Resource.choose_service
+                        </h3>
+                        <div class="choose_category_box" id="sub-category-box">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- SECTION 3 -->
+            <h2></h2>
+            <section class="sub-sub-category-section">
+                <div class="inner">
+                    <div class="form-content">
+                        <h3 class="choose_category">
+                            @Resource.choose_service
+                        </h3>
+                        <div class="choose_category_box" id="sub-sub-category-box">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- SECTION 4 -->
+            <h2></h2>
+            <section class="form-section">
+                <div class="inner">
+                    <div class="form-content">
+                        <h3 class="choose_category">
+                            @Resource.fill_requirements
+                        </h3>
+                        <div class="choose_category_box">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label>@Resource.property<span class="required">*</span></label>
+                                        <div class="styled_select">
+                                            @Html.HiddenFor(A => A.JobRequestData.ServiceProviderId)
+                                            @Html.DropDownListFor(model => model.JobRequestData.PropertyType, typeListItems, Resource.select_property
+                                           , new { @required = "required", @disabled= "disabled" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label>@Resource.start_date<span class="required">*</span></label>
+                                        <div class="styled_select_calendar">
+                                            <div class="input_csutom">
+                                                @Html.TextBoxFor(m => m.JobRequestData.JobStartDatetime, "{0:dd/MM/yyyy}",
+                                               new { @class = "form-control input_csutom",
+                                                   @style = "width: 94%;", placeholder = Resource.select, @required= "required"})
+                                                <img src="~/Images/appointment.png" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label>@Resource.start_time<span class="required">*</span></label>
+                                        <div class="styled_select_calendar">
+                                            <div class="input_csutom">
+                                                @Html.TextBoxFor(m => m.JobRequestData.JobStartTime,
+                                               new { @class = "form-control input_csutom",
+                                                   @style = "width: 94%;", placeholder = Resource.select, @type = "time"
+                                               , @required= "required"})
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label>@Resource.end_date<span class="required">*</span></label>
+                                        <div class="styled_select_calendar">
+                                            <div class="input_csutom">
+                                                @Html.TextBoxFor(m => m.JobRequestData.JobEndDatetime, "{0:dd/MM/yyyy}",
+                                               new { @class = "form-control input_csutom",
+                                               @style = "width: 94%;", placeholder = Resource.select, @required= "required"})
+                                                <img src="~/Images/appointment.png" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label>@Resource.end_time<span class="required">*</span></label>
+                                        <div class="styled_select_calendar">
+                                            <div class="input_csutom">
+                                                @Html.TextBoxFor(m => m.JobRequestData.JobEndTime,
+                                               new { @class = "form-control input_csutom",
+                                                   @style = "width: 94%;", placeholder = Resource.select,
+                                                   @type = "time", @required= "required"})
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <div class="form-group">
+                                        <label>@Resource.check_list</label>
+                                        <div id='TextBoxesGroup' class="row">
+                                            <div id="TextBoxDiv1" class="col-md-6 mb-3 d-flex">
+                                                <input type='text' class="form-control input_csutom" id='textbox1' placeholder="Enter work for checklist">
+                                                <button type='button' onclick="add(this)" class='addButton'><img src="~/Images/add-button.png"></button>
+                                                <button type='button' onclick="remove(this)" style="display:none;" class='removeButton'><img src="~/Images/popup_close.png"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="show-reference-image col-md-12">
+                                    <div class="form-group">
+                                        <label>@Resource.reference_images</label>
+                                        <div class="ref_images_box">
+                                            <div class="ref_images" id="plus-div">
+                                                <div class="upload-btn-wrapper">
+                                                    <button class="btn_upload_image"><img src="~/Images/add-button.png"></button>
+                                                    <input type="file" name="myfile" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>@Resource.description</label>
+                                        @Html.TextAreaFor(m => m.JobRequestData.Description, new { @class = "form-control input_csutom_textarea", @rows = 5 })
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox text-left">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                            <label class="custom-control-label" for="customCheck2"><a href="/Terms/Index" target="_blank">@Resource.terms_conditins_job_request</a></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dvLoader" style="display:none;" class="loader_box">
+                    <div class="loader"></div>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+
+
+<script src="~/Content/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/Content/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/webcss/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Content/js/moment.min.js"></script>
+<script src="~/Content/js/bootstrap-datetimepicker.js"></script>
+<script>
+    var _currentIndex;
+    var subCategoryID;
+    var categoryID;
+    var ClientPrice = 0;
+    var Price = 0;
+    var subSubCategoryID = new Array();
+    var counter;
+    var hasPrice;
+    var fileData = new Array();
+    var checkListData = new Array();
+
+    function subcategoryclick(item) {
+        subSubCategoryID.length = 0;
+
+        $('.sub-category').find('.check_select').each(function () {
+            $(this).css('display', 'none');
+        });
+
+        $(item).find('.check_select').css('display', 'block');
+
+        var priceDiv = $(item).find('.category_logo_name').find('.category_logo_name_box');
+
+        Price = priceDiv.find('.price-div').attr('id');
+        ClientPrice = priceDiv.find('.price-div').text();
+        if (ClientPrice == null || ClientPrice == '') {
+            ClientPrice = 0;
+        }
+
+        if (Price == null || Price == '') {
+            Price = 0;
+        }
+
+        $('.sub-sub-category-section .choose_category_box').children().remove();
+        $('.sub-sub-category-section .choose_category_box').empty();
+        subCategoryID = $(item).attr('id');
+
+        $.ajax({
+            url: "/Bookings/GetSubSubCategories",
+            data: { subCategoryId: subCategoryID },
+            type: 'POST',
+            dataType: "json",
+            success: function (data) {
+                if (data.length > 0) {
+                    var appendRow='<div class="row"></div>';
+                    $('.sub-sub-category-section .choose_category_box').append(appendRow);
+                    $.each(data, function (dt, value) {
+                        var json = JSON.parse(JSON.stringify(value));
+                        if (json.ClientPrice != null) {
+                            json.ClientPrice = json.ClientPrice;
+                        }
+                        else {
+                            json.ClientPrice = '';
+                        }
+                        if (json.Description != null) {
+                            json.Description = json.Description;
+                        }
+                        else {
+                            json.Description = '';
+                        }
+
+                        if (json.Picture != '' || json.Picture != null) {
+                            json.Picture = "/Images/SubSubCategory/" + json.Picture;
+                        }
+                        else {
+                            json.Picture = "/Content/images/image_placeholder.jpg";
+                        }
+                        if (json.Icon != '' || json.Icon != null) {
+                            json.Icon = "/Images/SubSubCategory/" + json.Icon;
+                        }
+                        else {
+                            json.Icon = "/Content/images/logo.png";
+                        }
+                        var e = $('<div class="col-sm-6 col-lg-4 mb-5"><div class="category_list_box sub-sub-category" onclick="subsubcategoryclick(this)" id="' + json.Id + '" style="background:url(' + json.Picture + ')"><div class="category_logo_name"><div class="category_logo_name_box align-self-center"><img src="' + json.Icon + '"><label>' + json.Name + '</label><label class="price-div" id="' + json.Price + '">' + json.ClientPrice + '</label><div class="description_readmore_box"><p class="cat_description">' + json.Description + '</p>' + (json.Description != '' ? '<a id="' + json.Id + '" class="cat_read_more" onclick="subSubCatReadMore(this)" href="#">@Resource.read_more</a>' : '') +'</div></div></div><div class="check_select" style="display:none;"><i class="fas fa-check" aria-hidden="true"></i></div></div></div>');
+                        $('.sub-sub-category-section .choose_category_box .row').append(e);
+                    });
+                }
+            }
+        });
+    }
+
+    function subsubcategoryclick(item) {
+        subSubCategoryID.length = 0;
+        var id = $(item).attr('id');
+        var priceDiv = $(item).find('.category_logo_name').find('.category_logo_name_box');
+        //var num2 = parseInt(priceDiv.find('.price-div').attr('id')) || 0;
+        //var num1 = parseInt(priceDiv.find('.price-div').text()) || 0;
+
+        $('.sub-sub-category').find('.check_select').each(function () {
+            $(this).css('display', 'none');
+        });
+
+        $(item).find('.check_select').css('display', 'block');
+
+        Price = priceDiv.find('.price-div').attr('id');
+        ClientPrice = priceDiv.find('.price-div').text();
+
+        //if (jQuery.inArray(id, subSubCategoryID) == -1) {
+            subSubCategoryID.push(id);
+            //ClientPrice = /*parseInt(ClientPrice) +*/ num1;
+            //Price = /*parseInt(Price) +*/ num2;
+
+        //}
+        //else {
+            //$(item).find('.check_select').css('display', 'none');
+            //var index = subSubCategoryID.indexOf(id);
+            //if (index !== -1) {
+            //    subSubCategoryID.splice(index, 1);
+            //    ClientPrice = null;//parseInt(ClientPrice) - num1;
+            //    Price = null;//parseInt(Price) - num2;
+            //}
+        //}
+        if (ClientPrice == null || ClientPrice == '') {
+            ClientPrice = 0;
+        }
+        if (Price == null || Price == '') {
+            Price = 0;
+        }
+    }
+
+    function subCatReadMore(item) {
+        var catID = $(item).attr('id');
+        $(item).attr('data-target', '#category_detail_popup');
+        $(item).attr('data-toggle', 'modal');
+        $('.modal-body-cat').load('/Bookings/SubCategoryDetails?id=' + catID);
+    }
+
+    function subSubCatReadMore(item) {
+        var catID = $(item).attr('id');
+        $(item).attr('data-target', '#category_detail_popup');
+        $(item).attr('data-toggle', 'modal');
+        $('.modal-body-cat').load('/Bookings/SubSubCategoryDetails?id=' + catID);
+    }
+
+    $(window).load(function () {
+
+        $('.navbar-nav li a').each(function () {
+            $(this).parent().removeClass('active');
+            var $this = $(this);
+            matching_value = $this.attr('href');
+            if (matching_value == "/Property/MyProperties") {
+                $(this).parent().addClass('active');
+            }
+        });
+
+
+        $('.footer_nav li a').each(function () {
+            $(this).parent().removeClass('active');
+            var $this = $(this);
+            matching_value = $this.attr('href');
+            if (matching_value == "/Property/MyProperties") {
+                $(this).parent().addClass('active');
+            }
+        });
+
+        $('.steps').css('display', 'none');
+
+        // Next Click Event
+        $('#wizard .actions ul li a[href="#next"]').click(function () {
+            if (_currentIndex == 1) {
+                if ($('#sub-sub-category-box').is(':empty')) {
+                    $("#wizard").steps("setStep", 3);
+                }
+            }
+        });
+        // Back Click Event
+        $('#wizard .actions ul li a[href="#previous"]').click(function () {
+            if (_currentIndex == 3) {
+                if ($('#sub-sub-category-box').is(':empty')) {
+                    $("#wizard").steps("setStep", 1);
+                }
+            }
+        });
+
+        $('.first-section .cat_read_more').click(function (e) {
+            var catID = $(this).attr('id');
+            $(this).attr('data-target', '#category_detail_popup');
+            $(this).attr('data-toggle', 'modal');
+            $('.modal-body-cat').load('/Bookings/CategoryDetails?id=' + catID);
+        });
+
+        $('.category_list_box').on('click', function () {
+            subCategoryID = null;
+            $('.category_list_box').find('.check_select').each(function () {
+                $(this).css('display', 'none');
+            });
+
+            $(this).find('.check_select').css('display', 'block');
+            $('.sub-category-section .choose_category_box').empty();
+            $('.sub-category-section .choose_category_box').children().remove();
+            categoryID = $(this).attr('id');
+
+            hasPrice = $(this).find('#has-price-div').val();
+
+            $.ajax({
+                url: "/Bookings/GetSubCategories",
+                data: { categoryId: categoryID },
+                type: 'POST',
+                dataType: "json",
+                success: function (data) {
+                    if (data.length > 0) {
+                        var appendRow = '<div class="row"></div>';
+                        $('.sub-category-section .choose_category_box').append(appendRow);
+                        $.each(data, function (dt, value) {
+                            var json = JSON.parse(JSON.stringify(value));
+                            if (json.ClientPrice != null) {
+                                json.ClientPrice = json.ClientPrice;
+                            }
+                            else {
+                                json.ClientPrice = '';
+                            }
+
+                            if (json.Description != null) {
+                                json.Description = json.Description;
+                            }
+                            else {
+                                json.Description = '';
+                            }
+
+                            if (json.Picture != '' || json.Picture != null) {
+                                json.Picture = "/Images/SubCategory/" + json.Picture;
+                            }
+                            else {
+                                json.Picture = "/Content/images/image_placeholder.jpg";
+                            }
+                            if (json.Icon != '' || json.Icon != null) {
+                                json.Icon = "/Images/SubCategory/" + json.Icon;
+                            }
+                            else {
+                                json.Icon = "/Content/images/logo.png";
+                            }
+                            var e = $('<div class="col-sm-6 col-lg-4 mb-5"><div class="category_list_box sub-category" onclick="subcategoryclick(this)" id="' + json.Id + '" style="background:url(' + json.Picture + ')"><div class="category_logo_name"><div class="category_logo_name_box align-self-center"><img src="' + json.Icon + '"><label>' + json.Name + '</label><label class="price-div" id="' + json.Price + '">' + json.ClientPrice + '</label><div class="description_readmore_box"><p class="cat_description">' + json.Description + '</p>' + (json.Description != '' ? '<a id="' + json.Id + '" class="cat_read_more" onclick="subCatReadMore(this)" href="#">@Resource.read_more</a>':'')+'</div></div> <div class="check_select" style="display: none; "><i class="fas fa - check" aria-hidden="true"></i></div></div></div>');
+                            $('.sub-category-section .choose_category_box .row').append(e);
+                        });
+                    }
+                }
+            });
+        });
+
+        $(".form-section input[name=myfile]").change(function () {
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+            //if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+            //    var reader = new FileReader();
+
+            //    reader.onload = function (e) {
+            //        fileData.push(e.target.result);
+            //        var e = $('<div class="ref_images"><img src="' + e.target.result + '" class="w-100 h-100" alt="images" style="object-fit: cover;"/></div>');
+            //        $('.form-section .ref_images_box').prepend(e);
+            //        $('.form-section .ref_images_box #plus-div').css('display', 'none');
+            //    }
+            //    reader.readAsDataURL(input.files[0]);
+            //}
+
+            for (var i = 0; i < input.files.length; i++) {
+                if (input.files && input.files[i] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        fileData.push(e.target.result);
+                        var e = $('<div class="ref_images"><img src="' + e.target.result + '" class="w-100 h-100" alt="images" style="object-fit: cover;"/></div>');
+                        $('.form-section .ref_images_box').prepend(e);
+                        //$('.btn_upload_image').css('display','none');
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        });
+    });
+
+    function submitForm() {
+        var Files = new FormData();
+
+        if (ClientPrice == null || Price == null ||
+            ClientPrice == 0 || Price == 0) {
+            ClientPrice = null;
+            Price = null;
+        }
+
+        //12/09/2019
+        var splitStartDate = $("#JobRequestData_JobStartDatetime").val().split('/');
+
+        var StartDate = splitStartDate[1] + "/" + splitStartDate[0] + "/" + splitStartDate[2];
+
+        var splitEndDate = $("#JobRequestData_JobEndDatetime").val().split('/');
+        var EndDate = splitEndDate[1] + "/" + splitEndDate[0] + "/" + splitEndDate[2];
+
+        Files.append('Attachments', JSON.stringify(fileData));
+        Files.append('PropertyId', $('#JobRequestData_ServiceProviderId').val());
+        Files.append('JobStartDatetime', StartDate);
+        Files.append('JobEndDatetime', EndDate);
+        Files.append('JobStartTime', $("#JobRequestData_JobStartTime").val());
+        Files.append('JobEndTime', $("#JobRequestData_JobEndTime").val());
+        Files.append('Description', $("#JobRequestData_Description").val());
+        Files.append('CheckList', JSON.stringify(checkListData));
+        Files.append('CategoryId', categoryID);
+        Files.append('SubCategoryId', subCategoryID);
+        Files.append('SubSubCategories', JSON.stringify(subSubCategoryID));
+        Files.append('ClientPrice', ClientPrice);
+        Files.append('Price', Price);
+
+        var isvalid = $('form').valid();
+
+        $("#dvLoader").show();
+        $.ajax({
+            url: "/Bookings/AddJobRequest",
+            data: Files,
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $("#dvLoader").hide();
+                alert(data.message);
+                if (data.status) {
+                    window.location.href = "/Bookings/MyBookings";
+                }
+
+            },
+            error: function () {
+                $("#dvLoader").hide();
+                alert("@Resource.error_occured");
+            }
+        });
+    }
+
+
+    $(function () {
+        $("#wizard").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "fade",
+            enableAllSteps: true,
+            transitionEffectSpeed: 500,
+            labels: {
+                finish: "@Resource.submit",
+                next: "@Resource.next",
+                previous: "@Resource.back"
+            },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                _currentIndex = currentIndex;
+                if (currentIndex == 0 && newIndex == 1) {
+                    if (categoryID == '' || categoryID == null) {
+                        //alert('Please Select Category from the list.');
+                    }
+                    else {
+                        return true;
+                    }
+                }
+
+                if (currentIndex == 1 && newIndex == 0) {
+                    return true;
+                }
+
+                if (currentIndex == 1 && newIndex == 2) {
+                    if ($('#sub-category-box').is(':empty')) {
+                        //return true;
+                    }
+                    else {
+                        if (subCategoryID == '' || subCategoryID == null) {
+                            //alert('Please Select Sub-Category from the list.');
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                }
+                if (currentIndex == 2 && newIndex == 1) {
+                    return true;
+                }
+
+                if (currentIndex == 2 && newIndex == 3) {
+                    if (ClientPrice == null || Price == null ||
+                        ClientPrice == 0 || Price == 0) {
+                        $('.show-reference-image').css('display', 'block');
+                    }
+                    else {
+                        $('.show-reference-image').css('display', 'none');
+                    }
+                    if ($('#sub-sub-category-box').is(':empty')) {
+                        return true;
+                    }
+                    else {
+                        if (subSubCategoryID == '' || subSubCategoryID == null
+                            || subSubCategoryID.length == 0) {
+                            //alert('Please Select Sub-Category from the list.');
+                        }
+                        else {
+                            return true;
+                        }
+                    }
+                }
+
+                if (currentIndex == 3 && newIndex == 2) {
+                    return true;
+                }
+            },
+
+            onFinished: function (event, currentIndex) {
+                //var getStartDate = $("#JobRequestData_JobStartDatetime").val();
+                //var getEndDate = $("#JobRequestData_JobEndDatetime").val();
+                if ($("#JobRequestData_JobStartDatetime").val() == undefined
+                    || $("#JobRequestData_JobStartDatetime").val() == null
+                    || $("#JobRequestData_JobStartDatetime").val() =='') {
+                    alert("@Resource.please_select_start_date");
+                    return false;
+                }
+                if ($("#JobRequestData_JobEndDatetime").val() == undefined
+                    || $("#JobRequestData_JobEndDatetime").val() == null
+                    || $("#JobRequestData_JobEndDatetime").val() == '') {
+                    alert("@Resource.please_select_end_date");
+                    return false;
+                }
+
+                var splitStartDate = $("#JobRequestData_JobStartDatetime").val().split('/');
+                var StartDate = splitStartDate[1] + "/" + splitStartDate[0] + "/" + splitStartDate[2];
+
+                var splitEndDate = $("#JobRequestData_JobEndDatetime").val().split('/');
+                var EndDate = splitEndDate[1] + "/" + splitEndDate[0] + "/" + splitEndDate[2];
+
+                var getStartTime = $("#JobRequestData_JobStartTime").val();
+                var getEndTime = $("#JobRequestData_JobEndTime").val();
+                var returnStartDateTime = new Date(StartDate + ' ' + getStartTime);
+                var returnEndDateTime = new Date(EndDate + ' ' + getEndTime);
+                if (new Date(returnEndDateTime) <= new Date(returnStartDateTime)) {
+                    alert('@Resource.end_time_job_validation');
+                }
+                else if ($("#customCheck2").prop("checked") == false) {
+                    alert("@Resource.terms_conditions_validation");
+                }
+                else {
+                    submitForm();
+                }
+            }
+        });
+        // Custome Jquery Step Button
+        $('.forward').click(function () {
+            $("#wizard").steps('next');
+        });
+        $('.backward').click(function () {
+            $("#wizard").steps('previous');
+        });
+        // Select Dropdown
+        $('html').click(function () {
+            $('.select .dropdown').hide();
+        });
+        $('.select').click(function (event) {
+            event.stopPropagation();
+        });
+        $('.select .select-control').click(function () {
+            $(this).parent().next().toggle();
+        });
+        $('.select .dropdown li').click(function () {
+            $(this).parent().toggle();
+            var text = $(this).attr('rel');
+            $(this).parent().prev().find('div').text(text);
+        });
+    })
+
+    function add(item) {
+        if ($(item).parent().find('input[type=text]').val().length == 0) {
+            alert("@Resource.add_text_validation");
+        }
+        else {
+            var decreaseCounter = counter - 1;
+
+            $("#TextBoxDiv" + decreaseCounter).find('.removeButton').css('display', 'block');
+            $("#TextBoxDiv" + decreaseCounter).find('.addButton').css('display', 'none');
+            $("#TextBoxDiv" + decreaseCounter).find('input[type=text]').attr('disabled', 'true');
+
+            var newTextBoxDiv = $(document.createElement('div'))
+                .attr("id", 'TextBoxDiv' + counter);
+            newTextBoxDiv.addClass('col-md-6 d-flex mb-3');
+
+            newTextBoxDiv.after().html('<input placeholder="@Resource.enter_work_for_checklist" class="form-control input_csutom" type="text" name="textbox' + counter +
+                '" id="textbox' + counter + '" value="" ><button onclick="add(this)"  type="button" class="addButton"><img src = "/Images/add-button.png"></button><button type="button" onclick = "remove(this)" style = "display:none;" class= "removeButton"><img src="/Images/popup_close.png"></button>');
+
+            newTextBoxDiv.appendTo("#TextBoxesGroup");
+
+            counter++;
+            checkListData.push($("#TextBoxDiv" + decreaseCounter).find('input[type=text]').val());
+        }
+    }
+
+    function remove(item) {
+        if (counter == 1) {
+            alert("@Resource.no_text_box_to_remove");
+            return false;
+        }
+        $(item).parent().remove();
+
+        var text = $(item).parent().find('input[type=text]').val();
+        var index = checkListData.indexOf(text);
+        if (index !== -1) {
+            checkListData.splice(index, 1);
+        }
+    }
+
+    function getFormattedDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear().toString().slice(2);
+        var aa = day + '/' + month + '/' + year;
+        return aa;
+    }
+
+    $(document).ready(function () {
+        counter = 2;
+
+        var nowDate = new Date();
+        var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+        $('#JobRequestData_JobStartDatetime').datetimepicker({
+            format: 'DD/MM/YYYY', minDate: new Date()
+        });
+
+        $('#JobRequestData_JobEndDatetime').datetimepicker({
+            format: 'DD/MM/YYYY', minDate: new Date()
+        });
+    });
+
+</script>
+<div class="modal fade" id="category_detail_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">Service Information</h5>
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="/Images/popup_close.png" alt="close">
+                </button>
+            </div>
+            <div class="modal-body-cat">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

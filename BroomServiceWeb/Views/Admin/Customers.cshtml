@@ -1,0 +1,169 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using BroomServiceWeb.Resources;
+@model IPagedList<BroomServiceWeb.Models.UserModel>
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="heading-top">@Resource.customers</h2>
+
+<br />
+<div class="custom_table_box">
+<table class="table table-striped">
+    <tr>
+        <th>@Resource.name</th>
+        <th>@Resource.email</th>
+        <th>@Resource.phone_number</th>
+        <th>@Resource.payment_method</th>
+        <th>@Resource.status</th>
+        <th>@Resource.details</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FirstName @item.LastName</td>
+            <td>@item.Email</td>
+            <td>@item.PhoneNumber</td>
+
+            <td>
+                <a href="#" class="o_quote" data-toggle="modal" data-target="#modal_quote" id="btnQuote" data-id="@item.UserId">
+                    <span id="tdPayMethod_@item.UserId">
+                        @item.PaymentMethodName
+                    </span>
+                </a>
+
+            </td>
+            <td>
+                @if (item.IsActive == true)
+                {
+                    <a href="@Url.Action("UpdateUserStatus", "Admin", new { id = item.UserId })"><span class="label-success label label-default" id="state">@Resource.active</span></a>
+                }
+                else
+                {
+                    <a href="@Url.Action("UpdateUserStatus", "Admin", new { id = item.UserId })"><span class="label-warning label label-default" id="state">@Resource.deactive</span></a>
+                }
+            </td>
+
+            <td>
+                <a class="btn-primary btn-xs" style="padding: 5px;" href="@Url.Action("CustomerDetail", "Admin", new { id = item.UserId })">
+                    @Resource.view_details
+                </a>
+            </td>
+        </tr>
+    }
+    @if (Model.Count == 0)
+    {
+        <tr>
+            <td colspan="4">
+                <center>@Resource.no_data_found</center>
+            </td>
+        </tr>
+    }
+</table>
+
+
+<div class="row">
+    <div class="col-12 text-center pagingText">
+        @Html.PagedListPager(Model, pageNumber => Url.Action("Customers", new { pageNumber }))
+    </div>
+</div>
+</div>
+
+
+
+<div class="modal fade" id="modal_quote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="p-4">
+                    <button type="button" class="close new_modal_close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>@Resource.update_payment_method</h3>
+
+                    <form>
+                        <div class="form-group">
+                            <input type="hidden" name="userId" id="userId" />
+                            <label class="sr-only">@Resource.payment_method</label>
+                            <select id="selPaymentMethods" class="form-control custom_assign">
+                                <option value="1">@Resource.by_credit_card</option>
+                                <option value="2">@Resource.by_cash</option>
+                                <option value="3">@Resource.by_cheque</option>
+                                <option value="4">@Resource.by_money_transfer</option>
+                            </select>
+                        </div>
+                        <div class="w-100 text-right">
+                            <button type="submit" class="quote_done">@Resource.submit</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $(".o_quote").click(function () {
+            var userId = $(this).data('id');
+
+            $("#userId").val(userId);
+
+
+                $.ajax({
+                    url: "@Url.Action("GetCustomerPaymentMethod", "Admin")",
+                    data: { "customerId": userId },
+                dataType: "json",
+                type: "GET",
+                error: function () {
+                    // alert(" An error occurred.");
+                },
+                success: function (data) {
+
+                    if (data != 0) {
+                        var val = data;
+                        $('#selPaymentMethods option[value=' + val + ']').attr('selected', 'selected');
+                    }
+                }
+            });
+
+
+
+        });
+        $("form").submit(function (e) {
+
+            e.preventDefault();
+            var userId = $("#userId").val();
+            var paymentMethod = $("#selPaymentMethods option:selected").val();
+            var paymentMethodTxt = $("#selPaymentMethods option:selected").text();
+                    $.ajax({
+                url: "@Url.Action("UpdatePaymentMethod", "Admin")",
+                        data: { "customerId": userId, "paymentMethod": paymentMethod},
+            dataType: "json",
+            type: "Post",
+            error: function () {
+                //alert(" An error occurred.");
+            },
+                        success: function (data) {
+                            alert(data.message);
+                            if (data.status) {
+                                $("#tdPayMethod_" + userId).html(paymentMethodTxt);
+                                $("#modal_quote .close").click();
+                            }
+                            else {
+
+                    }
+                }
+            });
+              });
+
+    });
+
+</script>

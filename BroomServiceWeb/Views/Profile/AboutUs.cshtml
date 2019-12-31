@@ -1,0 +1,17 @@
+﻿@model BroomServiceWeb.ViewModels.AboutUsViewModel
+@using BroomServiceWeb.Resources;
+@{
+    ViewBag.Title = "AboutUs";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+}
+
+<div id="notifications_main" class="notifications_main">
+    <div class="container-fluid">
+        <h2 class="text-center">@Resource.about_us</h2>
+        <div class="row">
+            <div class="col-12 terms_box">
+                <p>@Html.Raw(@Model.Text)</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,134 @@
+﻿@model BroomServiceWeb.Models.CustomerDetail
+@using BroomServiceWeb.Resources
+
+@{
+    ViewBag.Title = "CustomerDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+ 
+
+
+<h2 class="heading-top">@Resource.customer_details</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-title">
+                @if (TempData["PreviousUrl"] != null)
+                {
+                    <a href="@TempData["PreviousUrl"]"><i class="fa fa-arrow-left mr-15 "></i><span>Customer List</span></a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Customers","Admin")"><i class="fa fa-arrow-left mr-15 "></i><span>Customer List</span></a>
+                }
+            </div>
+            <div class="card-body">
+                <div class="order_details_main">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="order_customer_image">
+                                @if (!string.IsNullOrEmpty(Model.User.PicturePath))
+                                {
+                                    <img src="~/Images/User/@Model.User.PicturePath" alt="image" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/image_placeholder.jpg" alt="image" />
+                                }
+
+                            </div>
+                            <h2>@Model.User.FirstName @Model.User.LastName</h2>
+
+                        </div>
+                        <div class="col-md-9">
+                            <div class="order_info_main">
+                                <div class="order_info_box">
+                                    <h3>@Resource.email</h3>
+                                    <h5>@Model.User.Email</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.phone_number</h3>
+                                    <h5>@Model.User.PhoneNumber</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.address</h3>
+                                    <h5>@Model.User.Address</h5>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top:20px">@Resource.properties</h3>
+            
+                <div class="custom_table_box">
+                    <table class="table table-striped allocate_orders">
+                        <tr>
+                            <th>@Resource.name</th>
+                            <th>@Resource.type</th>
+                            <th>@Resource.address</th>
+                            <th>@Resource.created_date</th>
+                            <th>@Resource.status</th>
+                            <th>@Resource.details</th>
+                        </tr>
+                        @foreach (var item in Model.Properties)
+                        {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Type</td>
+                            <td>@item.Address</td>
+                            <td>@item.CreatedDate.Value.ToString("dd MMM yyyy")</td>
+                            <td>
+                                @if (item.IsActive == true)
+                                {
+                                    <a href="@Url.Action("UpdatePropertyStatus", "Admin", new { id = item.Id })"><span   id="state">@Resource.active</span></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("UpdatePropertyStatus", "Admin", new { id = item.Id })"><span   id="state">@Resource.deactive</span></a>
+                                }
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("PropertyDetail","Admin",new {id = item.Id  })"><span><i class="fa fa-eye"></i>@Resource.view_details</span></a>
+                            </td>
+
+                          
+                        </tr>
+                        }
+                        @if (Model.Properties.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    <center>@Resource.no_data_found</center>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            
+            </div>
+        </div>
+</div>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+
+
+    });
+
+
+</script>
+

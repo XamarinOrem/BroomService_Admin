@@ -1,0 +1,330 @@
+﻿@using BroomServiceWeb.Helpers;
+@using BroomServiceWeb.Resources;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="~/Content/images/favicon.ico" type="image/png" sizes="16x16">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Fonts css-->
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="~/Content/webcss/fonts.css" rel="stylesheet" />
+
+    <!-- Fonts awesome kit-->
+    <script src="https://kit.fontawesome.com/b0615c267e.js"></script>
+
+    <!-- Owl Stylesheets -->
+    <link href="~/Content/webcss/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Content/webcss/owl.theme.default.min.css" rel="stylesheet" />
+
+    <!-- owl javascript -->
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/owl.carousel.js"></script>
+    <!-- custom css -->
+    <link href="~/Content/css/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/webcss/style.css" rel="stylesheet" />
+    <title>@Resource.title_text</title>
+</head>
+<body>
+
+    <div class="top_bg" style="background: url(../../Images/banner_bg.png)"></div>
+    <header>
+        <div class="container-fluid">
+            <div class="row top_border">
+                <div class="col-lg-5">
+                    <div class="logo">
+                        <a href="#"><img src="~/Images/logo.png" alt="logo" /></a>
+                    </div>
+                </div>
+                <a href="#" class="d-lg-none d-block language_mobile" data-toggle="modal" data-target="#Choose_language_modal"><img src="~/Images/language_change.png" alt="language" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="col-lg-7 align-self-center text-left text-sm-right d-lg-block d-none">
+                    <div class="profile_mail_options">
+                        <a href="/Profile/MyProfile" class="profile_options">
+                            @if (Session["ProfilePic"] == null)
+                            {
+                                <img src="~/Images/top_profile.png" alt="user" />
+                            }
+                            else
+                            {
+                                <img src="~/Images/User/@Session["ProfilePic"]" style="border-radius:20px;" alt="user" />
+                            }
+                            <div class="profile_link">
+                                <h2>@Session["UserName"]</h2>
+                                <p>@Resource.view_profile</p>
+                            </div>
+                        </a>
+                        <a href="#" class="profile_options">
+                            <img src="~/Images/top_call_email.png" alt="call message" />
+                            <div class="profile_link">
+                                <h2>@Resource.contact_us</h2>
+                                <p>03-5257060<br /> @Resource.broom_email_address</p>
+                            </div>
+                        </a>
+                        <a href="#" data-toggle="modal" data-target="#Choose_language_modal"><img src="~/Images/language_change.png" alt="language" /></a>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg custom_nav">
+                <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="@Url.Action("Index","Home")">@Resource.home<span class="sr-only">(current)</span></a>
+                        </li>
+                        @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("MyProperties","Property")">@Resource.my_properties</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("MyBookings","Bookings")">@Resource.my_bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Notification")">@Resource.notifications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ChatListing","Chat")">@Resource.chat</a>
+                        </li>
+                        <li class="nav-item d-lg-none d-block">
+                            <a class="nav-link" href="@Url.Action("MyProfile","Profile")">@Resource.view_profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Logout","Account")">@Resource.logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    @RenderBody()
+
+    <!-- Footer section -->
+    <footer>
+        <div class="container-fluid text-center">
+            <a href="#" class="footer_logo"><img src="~/Images/logo.png" alt="logo" /></a>
+            <div class="app_links">
+                <a href="#"><img src="~/Images/play_store.png" alt="play store" /></a>
+                <a href="#"><img src="~/Images/app_store.png" alt="app store" /></a>
+            </div>
+            <hr />
+            <div class="footer_nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("Index","Home")">@Resource.home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("AboutUs","Profile")">@Resource.about_us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("TermsConditions","Profile")">@Resource.terms_conditions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ContactUs","Profile")">@Resource.contact_us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="social_icons">
+                <ul>
+                    <li>
+                        <a href="#"><i class="fab fab fa-facebook-f"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <div class="footer_copy_right">
+        <div class="container-fluid">
+            <p class="text-center">&copy; @Resource.footer_text</p>
+        </div>
+    </div>
+
+
+    <!-- Choose Language Popup -->
+    <div id="Choose_language_modal" class="choose_lang modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pop_close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                    <h4 class="modal-title">@Resource.change_language</h4>
+                </div>
+                <div class="choose-modal-body">
+                    <form class="my-4">
+                        @{
+                            for (int i = 0; i < LanguageMang.AvailableLanguages.Count; i++)
+                            {
+                                <div class="inputGroup">
+                                    <input id="@LanguageMang.AvailableLanguages[i].LanguageCultureName" name="radio" type="radio" />
+                                    <label for="@LanguageMang.AvailableLanguages[i].LanguageCultureName">@LanguageMang.AvailableLanguages[i].LanguageFullName</label>
+                                </div>
+                            }
+                        }
+                        <div class="w-100 text-center mt-5">
+                            <button type="button" class="btn btn-primary choose_language_done">@Resource.done</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="~/Content/js/jquery.steps.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+             $(function () {
+            var cookieValue = "@Request.Cookies["culture"].Value.ToLower()";
+            console.log(cookieValue);
+            if (cookieValue.toLowerCase() == "fr-fr") {
+                $('link').last().attr('href', '/Content/webcss/style.fr-FR.css');
+            }
+            else if (cookieValue.toLowerCase() == "he-il") {
+                $('link').last().attr('href', '/Content/webcss/style.he-IL.css');
+            }
+            else if (cookieValue.toLowerCase() == "ru-ru") {
+                $('link').last().attr('href', '/Content/webcss/style.ru-RU.css');
+            }
+            else {
+                $('link').last().attr('href', '/Content/webcss/style.css');
+            }
+        });
+
+            var cookieValue = "@Request.Cookies["culture"].Value.ToLower()";
+            $("input[name=radio]").each(function () {
+                if (this.id.toLowerCase() == cookieValue.toLowerCase()) {
+                    $(this).prop('checked', true);
+                }
+            });
+
+            $(".choose_language_done").click(function () {
+                var selectedValue = $('input[name=radio]:checked').attr('id');
+                window.location.href = "/Home/ChangeLanguage?lang=" + selectedValue;
+            });
+
+            $("input[required], select[required]").attr("oninvalid", "this.setCustomValidity('@Resource.required_validation')");
+            $("input[required], select[required]").attr("oninput", "setCustomValidity('')");
+
+            $(function () {
+                var current = location.pathname;
+                var segment = current.split("/").length - 1 - (current.indexOf("http://") == -1 ? 0 : 2);
+                if (segment == 3) {
+                    $('.panel-default').removeClass('active');
+                    return false;
+                }
+                $('.navbar-nav li a').each(function () {
+                    $(this).parent().removeClass('active');
+                    var $this = $(this);
+                    matching_value = $this.attr('href');
+                    if (current.indexOf(matching_value) !== -1) {
+                        $(this).parent().addClass('active');
+                    }
+                });
+
+                $('.footer_nav li a').each(function () {
+                    $(this).parent().removeClass('active');
+                    var $this = $(this);
+                    matching_value = $this.attr('href');
+                    if (current.indexOf(matching_value) !== -1) {
+                        $(this).parent().addClass('active');
+                    }
+                });
+            });
+
+            $('#property_slider').owlCarousel({
+                loop: false,
+                margin: 0,
+                responsiveClass: true,
+                dots: false,
+                rewindNav: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 2,
+                        nav: true
+                    },
+                    1000: {
+
+                        items: 2,
+                        nav: true,
+                        loop: false
+                    }
+                }
+            })
+
+            $('#service_slider').owlCarousel({
+                loop: false,
+                margin: 0,
+                nav: true,
+                responsiveClass: true,
+                rewindNav: false,
+                dots: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    600: {
+                        items: 2,
+                    },
+                    1000: {
+                        items: 3,
+                    },
+                    1200: {
+                        items: 4,
+                        loop: false
+                    }
+                }
+            })
+
+            $('#testimonial_slider').owlCarousel({
+                loop: false,
+                margin: 0,
+                rewindNav: false,
+                responsiveClass: true,
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 1,
+                        nav: true
+                    },
+                    1000: {
+                        items: 1,
+                        nav: true,
+                        loop: false,
+                    }
+                }
+            })
+
+            $(".alert").fadeOut(10000);
+        })
+    </script>
+</body>
+</html>

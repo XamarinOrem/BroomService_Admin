@@ -1,0 +1,214 @@
+﻿@model BroomServiceWeb.Models.PropertyModel
+@using BroomServiceWeb.Resources
+
+@{
+    ViewBag.Title = "Property Detail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+<h2 class="heading-top">@Resource.property_details</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-title">
+                @if (TempData["PreviousUrl"] != null)
+                {
+                    <a href="@TempData["PreviousUrl"]"><i class="fa fa-arrow-left mr-15 "></i><span>@Resource.back</span></a>
+                } 
+            </div>
+            <div class="card-body">
+                <div class="order_details_main">
+                    <div class="row">
+                         
+                        <div class="col-md-12">
+                            <div class="order_info_main">
+                                <div class="order_info_box">
+                                    <h3>@Resource.name</h3>
+                                    <h5>@Model.Name</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.type</h3>
+                                    <h5>@Model.Type</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.floor_number</h3>
+                                    <h5>@Model.FloorNumber</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.aparment_number</h3>
+                                    <h5>@Model.ApartmentNumber</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.building_code</h3>
+                                    <h5>@Model.BuildingCode</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.address</h3>
+                                    <h5>@Model.Address</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.access_property_details</h3>
+                                    <h5>@Model.AccessToProperty</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_bathrooms</h3>
+                                    <h5>@Model.NoOfBathrooms</h5>
+                                </div>
+
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_queen_beds</h3>
+                                    <h5>@Model.NoOfQueenBeds</h5>
+                                </div>
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_double_beds</h3>
+                                    <h5>@Model.NoOfDoubleBeds</h5>
+                                </div>
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_single_beds</h3>
+                                    <h5>@Model.NoOfSingleBeds</h5>
+                                </div>
+
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_single_sopha_beds</h3>
+                                    <h5>@Model.NoOfSingleSofaBeds</h5>
+                                </div>
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_double_sopha_beds</h3>
+                                    <h5>@Model.NoOfDoubleSofaBeds</h5>
+                                </div>
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.duvet_size</h3>
+                                    <h5>@Model.DuvetSize</h5>
+                                </div>
+
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_duvets</h3>
+                                    <h5>@Model.NoOfDuvet</h5>
+                                </div>
+
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.number_of_pillows</h3>
+                                    <h5>@Model.NoOfPillows</h5>
+                                </div>
+
+
+                                <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+                                    @if (Model.Doorman == true)
+                                    {
+                                        <img class="custom-radio-img" src="/Images/ic_green_tick.png">
+                                    }
+                                    else
+                                    {
+                                        <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+                                    } 
+                                        <label>@Resource.doorman</label>
+                                </div>
+
+                                <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+                                    @if (Model.Parking == true)
+                                    {
+                                        <img class="custom-radio-img" src="/Images/ic_green_tick.png">
+                                    }
+                                    else
+                                    {
+                                        <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+                                    }  
+                                        <label>@Resource.parking</label>
+                                </div>
+
+
+                                <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+                                    @if (Model.Balcony == true)
+                                    {
+                                        <img class="custom-radio-img" src="/Images/ic_green_tick.png">
+                                    }
+                                    else
+                                    {
+                                        <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+                                    } 
+                                        <label>@Resource.balcony</label>
+                                </div> 
+                                 
+                                <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+                                    @if (Model.Dishwasher == true)
+                                    {
+                                        <img class="custom-radio-img" src="/Images/ic_green_tick.png">
+                                    }
+                                    else
+                                    {
+                                        <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+                                    } 
+                                        <label>@Resource.dishwasher</label>
+                                </div>
+
+                                <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+                                    @if (Model.Pool == true)
+                                    {
+                                        <img class="custom-radio-img" src="/Images/ic_green_tick.png">
+                                    }
+                                    else
+                                    {
+                                        <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+                                    } 
+                                        <label>@Resource.pool</label>
+                                </div>
+
+                                <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+                                    @if (Model.Garden == true)
+                                    {
+                                        <img class="custom-radio-img" src="/Images/ic_green_tick.png">
+                                    }
+                                    else
+                                    {
+                                        <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+                                    } 
+                                        <label>@Resource.garden</label>
+                                </div>
+                                <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+                                    @if (Model.Elevator == true)
+                                    {
+                                        <img class="custom-radio-img" src="/Images/ic_green_tick.png">
+                                    }
+                                    else
+                                    {
+                                        <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+                                    }
+                                        <label>@Resource.elevator</label>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+        </div>
+    </div>
+</div>
+
+
+
+ 
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+
+
+    });
+
+
+</script>

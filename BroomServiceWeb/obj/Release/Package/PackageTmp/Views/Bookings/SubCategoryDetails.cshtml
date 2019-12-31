@@ -1,0 +1,23 @@
+﻿@model  BroomServiceWeb.ViewModels.CategoryViewModel
+
+
+<div class="cat_popup_main text-center">
+    <div class="cat_photo">
+        @{string categoryPicture = string.Empty;}
+        @if (!string.IsNullOrEmpty(Model.Icon))
+        {
+            categoryPicture = "../Images/SubCategory/" + Model.Icon;
+        }
+        else
+        {
+            categoryPicture = "/Content/images/image_placeholder.jpg";
+        }
+        <img src="@categoryPicture" alt="category images" />
+    </div>
+    @if (!string.IsNullOrEmpty(Model.Description))
+    {
+        <p class="cat_description_popup">
+            @Model.Description
+        </p>
+    }
+</div>

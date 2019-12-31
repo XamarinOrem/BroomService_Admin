@@ -1,0 +1,279 @@
+﻿@using BroomServiceWeb.Helpers;
+@using BroomServiceWeb.Resources;
+@model BroomServiceWeb.Models.UserViewModel
+@{
+    ViewBag.Title = "DoPayment";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+
+    <link rel="stylesheet" href="~/Content/css/example1.css">
+    <link rel="stylesheet" href="~/Content/css/example1-he.css">
+    <link rel="stylesheet" href="~/Content/css/page.css">
+    <!-- Include Client API Library in your page -->
+    <script src="https://cdn.paymeservice.com/hf/v1/hostedfields.js"></script>
+
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broom Service</title>
+    <link rel="icon" href="~/Content/images/logo.png" type="image/png" sizes="16x16">
+    <environment include="Development">
+        <link rel="stylesheet" href="~/Content/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+              asp-fallback-href="~/Content/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
+    </environment>
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+
+    <!-- Animation Css -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/sidebar.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <style>
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+        }
+    </style>
+
+    <!-- PAYMENT FORM STARTS HERE -->
+    <div class="payment_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 pt-3 pb-0">
+                    <div class="logo">
+                        <a href="#">
+                            <!-- <img src="assets/images/logo.png" alt="" /> -->
+                            <img src="/Content/images/logo_small.png" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 pt-3 pb-3 text-left text-sm-right align-self-center">
+                    <p class="payment_customer"><strong>@Resource.welcome</strong> @Model.FirstName @Model.LastName @Resource.here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-8 text-center offset-md-2">
+                        @{
+                            var culVal = System.Globalization.CultureInfo.CurrentCulture.Name;
+                            if (culVal == "he-IL")
+                            {
+                        <h3 class="have_pay">@Resource.you_have_to_pay<br />  @ViewBag.price @BroomServiceWeb.Helpers.Common.payme_currency.ToUpper()</h3>
+                            }
+                            else
+                            {
+                                <h3 class="have_pay">@Resource.you_have_to_pay<br /> @BroomServiceWeb.Helpers.Common.payme_currency.ToUpper() @ViewBag.price</h3>
+                            }
+                        }
+
+                    </div>
+                    <div class=" col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 offset-lg-4 col-lg-4">
+						<div class="clint_image">
+							<img src="/Content/images/pci.png" class="img-fluid">
+						</div>
+                        <div class="panel panel-default credit-card-box">
+                            <div class="panel-body mt_new">
+                                <form role="form" id="checkout-form">
+                                    <input type="hidden" value="@Model.FirstName" name="fname" id="fname" />
+                                    <input type="hidden" value="@Model.LastName" name="lname" id="lname" />
+                                    <input type="hidden" value="@Model.Email" name="email" id="email" />
+                                    <input type="hidden" value="@Model.PhoneNumber" name="phone" id="phone" />
+                                    <input type="hidden" value="@ViewBag.requestId" name="requestId" id="requestId" />
+                                    <input type="hidden" value="@ViewBag.price" name="price" id="price" />
+
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group" id="card-number-group">
+                                                <label for="card-number-container" class="control-label">@Resource.card_number</label>
+                                                <!-- Container for Credit Card number field -->
+                                                <div id="card-number-container" class="form-control input-lg" style="height:60px"></div>
+                                                <label id="lblCardNumber" style="color:red;display:none">@Resource.enter_card_number</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-7">
+                                            <div class="form-group" id="card-expiration-group">
+                                                <label for="card-expiration-container" class="control-label">@Resource.expiration_date</label>
+                                                <!-- Container for Credit Card expiration date field -->
+                                                <div id="card-expiration-container" class="form-control" style="height:60px"></div>
+                                                <label id="lblExpiration" style="color:red;display:none">@Resource.enter_expiry_date</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-5 pull-right">
+                                            <div class="form-group" id="card-cvv-group">
+                                                <label for="card-cvv-container" class="control-label">@Resource.cvv</label>
+                                                <!-- Container for Credit Card CVV field -->
+                                                <div id="card-cvv-container" class="form-control input-lg" style="height:60px"></div>
+                                                <label id="lblCVV" style="color:red;display:none">@Resource.enter_cvv</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <!-- Form submit button -->
+                                            <button class="subscribe btn btn-success btn-lg btn-block" id="submit-button">
+                                                @Resource.pay
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAYMENT FORM ENDS HERE -->
+    <div id="dvLoader" style="display:none" class="loader_box">
+        <div class="loader_pay"></div>
+    </div>
+
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <script>
+
+        var key = 'MPL15619-69223SA9-DM43Q9NW-6QQMKYVN'; // Merchant API key from Settings page in the dashboard
+        var fname = $("#fname").val();
+        var lname = $("#lname").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var price = $("#price").val();
+        var requestId = $("#requestId").val();
+        PayMe.create(key, { testMode: false }).then(function (instance) {
+
+            var fields = instance.hostedFields();
+
+            var cardNumber = fields.create('cardNumber');
+            var expiration = fields.create('cardExpiration');
+            var cvc = fields.create('cvc');
+
+            cardNumber.mount('#card-number-container');
+            expiration.mount('#card-expiration-container');
+            cvc.mount('#card-cvv-container');
+
+            $("form").submit(function (e) {
+
+                e.preventDefault();
+                $("#dvLoader").show();
+                $("#submit-button").prop('disabled', true);
+                var saleData = {
+
+                    payerFirstName: fname,
+                    payerLastName: lname,
+                    payerEmail: email,
+                    payerPhone: phone,
+                    payerSocialId: '12345',
+
+                    total: {
+                        label: 'Order #' + requestId,
+                        amount: {
+                            currency: '@Common.payme_currency',
+                            value: price,
+                        }
+                    }
+                };
+
+                // Call for tokenization
+
+                instance.tokenize(saleData)
+                    .then(function (tokenizationResult) {
+                        //alert('Successfull tokenization');
+                        // Successfull tokenization
+                        //
+                        // Now you can send 'tokenizationResult' to
+                        // your server and call `generate-sale` on Core API
+                        console.log(tokenizationResult);
+                        var buyer_key = tokenizationResult.token;
+                        //alert(buyer_key);
+                        var requestId = $("#requestId").val();
+                        var price = $("#price").val();
+                        $.ajax({
+                            url: '@Url.Action("Payment", "Payment")',
+                            data: { "requestId": requestId, "price": price, "buyer_key": buyer_key },
+                            dataType: "json",
+                            type: "Post",
+                            error: function () {
+                                //alert(" An error occurred.");
+                            },
+                            success: function (data) {
+                                if (data.payme_status == "success") {
+                                    window.location.href = data.redirect_url;
+                                }
+                                else {
+                                    alert("@Resource.error_occured");
+                                }
+                            }
+                        });
+
+
+                    })
+                    .catch(function (tokenizationError) {
+
+                        // alert(tokenizationError.errors.cardNumber);
+                        if (tokenizationError.errors != null) {
+                            $("#dvLoader").hide();
+                            $("#submit-button").prop('disabled', false);
+
+                            if (tokenizationError.errors.cardNumber != null) {
+                                $("#lblCardNumber").show().delay(10000).fadeOut();
+                            }
+                            if (tokenizationError.errors.cardExpiration != null) {
+                                $("#lblExpiration").show().delay(10000).fadeOut();
+                            }
+                            if (tokenizationError.errors.cvc != null) {
+                                $("#lblCVV").show().delay(10000).fadeOut();
+                            }
+                        }
+                        else {
+                            if (tokenizationError.payload != null) {
+                                $("#dvLoader").hide();
+                                $("#submit-button").prop('disabled', false);
+                                alert(tokenizationError.payload.status_error_details);
+                            }
+                        }
+                        // Failed tokenization
+                        //
+                        // you can explore 'tokenizationError' object and show error message on your taste
+
+                        alert('@Resource.check_card_details');
+                        $("#dvLoader").hide();
+                        console.error(tokenizationError)
+                    });
+
+
+            });
+
+        }).catch(function (error) {
+            // Instantiation error occurs
+        });
+
+    </script>
+</body>
+</html>

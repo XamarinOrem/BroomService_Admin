@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="50abe6cdf38849f7b5797e8d4ce8c36d" Name="Diagram1" ZoomLevel="88" >
+        <EntityTypeShape EntityType="BroomServiceModel.AboutU" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BroomServiceModel.Category" Width="1.5" PointX="0.75" PointY="14.5" />
+        <EntityTypeShape EntityType="BroomServiceModel.ContactU" Width="1.5" PointX="5.25" PointY="39" />
+        <EntityTypeShape EntityType="BroomServiceModel.Country" Width="1.5" PointX="0.75" PointY="23.125" />
+        <EntityTypeShape EntityType="BroomServiceModel.JobRequestCheckList" Width="1.5" PointX="9.75" PointY="42.5" />
+        <EntityTypeShape EntityType="BroomServiceModel.JobRequestRefImage" Width="1.5" PointX="9.75" PointY="45.125" />
+        <EntityTypeShape EntityType="BroomServiceModel.JobRequestSubSubCategory" Width="1.5" PointX="9.75" PointY="31.375" />
+        <EntityTypeShape EntityType="BroomServiceModel.Notification" Width="1.5" PointX="12.75" PointY="19.625" />
+        <EntityTypeShape EntityType="BroomServiceModel.Property" Width="1.5" PointX="5.25" PointY="27" />
+        <EntityTypeShape EntityType="BroomServiceModel.RejectJobRequest" Width="1.5" PointX="15.75" PointY="24.5" />
+        <EntityTypeShape EntityType="BroomServiceModel.Setting" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BroomServiceModel.SubCategory" Width="1.5" PointX="3" PointY="13.75" />
+        <EntityTypeShape EntityType="BroomServiceModel.SubSubCategory" Width="1.5" PointX="3" PointY="29.25" />
+        <EntityTypeShape EntityType="BroomServiceModel.TempJobRequest" Width="1.5" PointX="10.5" PointY="24.25" />
+        <EntityTypeShape EntityType="BroomServiceModel.TempJobRequestCheckList" Width="1.5" PointX="12.75" PointY="25.125" />
+        <EntityTypeShape EntityType="BroomServiceModel.TempJobRequestRefImage" Width="1.5" PointX="12.75" PointY="27.875" />
+        <EntityTypeShape EntityType="BroomServiceModel.TempJobRequestSubSubCategory" Width="1.5" PointX="12.75" PointY="30.375" />
+        <EntityTypeShape EntityType="BroomServiceModel.TermsCondition" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BroomServiceModel.Testimonial" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BroomServiceModel.User" Width="1.5" PointX="3" PointY="20.25" />
+        <EntityTypeShape EntityType="BroomServiceModel.UserChat" Width="1.5" PointX="5.25" PointY="42" />
+        <EntityTypeShape EntityType="BroomServiceModel.UserJobReview" Width="1.5" PointX="9.75" PointY="20" />
+        <EntityTypeShape EntityType="BroomServiceModel.UserReview" Width="1.5" PointX="5.25" PointY="35.375" />
+        <EntityTypeShape EntityType="BroomServiceModel.UserSubCategory" Width="1.5" PointX="5.25" PointY="23.125" />
+        <AssociationConnector Association="BroomServiceModel.FK__SubCatego__CatId__3C69FB99" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__Categ__6319B466" />
+        <AssociationConnector Association="BroomServiceModel.FK__ContactUs__UserI__60A75C0F" />
+        <AssociationConnector Association="BroomServiceModel.fk_user_country" />
+        <AssociationConnector Association="BroomServiceModel.fk_JobRequestSubSubCategoryId" />
+        <AssociationConnector Association="BroomServiceModel.FK__Notificat__FromU__55F4C372" />
+        <AssociationConnector Association="BroomServiceModel.FK__Notificat__FromU__59C55456" />
+        <AssociationConnector Association="BroomServiceModel.FK__Notificat__ToUse__56E8E7AB" />
+        <AssociationConnector Association="BroomServiceModel.FK__Notificat__ToUse__5AB9788F" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__Prope__67DE6983" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__Prope__68D28DBC" />
+        <AssociationConnector Association="BroomServiceModel.fk_user_property" />
+        <AssociationConnector Association="BroomServiceModel.FK__RejectJob__UserI__634EBE90" />
+        <AssociationConnector Association="BroomServiceModel.FK__SubSubCat__SubCa__29221CFB" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__SubCa__6501FCD8" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__SubCa__65F62111" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__SubCa__66EA454A" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserSubCa__SubCa__5E8A0973" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__SubSu__79FD19BE" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserSubCa__SubSu__5D95E53A" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__Servi__640DD89F" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__TempJ__6F7F8B4B" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__TempJ__762C88DA" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserChat__FromUs__19DFD96B" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserChat__ToUser__1AD3FDA4" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserJobRe__Custo__11158940" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserJobRe__ToUse__1209AD79" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserRevie__Custo__0B5CAFEA" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserRevie__ToUse__0C50D423" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserSubCa__UserI__5F7E2DAC" />
+        <EntityTypeShape EntityType="BroomServiceModel.JobRequest" Width="1.5" PointX="7.5" PointY="20.625" />
+        <AssociationConnector Association="BroomServiceModel.FK__JobReques__Categ__47A6A41B" />
+        <AssociationConnector Association="BroomServiceModel.FK__JobReques__JobRe__7F2BE32F" />
+        <AssociationConnector Association="BroomServiceModel.FK__JobReques__Servi__498EEC8D" />
+        <AssociationConnector Association="BroomServiceModel.FK__JobReques__SubCa__489AC854" />
+        <AssociationConnector Association="BroomServiceModel.FK__JobReques__SubCa__7B5B524B" />
+        <AssociationConnector Association="BroomServiceModel.FK__Notificat__JobRe__55009F39" />
+        <AssociationConnector Association="BroomServiceModel.FK__Notificat__JobRe__58D1301D" />
+        <AssociationConnector Association="BroomServiceModel.FK__RejectJob__JobRe__625A9A57" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobRe__TempJ__17036CC0" />
+        <AssociationConnector Association="BroomServiceModel.FK__TempJobReques__SubCa__489AC854" />
+        <AssociationConnector Association="BroomServiceModel.FK__UserJobRe__JobRe__10216507" />
+        <AssociationConnector Association="BroomServiceModel.fk_JobRequestId" />
+        <AssociationConnector Association="BroomServiceModel.fk_JobRequestRefImagesJobRequestId" />
+        <AssociationConnector Association="BroomServiceModel.fk_propertyId_JobRequest" />
+        <AssociationConnector Association="BroomServiceModel.fk_propertyId_TempJobRequest" />
+        <EntityTypeShape EntityType="BroomServiceModel.PrivacyPolicy" Width="1.5" PointX="5.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

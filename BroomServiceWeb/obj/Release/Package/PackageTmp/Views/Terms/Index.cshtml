@@ -1,0 +1,169 @@
+﻿@model BroomServiceWeb.Models.TermsCondition
+@using BroomServiceWeb.Resources
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="~/Content/images/favicon.ico" type="image/png" sizes="16x16">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Fonts css-->
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="~/Content/webcss/fonts.css" rel="stylesheet" />
+
+    <!-- Fonts awesome kit-->
+    <script src="https://kit.fontawesome.com/b0615c267e.js"></script>
+
+    <!-- Owl Stylesheets -->
+    <link href="~/Content/webcss/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Content/webcss/owl.theme.default.min.css" rel="stylesheet" />
+
+    <!-- owl javascript -->
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/owl.carousel.js"></script>
+    <!-- custom css -->
+    <link href="~/Content/webcss/style.css" rel="stylesheet" />
+    <link href="~/Content/css/PagedList.css" rel="stylesheet" />
+    <title>@Resource.title_text</title>
+</head>
+<body>
+    <div id="notifications_main" class="notifications_main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 terms_box">
+                    <p>@Html.Raw(@Model.TermsConditionText)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="footer_copy_right">
+        <div class="container-fluid">
+            <p class="text-center">&copy; @Resource.footer_text</p>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="~/Content/js/jquery.steps.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $(function () {
+                var current = location.pathname;
+                var segment = current.split("/").length - 1 - (current.indexOf("http://") == -1 ? 0 : 2);
+                if (segment == 3) {
+                    $('.panel-default').removeClass('active');
+                    return false;
+                }
+                $('.navbar-nav li a').each(function () {
+                    $(this).parent().removeClass('active');
+                    var $this = $(this);
+                    matching_value = $this.attr('href');
+                    if (current.indexOf(matching_value) !== -1) {
+                        $(this).parent().addClass('active');
+                    }
+                });
+
+                $('.footer_nav li a').each(function () {
+                    $(this).parent().removeClass('active');
+                    var $this = $(this);
+                    matching_value = $this.attr('href');
+                    if (current.indexOf(matching_value) !== -1) {
+                        $(this).parent().addClass('active');
+                    }
+                });
+            });
+
+            $('#property_slider').owlCarousel({
+                loop: false,
+                margin: 0,
+                responsiveClass: true,
+                dots: false,
+                rewindNav: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 2,
+                        nav: true
+                    },
+                    1000: {
+
+                        items: 2,
+                        nav: true,
+                        loop: false
+                    }
+                }
+            })
+
+            $('#service_slider').owlCarousel({
+                loop: false,
+                margin: 0,
+                nav: true,
+                responsiveClass: true,
+                rewindNav: false,
+                dots: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    600: {
+                        items: 2,
+                    },
+                    1000: {
+                        items: 3,
+                    },
+                    1200: {
+                        items: 4,
+                        loop: false
+                    }
+                }
+            })
+
+            $('#testimonial_slider').owlCarousel({
+                loop: false,
+                margin: 0,
+                rewindNav: false,
+                responsiveClass: true,
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 1,
+                        nav: true
+                    },
+                    1000: {
+                        items: 1,
+                        nav: true,
+                        loop: false,
+                    }
+                }
+            })
+
+            $(".alert").fadeOut(10000);
+        })
+    </script>
+</body>
+</html>

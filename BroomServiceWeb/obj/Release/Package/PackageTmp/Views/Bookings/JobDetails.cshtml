@@ -1,0 +1,1073 @@
+﻿@model BroomServiceWeb.Models.JobRequestViewModel
+@using BroomServiceWeb.Helpers;
+@using BroomServiceWeb.Resources;
+
+@{
+    ViewBag.Title = "JobDetails";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+
+    bool IsStartTimerBtn = false;
+    bool IsEndTimerBtn = false;
+    bool IsCompleteTimerBtn = false;
+    bool IsSendQuoteBtn = false;
+    int hours = 0; int minutes = 0; int seconds = 0;
+}
+<div id="add_properties_main" class="add_properties_main">
+    <div class="container-fluid">
+        <h2 class="text-center">@Resource.job_details</h2>
+        @Html.HiddenFor(a => a.PropertyLatitude)
+        @Html.HiddenFor(a => a.PropertyLongitude)
+
+        @if (Model.JobStatus != Enums.RequestStatus.Pending.GetHashCode())
+        {
+            <div class="popup_user_detail_box d-block d-sm-flex">
+                @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                {
+                    <div class="user_photo_name d-block d-sm-flex">
+                        @if (string.IsNullOrEmpty(Model.ServiceProviderProfilePic))
+                        {
+                            <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                        }
+                        else
+                        {
+                            <img src="~/Images/User/@Model.ServiceProviderProfilePic" alt="images" />
+                        }
+                        <div class="worker_name_box align-self-center">
+                            <h5 style="margin-bottom: 0px;">@Resource.service_provider_name</h5>
+                            @if (!string.IsNullOrEmpty(Model.ServiceProviderName) && !string.IsNullOrWhiteSpace(Model.ServiceProviderName))
+                            {
+                                <h3>@Model.ServiceProviderName</h3>
+                            }
+                            else
+                            {
+                                <h3>@Resource.broom_service</h3>
+                            }
+                        </div>
+                    </div>
+                    if (@Model.ServiceProviderId != null && @Model.ServiceProviderId != 0)
+                    {
+                        <div class="user_chat align-self-center">
+                            <a href="/Chat/Index?userId=@Model.ServiceProviderId"><img src="~/Images/comment.png" alt="comment" /><span class="align-self-center">@Resource.chat</span></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="user_chat align-self-center">
+                            <a href="/Chat/Index?userId=@Model.AdminId"><img src="~/Images/comment.png" alt="comment" /><span class="align-self-center">@Resource.chat</span></a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="user_photo_name d-block d-sm-flex">
+                        @if (string.IsNullOrEmpty(Model.CustomerImage))
+                        {
+                            <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                        }
+                        else
+                        {
+                            <img src="~/Images/User/@Model.CustomerImage" alt="images" />
+                        }
+                        <div class="worker_name_box align-self-center">
+                            <h5 style="margin-bottom: 0px;">@Resource.customer_details</h5>
+                            <h3>@Model.CustomerName</h3>
+                        </div>
+                    </div>
+                    <div class="user_chat align-self-center">
+                        <a href="/Chat/Index?userId=@Model.CustomerId"><img src="~/Images/comment.png" alt="comment" /><span class=" align-self-center">@Resource.chat</span></a>
+                    </div>
+                }
+            </div>
+        }
+        <div class="row worker_pop_info">
+            <div class="col-md-6">
+                <div class="repeat_div">
+                    <div class="work_label">@Resource.property</div>
+                    <div class="worker_box"></div>
+                    <div class="price-div d-flex justify-content-between">
+                        <div class="work_value">@Model.PropertyName</div>
+                        @if ((int)Session["UserType"] != Enums.UserTypeEnum.Customer.GetHashCode())
+                        {
+                            <a id="@Model.PropertyId" class="view-details">
+                                <div class="work_value">
+                                    <i class="fa fa-eye" style="width: 45px !important;margin-right: 0 !important;height: auto !important;cursor: pointer;font-size: 30px;color: rgb(26, 141, 255);" aria-hidden="true"></i>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="repeat_div">
+                    <div class="work_label">@Resource.service</div>
+                    <div class="worker_box d-flex ">
+                        @if (Model.Category != null)
+                        {
+                            if (string.IsNullOrEmpty(Model.Category.Icon))
+                            {
+                                <img style="width: 35px;height: 33px;background: #ef4b4c;padding: 8px;border-radius: 7px;" src="~/Content/images/image_placeholder.jpg" alt="images" />
+                            }
+                            else
+                            {
+                                <img style="width: 35px;height: 33px;background: #ef4b4c;padding: 8px;border-radius: 7px;" src="~/Images/Category/@Model.Category.Icon" alt="images" />
+                            }
+                            <div class="work_value">@Model.Category.Name</div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.SubCategory != null)
+            {
+                if (!string.IsNullOrEmpty(Model.SubCategory.Name))
+                {
+                    <div class="col-md-6">
+                        <div class="repeat_div">
+                            <div class="work_label">@Resource.sub_service</div>
+                            <div class="worker_box"></div>
+                            <div class="price-div d-flex justify-content-between">
+                                <div class="work_value">@Model.SubCategory.Name</div>
+                                @if ((int)Session["UserType"] != Enums.UserTypeEnum.Worker.GetHashCode())
+                                {
+                                    <div class="work_value">@Model.SubCategory.ClientPrice</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (Model.SubSubCategories != null)
+            {
+                if (Model.SubSubCategories.Count > 0)
+                {
+                    <div class="col-md-6">
+                        <div class="repeat_div">
+                            <div class="work_label">@Resource.type_of_service</div>
+                            <div class="worker_box"></div>
+                            @for (int i = 0; i < Model.SubSubCategories.Count; i++)
+                            {
+                                <div class="type_value d-flex justify-content-between">
+                                    <div class="work_value" style="float:left;">@Model.SubSubCategories[i].Name</div>
+                                    @if ((int)Session["UserType"] != Enums.UserTypeEnum.Worker.GetHashCode())
+                                    {
+                                        <div class="work_value" style="float:right;">@Model.SubSubCategories[i].ClientPrice</div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+
+            @if ((int)Session["UserType"] == Enums.UserTypeEnum.ServiceProvider.GetHashCode())
+            {
+                if (Model.IsShownQuote)
+                {
+                    if (Model.QuotePrice != null && Model.QuotePrice != 0)
+                    {
+                        <div class="col-md-6">
+                            <div class="repeat_div">
+                                <div class="work_label">@Resource.job_price</div>
+                                <div class="worker_box"></div>
+                                <div class="work_value">@Model.QuotePrice</div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+            <input type="hidden" value="@Model.UserJobRating" name="UserJobRatingVal" id="UserJobRatingVal" />
+            @if ((int)Session["UserType"] != Enums.UserTypeEnum.Customer.GetHashCode())
+            {
+                if (Model.JobStatus == Enums.RequestStatus.Completed.GetHashCode())
+                {
+                    if (Model.UserJobRating != null)
+                    {
+                        <div class="col-md-6">
+                            <div class="repeat_div">
+                                <div class="work_label">@Resource.job_rating</div>
+                                <div class="worker_box"></div>
+                                <div class="rating_stars_provider" style="font-size:19px !important;">
+                                    <i class="fas fa-star gray" id="1"></i>
+                                    <i class="fas fa-star gray" id="2"></i>
+                                    <i class="fas fa-star gray" id="3"></i>
+                                    <i class="fas fa-star gray" id="4"></i>
+                                    <i class="fas fa-star gray" id="5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(@Model.JobReview))
+                {
+                    <div class="col-md-6">
+                        <div class="repeat_div">
+                            <div class="work_label">@Resource.job_review</div>
+                            <div class="worker_box"></div>
+                            <div class="work_value">@Model.JobReview</div>
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="col-md-6">
+                <div class="repeat_div">
+                    <div class="work_label">@Resource.start_date_time</div>
+                    <div class="worker_box"></div>
+                    @if ((int)Session["UserType"] != Enums.UserTypeEnum.Customer.GetHashCode())
+                    {
+                        <div class="work_value">@Model.JobStartDatetime.Value.ToString("dd/MM/yyyy") @Resource.at @Model.JobStartDatetime.Value.ToString("hh:mm tt")</div>
+                    }
+                    else
+                    {
+                        <div class="work_value">@Model.JobStartDatetime.Value.ToString("dd/MM/yyyy")</div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="repeat_div">
+                    <div class="work_label">@Resource.end_date_time</div>
+                    <div class="worker_box"></div>
+                    @if ((int)Session["UserType"] != Enums.UserTypeEnum.Customer.GetHashCode())
+                    {
+                        <div class="work_value">@Model.JobEndDatetime.Value.ToString("dd/MM/yyyy") @Resource.at @Model.JobEndDatetime.Value.ToString("hh:mm tt")</div>
+                    }
+                    else
+                    {
+                        <div class="work_value">@Model.JobEndDatetime.Value.ToString("dd/MM/yyyy")</div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="repeat_div">
+                    <div class="worker_box d-flex justify-content-between">
+                        <div class="div_box">
+                            <div class="work_label">@Resource.address</div>
+                            <div class="work_value" id="address_val">@Model.PropertyAddress</div>
+                        </div>
+
+                        <img onclick="openMapModal();" src="~/Images/google_map.png" class="align-self-center map_image" />
+
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.CheckList != null)
+            {
+                if (Model.CheckList.Count > 0)
+                {
+                    <div class="col-md-6">
+                        <div class="repeat_div">
+                            <div class="work_label">@Resource.check_list</div>
+                            <div class="worker_box"></div>
+                            <div id="check-list-div">
+                                @for (int i = 0; i < Model.CheckList.Count; i++)
+                                {
+                                    <div class="work_value_list d-flex justify-content-between align-items-center w-100"
+                                         onclick="CheckListClick(this);">
+                                        @Model.CheckList[i].TaskDetail
+                                        @if (Model.CheckList[i].IsDone.Value == false)
+                                        {
+                                            <img src="~/Images/ic_uncheked.png" class="no" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Images/ic_checked.png" class="yes" />
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                <div class="col-md-6">
+                    <div class="repeat_div">
+                        <div class="work_label">@Resource.description</div>
+                        <div class="worker_box"></div>
+                        <div class="work_value">@Model.Description</div>
+                    </div>
+                </div>
+            }
+            @if (Model.ReferenceImages != null)
+            {
+                if (Model.ReferenceImages.Count > 0)
+                {
+                    <div class="col-md-6">
+                        <div class="repeat_div">
+                            <div class="work_label">@Resource.reference_images</div>
+                            <div class="worker_box"></div>
+                            <div class="ref_images_box">
+                                @for (int i = 0; i < Model.ReferenceImages.Count; i++)
+                                {
+                                    <div class="ref_images">
+                                        <a target="_blank" href="~/Images/JobRequest/@Model.ReferenceImages[i]">
+                                            <img src="~/Images/JobRequest/@Model.ReferenceImages[i]" class="w-100 h-100" alt="images" />
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        @if ((int)Session["UserType"] != Enums.UserTypeEnum.Customer.GetHashCode())
+        {
+            switch (Model.JobStatus)
+            {
+                case 1:                                     // RequestStatus.Pending
+                    IsStartTimerBtn = false;
+                    IsEndTimerBtn = false;
+                    IsCompleteTimerBtn = false;
+                    IsSendQuoteBtn = false;
+                    break;
+                case 2:                                     // RequestStatus.InProgress
+                    if (Model.IsShownQuote)
+                    {
+                        if (Model.QuotePrice == null)
+                        {
+                            IsStartTimerBtn = false;
+                            IsEndTimerBtn = false;
+                            IsCompleteTimerBtn = false;
+                            IsSendQuoteBtn = true;
+                        }
+                        else if (Model.IsQuoteApproved.HasValue && Model.IsQuoteApproved.Value)
+                        {
+                            if ((int)Session["UserType"] == Convert.ToInt32(Enums.UserTypeEnum.Worker.GetHashCode()))
+                            {
+                                if (Model.TimerStartTime == null)
+                                {
+                                    IsStartTimerBtn = true;
+                                    IsEndTimerBtn = false;
+                                    IsCompleteTimerBtn = false;
+                                    IsSendQuoteBtn = false;
+                                }
+                                else if (Model.TimerEndTime == null)
+                                {
+                                    var currenttime = DateTime.Now - Model.TimerStartTime.Value;
+                                    if (currenttime.Days > 0)
+                                    {
+                                        hours = (currenttime.Days * 24) + currenttime.Hours;
+                                    }
+                                    else
+                                    {
+                                        hours = currenttime.Hours;
+                                    }
+                                    minutes = currenttime.Minutes;
+                                    seconds = currenttime.Seconds;
+                                    <input type="hidden" id="hours" value='@hours' />
+                                    <input type="hidden" id="minutes" value='@minutes' />
+                                    <input type="hidden" id="seconds" value='@seconds' />
+                                    <script type="text/javascript">
+                                        var isFirstTime = true;
+                                        var getTime;
+                                        interval = setInterval(function () {
+                                            if (isFirstTime) {
+                                                hours = $("#hours").val();
+                                                minutes = $("#minutes").val();
+                                                seconds = $("#seconds").val();
+                                                isFirstTime = false;
+                                            }
+                                            if (seconds == 59) {
+                                                seconds = 0;
+                                                minutes++;
+                                            }
+                                            else {
+                                                seconds++;
+                                            }
+
+                                            if (minutes == 59) {
+                                                minutes = 0;
+                                                hours++;
+                                            }
+
+                                            if (seconds < 10) {
+                                                if (minutes < 10) {
+                                                    if (hours < 10) {
+                                                        geTime = "0{0}:0{1}:0{2}".format(hours, minutes, seconds);
+                                                    }
+                                                    else {
+                                                        getTime = "{0}:0{1}:0{2}".format(hours, minutes, seconds);
+                                                    }
+                                                }
+                                                else {
+                                                    if (hours < 10) {
+                                                        getTime = "0{0}:{1}:0{2}".format(hours, minutes, seconds);
+                                                    }
+                                                    else {
+                                                        getTime = "{0}:{1}:0{2}".format(hours, minutes, seconds);
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                if (minutes < 10) {
+                                                    if (hours < 10) {
+                                                        getTime = "0{0}:0{1}:{2}".format(hours, minutes, seconds);
+                                                    }
+                                                    else {
+                                                        getTime = "{0}:0{1}:{2}".format(hours, minutes, seconds);
+                                                    }
+                                                }
+                                                else {
+                                                    if (hours < 10) {
+                                                        getTime = "0{0}:{1}:{2}".format(hours, minutes, seconds);
+                                                    }
+                                                    else {
+                                                        getTime = "{0}:{1}:{2}".format(hours, minutes, seconds);
+                                                    }
+                                                }
+                                            }
+                                            $('.timertext').text(getTime)
+                                        }, 1000);
+                                    </script>
+
+                                    IsStartTimerBtn = false;
+                                    IsEndTimerBtn = true;
+                                    IsCompleteTimerBtn = false;
+                                    IsSendQuoteBtn = false;
+                                }
+                                else
+                                {
+                                    IsStartTimerBtn = false;
+                                    IsEndTimerBtn = false;
+                                    IsCompleteTimerBtn = true;
+                                    IsSendQuoteBtn = false;
+                                }
+                            }
+                            if ((int)Session["UserType"] == Convert.ToInt32(Enums.UserTypeEnum.ServiceProvider))
+                            {
+                                if (Model.TimerStartTime == null)
+                                {
+                                    IsStartTimerBtn = true;
+                                    IsEndTimerBtn = false;
+                                    IsCompleteTimerBtn = false;
+                                    IsSendQuoteBtn = false;
+                                }
+                                else
+                                {
+                                    IsStartTimerBtn = false;
+                                    IsEndTimerBtn = false;
+                                    IsCompleteTimerBtn = true;
+                                    IsSendQuoteBtn = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            IsStartTimerBtn = false;
+                            IsEndTimerBtn = false;
+                            IsCompleteTimerBtn = false;
+                            IsSendQuoteBtn = false;
+                        }
+                    }
+                    else
+                    {
+                        if ((int)Session["UserType"] == Convert.ToInt32(Enums.UserTypeEnum.Worker))
+                        {
+                            if (Model.TimerStartTime == null)
+                            {
+                                IsStartTimerBtn = true;
+                                IsEndTimerBtn = false;
+                                IsCompleteTimerBtn = false;
+                                IsSendQuoteBtn = false;
+                            }
+                            else if (Model.TimerEndTime == null)
+                            {
+                                var currenttime = DateTime.Now - Model.TimerStartTime.Value;
+                                if (currenttime.Days > 0)
+                                {
+                                    hours = (currenttime.Days * 24) + currenttime.Hours;
+                                }
+                                else
+                                {
+                                    hours = currenttime.Hours;
+                                }
+                                minutes = currenttime.Minutes;
+                                seconds = currenttime.Seconds;
+                                <input type="hidden" id="hours" value='@hours' />
+                                <input type="hidden" id="minutes" value='@minutes' />
+                                <input type="hidden" id="seconds" value='@seconds' />
+                                <script type="text/javascript">
+                                    var isFirstTime = true;
+                                    var getTime;
+                                    interval = setInterval(function () {
+                                        if (isFirstTime) {
+                                            hours = $("#hours").val();
+                                            minutes = $("#minutes").val();
+                                            seconds = $("#seconds").val();
+                                            isFirstTime = false;
+                                        }
+                                        if (seconds == 59) {
+                                            seconds = 0;
+                                            minutes++;
+                                        }
+                                        else {
+                                            seconds++;
+                                        }
+
+                                        if (minutes == 59) {
+                                            minutes = 0;
+                                            hours++;
+                                        }
+
+                                        if (seconds < 10) {
+                                            if (minutes < 10) {
+                                                if (hours < 10) {
+                                                    geTime = "0{0}:0{1}:0{2}".format(hours, minutes, seconds);
+                                                }
+                                                else {
+                                                    getTime = "{0}:0{1}:0{2}".format(hours, minutes, seconds);
+                                                }
+                                            }
+                                            else {
+                                                if (hours < 10) {
+                                                    getTime = "0{0}:{1}:0{2}".format(hours, minutes, seconds);
+                                                }
+                                                else {
+                                                    getTime = "{0}:{1}:0{2}".format(hours, minutes, seconds);
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            if (minutes < 10) {
+                                                if (hours < 10) {
+                                                    getTime = "0{0}:0{1}:{2}".format(hours, minutes, seconds);
+                                                }
+                                                else {
+                                                    getTime = "{0}:0{1}:{2}".format(hours, minutes, seconds);
+                                                }
+                                            }
+                                            else {
+                                                if (hours < 10) {
+                                                    getTime = "0{0}:{1}:{2}".format(hours, minutes, seconds);
+                                                }
+                                                else {
+                                                    getTime = "{0}:{1}:{2}".format(hours, minutes, seconds);
+                                                }
+                                            }
+                                        }
+                                        $('.timertext').text(getTime)
+                                    }, 1000);
+                                </script>
+
+
+                                IsStartTimerBtn = false;
+                                IsEndTimerBtn = true;
+                                IsCompleteTimerBtn = false;
+                                IsSendQuoteBtn = false;
+                            }
+                            else
+                            {
+                                IsStartTimerBtn = false;
+                                IsEndTimerBtn = false;
+                                IsCompleteTimerBtn = true;
+                                IsSendQuoteBtn = false;
+                            }
+                        }
+                        if ((int)Session["UserType"] == Convert.ToInt32(Enums.UserTypeEnum.ServiceProvider))
+                        {
+                            if (Model.TimerStartTime == null)
+                            {
+                                IsStartTimerBtn = true;
+                                IsEndTimerBtn = false;
+                                IsCompleteTimerBtn = false;
+                                IsSendQuoteBtn = false;
+                            }
+                            else
+                            {
+                                IsStartTimerBtn = false;
+                                IsEndTimerBtn = false;
+                                IsCompleteTimerBtn = true;
+                                IsSendQuoteBtn = false;
+                            }
+                        }
+                    }
+                    break;
+                case 3:                                     // RequestStatus.Completed
+                    IsStartTimerBtn = false;
+                    IsEndTimerBtn = false;
+                    IsCompleteTimerBtn = false;
+                    IsSendQuoteBtn = false;
+                    break;
+                case 4:                                     // RequestStatus.Cancelled
+                    IsStartTimerBtn = false;
+                    IsEndTimerBtn = false;
+                    IsCompleteTimerBtn = false;
+                    IsSendQuoteBtn = false;
+                    break;
+            }
+
+            string text = string.Empty;
+            if (IsStartTimerBtn == true)
+            {
+                text = (int)Session["UserType"] == Enums.UserTypeEnum.ServiceProvider.GetHashCode() ? Resource.start_job : Resource.start_timer;
+
+                <button type="button" id="start-job-btn" onclick="StartJob();" class="property_submit mt-5 mb-3" style="width: 100% !important;">
+                    <a style="color:#fff !important;">@text</a>
+                </button>
+            }
+            else
+            {
+                <button type="button" id="start-job-btn" onclick="StartJob();" class="property_submit mt-5 mb-3" style="width: 100% !important;display:none;">
+                    <a style="color:#fff !important;">@text</a>
+                </button>
+            }
+
+            if (IsSendQuoteBtn == true)
+            {
+                <button type="button" id="send-quote-btn" onclick="SendQuote();" class="property_submit mt-5 mb-3" style="width: 100% !important;">
+                    <a style="color:#fff !important;">@Resource.send_quote</a>
+                </button>
+            }
+            else
+            {
+                <button type="button" id="send-quote-btn" onclick="SendQuote();" class="property_submit mt-5 mb-3" style="width: 100% !important;display:none;">
+                    <a style="color:#fff !important;">@Resource.send_quote</a>
+                </button>
+            }
+
+            if (IsCompleteTimerBtn == true)
+            {
+                <button type="button" id="complete-job-btn" onclick="CompleteJob();" class="property_submit mt-5 mb-3" style="width: 100% !important;">
+                    <a style="color:#fff !important;">@Resource.complete_job</a>
+                </button>
+            }
+            else
+            {
+                <button type="button" id="complete-job-btn" onclick="CompleteJob();" class="property_submit mt-5 mb-3" style="width: 100% !important;display:none;">
+                    <a style="color:#fff !important;">@Resource.complete_job</a>
+                </button>
+            }
+
+            if (IsEndTimerBtn == true)
+            { <div class="property_submit mt-5 mb-3 w-100 d-flex justify-content-between"
+                   style="padding-left: 15px;padding-right: 15px;" onclick="EndTimer();">
+                    <label class="timertext align-self-center" style="color:#fff !important;
+width: 50%;border-right: 1px solid #fff;"></label>
+                    <a class="align-self-center" style="color:#fff !important;">@Resource.end_timer</a>
+                </div>
+
+            }
+            else
+            {
+                <button type="button" id="complete-job-btn" class="property_submit mt-5 mb-3" style="width: 100% !important;display:none;">
+                    <a style="color:#fff !important;">@Resource.end_timer</a>
+                </button>
+            }
+        }
+
+        <input type="hidden" id="complete-btn" value="@IsCompleteTimerBtn.ToString()" />
+
+        @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+        {
+            if (Model.JobStatus == Enums.RequestStatus.Completed.GetHashCode())
+            {
+                if (!Model.IsPaymentDone.Value)
+                {
+                    <button type="button" id="property-submit-btn-pay" class="property_submit mt-5 mb-3" style="width: 100% !important;">
+                        <a style="color:#fff !important;">@Resource.pay_now</a>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="property_submit mt-5 mb-3" style="width: 100% !important;" disabled>
+                        <a style="color:#fff !important;">@Resource.already_paid</a>
+                    </button>
+                }
+            }
+        }
+
+        <input type="hidden" id="end-btn" value="@IsEndTimerBtn.ToString()" />
+        <input id="sessionInputUserID" type="hidden" value='@Session["UserId"]' />
+        <input id="sessionInputUserType" type="hidden" value='@Session["UserType"]' />
+        <input id="customerPrice" type="hidden" value="@Model.CustomerQuotePrice" />
+
+    </div>
+</div>
+<!-- Modal Price Quote-->
+<div class="modal fade" id="price_modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">@Resource.send_quote</h5>
+                <button type="button" id="close_price_modal" class="close pop_close" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body-rating">
+                <form>
+                    <div class="col-md-12 mb-3">
+                        <div class="form-group">
+                            <input type="number"
+                                   name="price-value" class="form-control input_csutom" id="price-value"
+                                   rows="5" placeholder="@Resource.write_here" required />
+                        </div>
+                    </div>
+                    <div class="col-12 mt-5 text-center">
+                        <button type="submit" id="quote-submit-button" disabled class="property_submit">
+                            @Resource.submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="booking_view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">@Resource.property_details</h5>
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="map_modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <button type="button" id="close_map_modal" class="close pop_close" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body-rating">
+                <div id="map_canvas" style="height: 600px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    //var currentLat;
+    //var currentLng;
+
+    $('.view-details').on('click', function (e) {
+        var propertyID = $(this).attr('id');
+        $(this).attr('data-target', '#booking_view_modal');
+        $(this).attr('data-toggle', 'modal');
+        $('.modal-body').load('/Property/PropertyDetails?id=' + propertyID);
+    });
+
+    $(function () {
+        var UserTypeEnum = {
+            Admin: 1,
+            ServiceProvider: 2,
+            Worker: 3,
+            Customer: 4
+        }
+        if ($("#sessionInputUserType").val() != UserTypeEnum.Customer) {
+                    var ratingVal = $("#UserJobRatingVal").val();
+                    if (ratingVal!= null ||ratingVal!= '') {
+                        for (var n = 1; n <= ratingVal; n++) {
+                            var index = $(".rating_stars_provider i#" + ratingVal).index();
+                            console.log(index);
+                            if (index == 0) {
+                                $('.rating_stars_provider i').eq(index).removeClass("gray");
+                            }
+                            else {
+                                $('.rating_stars_provider i').eq(index).attr("class", "fas fa-star gray")
+                                    .prevAll(".rating_stars_provider i").attr("class", "fas fa-star")
+                                    .next(".rating_stars_provider i").attr("class", "fas fa-star");
+                            }
+                        }
+                    }
+        }
+    });
+
+    $("#close_price_modal").click(function () {
+        $('#price_modal').modal('hide');
+            });
+
+            //$("#close_map_modal").click(function () {
+            //    $('#map_modal').modal('hide');
+            //});
+
+    function openMapModal() {
+        window.open("http://maps.google.com/maps?q=" +'@Model.PropertyAddress');
+                //$('#map_modal').modal('show');
+    }
+    //var map, infoWindow;
+    //function initMap() {
+    //    map = new google.maps.Map(document.getElementById('map_canvas'), {
+    //        center: { lat: -34.397, lng: 150.644 },
+    //        zoom: 6
+    //    });
+    //    infoWindow = new google.maps.InfoWindow;
+
+    //    // Try HTML5 geolocation.
+    //    if ("geolocation" in navigator) {
+    //        navigator.geolocation.getCurrentPosition(function (position) {
+    //            var pos = {
+    //                lat: position.coords.latitude,
+    //                lng: position.coords.longitude
+    //            };
+
+    //            infoWindow.setPosition(pos);
+    //            //infoWindow.setContent('Location found.');
+    //            //infoWindow.open(map);
+    //            map.setCenter(pos);
+    //            addMarker(pos.lat, pos.lng);
+    //        }, function () {
+    //            handleLocationError(true, infoWindow, map.getCenter());
+    //        });
+    //    } else {
+    //        // Browser doesn't support Geolocation
+    //        handleLocationError(false, infoWindow, map.getCenter());
+    //    }
+    //}
+
+    //function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    //    infoWindow.setPosition(pos);
+    //    infoWindow.setContent(browserHasGeolocation ?
+    //        'Error: The Geolocation service failed.' :
+    //        'Error: Your browser doesn\'t support geolocation.');
+    //    infoWindow.open(map);
+    //}
+
+    //function showPosition(position) {
+    //    currentLat = position.coords.latitude;
+    //    currentLng = position.coords.longitude
+    //}
+
+    //function addMarker(lat, lng) {
+    //    var path = [];
+
+    //    var myLatlng = new google.maps.LatLng(lat, lng);
+    //    var modalLat = $("#PropertyLatitude").val();
+    //    var modalLng = $("#PropertyLongitude").val();
+
+    //    var myLatlng1 = new google.maps.LatLng(modalLat, modalLng);
+
+    //    // Save the current position
+    //    path.push(myLatlng);
+    //    path.push(myLatlng1);
+    //        var marker = new google.maps.Marker({
+    //            position: myLatlng,
+    //            map: map,
+    //            id:"Current Location"
+    //    });
+    //    //myFunctinForListener(marker);
+
+    //    var marker1 = new google.maps.Marker({
+    //        position: myLatlng1,
+    //        map: map,
+    //        id: $("#address_val").text()
+    //    });
+    //    myFunctinForListener(marker1);
+
+    //    var line = new google.maps.Polyline({
+    //        path: path,
+    //        strokeColor: "#FF0000",
+    //        strokeOpacity: 1.0,
+    //        strokeWeight: 4,
+    //        map: map
+    //    });
+    //}
+
+    //var myFunctinForListener = function (aMarker) {
+    //    google.maps.event.addListener(aMarker, 'click', function () {
+    //        //infoWindow.setContent(aMarker.id);
+    //        //infoWindow.open(map);
+    //    });
+    //    infoWindow.setContent(aMarker.id);
+    //    infoWindow.open(map, aMarker);
+    //}
+
+    $(document).on('input',"#price-value", function () {
+        if ($(this).val().length != 0)
+            $('#quote-submit-button').attr('disabled', false);
+        else
+            $('#quote-submit-button').attr('disabled', true);
+    });
+
+    $(document).on("click", "#quote-submit-button", function (e) {
+        var QuotePriceModel = {
+            JobRequestId: @Model.Id,
+            QuotePrice: $("#price-value").val()
+            };
+
+            $.ajax({
+                url: "/Bookings/SendQuote",
+                data: JSON.stringify(QuotePriceModel),
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data == true) {
+                        alert("@Resource.quote_sent_success");
+                        window.location.href ="/Bookings/JobDetails?jobId="+@Model.Id;
+                    }
+                    else if (data == "Session Expired") {
+                        window.location.href = "/Account/Login";
+                    }
+                },
+                error: function () {
+                    alert("@Resource.error_occured")
+                }
+            });
+    });
+
+    var UserTypeEnum = {
+        Admin: 1,
+        ServiceProvider: 2,
+        Worker: 3,
+        Customer: 4
+    }
+    if ($("#sessionInputUserType").val() == UserTypeEnum.Customer) {
+        $(document).on("click", "#property-submit-btn-pay", function (e) {
+            if ($("#customerPrice").val().length > 0) {
+                window.location.href = "/Payment/DoPayment?userId=" + $("#sessionInputUserID").val() + "&requestId=" + @Model.Id + "&price=" + $("#customerPrice").val();
+            }
+            });
+    }
+
+    function EndTimer() {
+        var getParent = $("#check-list-div").children();
+        var getChildren = getParent.find('.no');
+        if (getChildren.length == 0) {
+            var UpdateTimerTimeModel = {
+                JobRequestId: @Model.Id,
+                IsStart: false
+            };
+
+            $.ajax({
+                url: "/Bookings/StartJob",
+                data: JSON.stringify(UpdateTimerTimeModel),
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data == true) {
+                        alert("@Resource.job_end_success");
+                        window.location.reload();
+                    }
+                    else if (data == "Session Expired") {
+                        window.location.href = "/Account/Login";
+                    }
+                },
+                error: function () {
+                    alert("@Resource.error_occured")
+                }
+            });
+        }
+        else {
+            alert("@Resource.please_complete_checklist")
+        }
+    }
+
+    function StartJob() {
+                    var UpdateTimerTimeModel = {
+                        JobRequestId: @Model.Id,
+                        IsStart:true
+            };
+
+            $.ajax({
+                url: "/Bookings/StartJob",
+                data: JSON.stringify(UpdateTimerTimeModel),
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data == true) {
+                        alert("@Resource.job_started_success");
+                        window.location.reload();
+                    }
+                    else if (data == "Session Expired") {
+                        window.location.href = "/Account/Login";
+                    }
+                },
+                error: function () {
+                    alert("@Resource.error_occured")
+                }
+            });
+    }
+
+    function CheckListClick(item) {
+        if ($("#complete-btn").val() == "True" || $("#end-btn").val() == "True") {
+            if ($(item).find('img').hasClass('no')) {
+                $(item).find('img').attr('src', '/Images/ic_checked.png');
+                $(item).find('img').removeClass('no');
+                $(item).find('img').addClass('yes');
+            }
+            else {
+                $(item).find('img').attr('src', '/Images/ic_uncheked.png');
+                $(item).find('img').addClass('no');
+                $(item).find('img').removeClass('yes');
+            }
+        }
+    }
+
+    function SendQuote() {
+        //$('#booking_view_modal').modal('hide');
+        $('#price_modal').modal('show');
+    }
+
+    function CompleteJob() {
+        var getParent = $("#check-list-div").children();
+        var getChildren = getParent.find('.no');
+        if (getChildren.length == 0) {
+            var CompleteJobRequestModel = {
+                JobRequestId: @Model.Id,
+            };
+
+            $.ajax({
+                url: "/Bookings/CompleteJob",
+                data: JSON.stringify(CompleteJobRequestModel),
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data == true) {
+                        alert("@Resource.job_complete_success");
+                        window.location.reload();
+                    }
+                    else if (data == "Session Expired") {
+                        window.location.href = "/Account/Login";
+                    }
+                },
+                error: function () {
+                    alert("@Resource.error_occured")
+                }
+            });
+        }
+        else {
+            alert("@Resource.please_complete_checklist");
+        }
+    }
+
+    $(window).load(function () {
+        $('.navbar-nav li a').each(function () {
+            $(this).parent().removeClass('active');
+            var $this = $(this);
+            matching_value = $this.attr('href');
+            if (matching_value == "/Bookings/MyBookings") {
+                $(this).parent().addClass('active');
+            }
+        });
+    });
+
+</script>
+
+@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAW0qqikPYbOKLu_aobSw04z1Dnfhgpv4&libraries=places&callback=initMap" async defer></script>*@

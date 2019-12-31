@@ -1,0 +1,245 @@
+﻿@model BroomServiceWeb.Models.JobRequestViewModel
+@using BroomServiceWeb.Resources
+
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+<h2 class="heading-top">@Resource.order_detail</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-title">
+                @if (TempData["PreviousUrl"] != null)
+                {
+                    <a href="@TempData["PreviousUrl"]"><i class="fa fa-arrow-left mr-15 "></i><span>@Resource.back</span></a>
+                }
+            </div>
+            <div class="card-body">
+                <div class="order_details_main">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="order_customer_image">
+                                <input type="hidden" id="requestId" name="requestId" value="@Model.Id" />
+                                @if (!string.IsNullOrEmpty(Model.CustomerImage))
+                                {
+                                    <img src="~/Images/User/@Model.CustomerImage" alt="image" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/image_placeholder.jpg" alt="image" />
+                                }
+
+                            </div>
+                            <h2>@Model.CustomerName</h2>
+                            <h6>@Resource.customer_details_info</h6>
+                            <a href="@Url.Action("Chat","Admin",new { userId=Model.CustomerId})" class="chat_button">
+                                <img src="/Content/images/chat_icon.png" alt="chat" />
+                                <span>@Resource.chat</span>
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="order_info_main">
+                                <div class="order_info_box">
+                                    <h3>@Resource.property</h3>
+                                    <h5>@Model.PropertyName</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.service</h3>
+                                    <h5>@Model.Category.Name</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.sub_service</h3>
+                                    <h5>@Model.SubCategory.Name</h5>
+                                    @if (!Model.IsShownQuote)
+                                    {
+                                        if (Model.SubCategory.Price != null && Model.SubSubCategories.Count == 0)
+                                        {
+                                            <div>$ @Model.SubCategory.Price</div>
+                                        }
+                                    }
+                                </div>
+                                @if (Model.SubSubCategories.Count != 0)
+                                {
+                                    <div class="order_info_box">
+                                        <h3>@Resource.type_of_service</h3>
+                                        <div class="row">
+                                            @foreach (var item in Model.SubSubCategories)
+                                            {
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="type_bg d-flex justify-content-between">
+
+                                                        <div>@item.Name</div>
+                                                        @if (!Model.IsShownQuote)
+                                                        {
+                                                            if (item.Price != null)
+                                                            {
+                                                                <div>$ @item.Price</div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.assigned_worker</h3>
+                                    <h5 id="h5ServiceProviderName">@Model.ServiceProviderName</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.job_date_time</h3>
+                                    @if (Model.JobStartDatetime != null && Model.JobEndDatetime != null)
+                                    {
+                                    <h5>
+                                        @Model.JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy") @Resource.at @Model.JobStartDatetime.Value.ToString("hh:mm tt")
+                                        <span style="color:black;margin-left:10px;margin-right:10px">@Resource.to</span>
+                                        @Model.JobEndDatetime.Value.ToString("ddd, MMMM dd, yyyy") @Resource.at @Model.JobEndDatetime.Value.ToString("hh:mm tt")
+
+
+                                    </h5>
+                                    }
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.job_completed_date_time</h3>
+                                    @if (Model.TimerStartTime != null)
+                                    {
+                                        if (Model.TimerEndTime != null)
+                                        {
+                                    <h5>
+                                        @Model.TimerStartTime.Value.ToString("ddd, MMMM dd, yyyy") @Resource.at @Model.TimerStartTime.Value.ToString("hh:mm tt")
+                                        <span style="color:black;margin-left:10px;margin-right:10px">@Resource.to</span>
+                                        @Model.TimerEndTime.Value.ToString("ddd, MMMM dd, yyyy") @Resource.at @Model.TimerEndTime.Value.ToString("hh:mm tt")
+                                    </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5>@Model.TimerStartTime.Value.ToString("ddd, MMMM dd, yyyy") at @Model.TimerStartTime.Value.ToString("hh:mm tt")</h5>
+
+                                        }
+                                    }
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.client_rating</h3>
+                                    @if (Model.UserJobRating == 5)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    }
+                                    else if (Model.UserJobRating == 4)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else if (Model.UserJobRating == 3)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else if (Model.UserJobRating == 2)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else if (Model.UserJobRating == 1)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.address</h3>
+                                    <h5>@Model.PropertyAddress</h5>
+                                </div>
+                                @if (Model.IsShownQuote)
+                                {
+                                    <div class="order_info_box">
+                                        <h3>@Resource.description</h3>
+                                        <h5>@Model.Description</h5>
+                                    </div>
+                                    <div class="order_info_box">
+                                        <h3>@Resource.reference_images</h3>
+                                        @foreach (var item in Model.ReferenceImages)
+                                        {
+                                            <div class="r_image">
+                                                <a href="~/Images/JobRequest/@item.ToString()" target="_blank">
+                                                    <img src="~/Images/JobRequest/@item.ToString()" class="w-100 h-100" alt="image" />
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal_quote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="p-4">
+                    <button type="button" class="close new_modal_close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>@Resource.price_of_service</h3>
+
+                    <form>
+                        <div class="form-group">
+                            <label class="sr-only">@Resource.text_here</label>
+                            <input class="form-control custom_text_area" id="quotePrice" name="quotePrice"
+                                   placeholder="Write Price Here" required="required" type="number" />
+                        </div>
+                        <div class="w-100 text-right">
+                            <button type="submit" class="quote_done">@Resource.done</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+
+
+    });
+
+
+</script>

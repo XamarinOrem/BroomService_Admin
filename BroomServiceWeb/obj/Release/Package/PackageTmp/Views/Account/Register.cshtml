@@ -1,0 +1,207 @@
+﻿@model BroomServiceWeb.Models.UserModel
+@using BroomServiceWeb.Resources
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+}
+
+
+<div class="container-fluid height_100 d-flex align-items-center justify-content-center">
+    <div class="div_width">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="row">
+                    <div class="col-md-6 p-0">
+                        <img src="~/Images/login_main_image.png" class="w-100 i_height" alt="iomage" />
+                    </div>
+                    <div class="col-md-6 p-0">
+                        <div class="all_box_main d-flex align-items-center">
+                            <div class="register_div">
+                                <h1>@Resource.create_account</h1>
+                                <p>@Resource.already_have_an_account <a href="/Account/Login">@Resource.log_in</a></p>
+                                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    if (TempData["ErrorMsg"] != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            @TempData["ErrorMsg"]
+                                        </div>
+                                    }
+                                    if (TempData["SuccessMsg"] != null)
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            @TempData["SuccessMsg"]
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <div class="register_photo">
+                                            <img id="profile-pic" src="~/Images/login_main_image.png" alt="iomage" />
+                                            <div class="upload-register-wrapper">
+                                          <button class="upload_btn_register"><i class="fas fa-camera"></i></button>
+                                          <input type="file" name="PicturePath" id="PicturePath" />
+                                        </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="double_input d-flex justify-content-between">
+                                            <div class="small_input_box ">
+                                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input_box_small", placeholder = Resource.first_name, @required = "required" })
+                                                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="small_input_box">
+                                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input_box_small", placeholder = Resource.last_name })
+                                                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control form_input", placeholder = Resource.email, @required = "required", @type = "email" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control form_input", placeholder = Resource.password, @required = "required" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    @*<div class="form-group">
+                                        @Html.TextBoxFor(m => m.PicturePath, new { @class = "form-control form_input", @type = "file" })
+                                        @Html.ValidationMessageFor(m => m.PicturePath, "", new { @class = "text-danger" })
+                                    </div>*@
+
+
+                                    <div class="form-group">
+                                        <div class="double_input d-flex justify-content-between">
+                                            <div class="counrty_select">
+                                                    @Html.TextBoxFor(m => m.CountryCode
+                                       , new { @class = "form-control", @required = "required",style= "height: 50px;border: transparent;color: rgba(0,0,0,.6);font-weight:300;font-size:16px;" })
+
+                                                    @Html.HiddenFor(m => m.DeviceToken)
+                                            </div>
+                                            <div class="small_input_box">
+                                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control input_box_small", placeholder = Resource.phone_number, @type = "number", @required = "required" })
+                                                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.Countries, "Value", "Text"), Resource.country
+                                               , new { @class = "form-control form_input", @id = "CountryId", @required = "required" })
+                                        @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.City, new { @class = "form-control form_input", placeholder = Resource.city })
+                                        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control form_input", placeholder = Resource.address})
+                                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.Zipcode, new { @class = "form-control form_input", placeholder = Resource.zip_code,
+                                       @type = "number" })
+                                        @Html.ValidationMessageFor(m => m.Zipcode, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox w-100 text-left">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2" required>
+                                            <label class="custom-control-label terms_condition_checkbox" for="customCheck2">
+                                            <span>@Resource.agree_with </span><a href="#" id="termsconditions"> @Resource.terms_conditions</a></label>
+
+                                        </div>
+                                        <div class="text-center mt-5">
+                                            <button type="submit" class="btn login_signup_main">@Resource.submit</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="back_to_home">
+                            <a href="/Home/Index"><i></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Terms And Conditions-->
+<div class="modal fade" id="terms_conditions_modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                @*<h5 class="modal-title modal_heading" id="exampleModalLabel">@Resource.terms_conditions</h5>*@
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCAW0qqikPYbOKLu_aobSw04z1Dnfhgpv4"></script>
+<script>
+    $(document).ready(function () {
+        $(".alert").fadeOut(10000);
+    });
+
+    $('#PicturePath').on('change', function () {
+
+        var input = this;
+        var url = $(this).val();
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profile-pic').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        else {
+            $('#profile-pic').attr('src', '../Template/imgs/user_profle.png');
+        }
+    });
+
+    //$('#CountryCode').change(function () {
+    //    var selectedText = $('#CountryCode :selected').val();
+    //    var selectedValue = $('#CountryCode :selected').text();
+    //    $("#DeviceToken").val(selectedValue);
+    //    $('#CountryId').find('option[value="' + selectedText + '"]').attr('selected', 'selected');
+    //});
+
+    google.maps.event.addDomListener(window, 'load', function () {
+        var options = {
+            types: ['(cities)']
+        };
+
+        var input = document.getElementById('City');
+        var places = new google.maps.places.Autocomplete(input, options);
+
+        google.maps.event.addListener(places, 'place_changed', function () {
+            var place = places.getPlace();
+            var address = place.address_components;
+            for (var i = 0; i < address.length; i++) {
+
+                if (address[i].types[0] == "administrative_area_level_2") {
+                    $("#City").val(address[i].long_name);
+
+                }
+            }
+        });
+
+    });
+
+    $('#termsconditions').click(function (e) {
+        $(this).attr('data-target', '#terms_conditions_modal');
+        $(this).attr('data-toggle', 'modal');
+        $('.modal-body').load('/Account/TermsConditions');
+    });
+</script>
+

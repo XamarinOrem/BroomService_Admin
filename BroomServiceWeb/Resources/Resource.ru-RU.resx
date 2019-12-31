@@ -1,0 +1,1383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="about" xml:space="preserve">
+    <value>О нас</value>
+  </data>
+  <data name="about_us" xml:space="preserve">
+    <value>О нас</value>
+  </data>
+  <data name="accept" xml:space="preserve">
+    <value>Принимать</value>
+  </data>
+  <data name="accepted_broom_service_request" xml:space="preserve">
+    <value>Вы приняли запрос предложения Broom Service</value>
+  </data>
+  <data name="accepted_your_quote_price" xml:space="preserve">
+    <value>принял ваш запрос цены цитаты.</value>
+  </data>
+  <data name="access_property_details" xml:space="preserve">
+    <value>Доступ к собственности (с подробной информацией)</value>
+  </data>
+  <data name="access_property_options" xml:space="preserve">
+    <value>Например. швейцар / элок / кейбокс / ключ / другое</value>
+  </data>
+  <data name="account_deactivate_message" xml:space="preserve">
+    <value>ваш аккаунт деактивирован администратором. Если вы хотите активировать, пожалуйста, свяжитесь с администратором.</value>
+  </data>
+  <data name="action" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="active" xml:space="preserve">
+    <value>Активный</value>
+  </data>
+  <data name="address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="add_job_request" xml:space="preserve">
+    <value>Добавить Запрос На Вакансию</value>
+  </data>
+  <data name="add_property" xml:space="preserve">
+    <value>Добавить Свойство</value>
+  </data>
+  <data name="add_property_heading" xml:space="preserve">
+    <value>Вы можете перечислить столько свойств, которые вы хотите для каждого вида.</value>
+  </data>
+  <data name="add_service" xml:space="preserve">
+    <value>дополнительный сервис</value>
+  </data>
+  <data name="add_service_provider" xml:space="preserve">
+    <value>Добавить Поставщика Услуг</value>
+  </data>
+  <data name="add_sub_service" xml:space="preserve">
+    <value>Добавить Дополнительный Сервис</value>
+  </data>
+  <data name="add_sub_sub_service" xml:space="preserve">
+    <value>Добавить Sub Sub Сервис</value>
+  </data>
+  <data name="add_testimonial" xml:space="preserve">
+    <value>Добавить Отзыв</value>
+  </data>
+  <data name="add_text_validation" xml:space="preserve">
+    <value>Пожалуйста, добавьте текст перед добавлением нового контрольного списка</value>
+  </data>
+  <data name="add_worker" xml:space="preserve">
+    <value>Добавить Работника</value>
+  </data>
+  <data name="ago" xml:space="preserve">
+    <value>тому назад</value>
+  </data>
+  <data name="agree_with" xml:space="preserve">
+    <value>Я Согласен Со Всеми</value>
+  </data>
+  <data name="already_have_an_account" xml:space="preserve">
+    <value>Уже есть аккаунт?</value>
+  </data>
+  <data name="already_paid" xml:space="preserve">
+    <value>уже оплачено</value>
+  </data>
+  <data name="already_reject_job" xml:space="preserve">
+    <value>Вы уже отклонили этот запрос на вакансию.</value>
+  </data>
+  <data name="aparment_number" xml:space="preserve">
+    <value>Номер Квартиры</value>
+  </data>
+  <data name="apartment" xml:space="preserve">
+    <value>Квартира</value>
+  </data>
+  <data name="apartment_number" xml:space="preserve">
+    <value>номер квартиры</value>
+  </data>
+  <data name="assigned_worker" xml:space="preserve">
+    <value>Назначенный Работник</value>
+  </data>
+  <data name="assign_job" xml:space="preserve">
+    <value>Назначить Задание</value>
+  </data>
+  <data name="assign_worker" xml:space="preserve">
+    <value>Назначить Работника</value>
+  </data>
+  <data name="at" xml:space="preserve">
+    <value>около</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="back_to_home" xml:space="preserve">
+    <value>Назад На Родину</value>
+  </data>
+  <data name="back_to_profile" xml:space="preserve">
+    <value>Вернуться К Профилю</value>
+  </data>
+  <data name="balcony" xml:space="preserve">
+    <value>Балкон</value>
+  </data>
+  <data name="bed_size" xml:space="preserve">
+    <value>размер кровати</value>
+  </data>
+  <data name="bookings_list" xml:space="preserve">
+    <value>Список Бронирований</value>
+  </data>
+  <data name="broom_email_address" xml:space="preserve">
+    <value>office@broomservice.co.il</value>
+  </data>
+  <data name="broom_service" xml:space="preserve">
+    <value>Брум сервис</value>
+  </data>
+  <data name="broom_service_added" xml:space="preserve">
+    <value>Брум сервис добавил вас как</value>
+  </data>
+  <data name="broom_service_has_rejected" xml:space="preserve">
+    <value>Брум сервис отвергл ваше</value>
+  </data>
+  <data name="bs_crew" xml:space="preserve">
+    <value>BS команда</value>
+  </data>
+  <data name="building_code" xml:space="preserve">
+    <value>Код подъезда</value>
+  </data>
+  <data name="by_cash" xml:space="preserve">
+    <value>за наличный расчет</value>
+  </data>
+  <data name="by_cheque" xml:space="preserve">
+    <value>По Чеку</value>
+  </data>
+  <data name="by_credit_card" xml:space="preserve">
+    <value>по кредитной карте</value>
+  </data>
+  <data name="by_money_transfer" xml:space="preserve">
+    <value>По Денежному Переводу</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="cancelled" xml:space="preserve">
+    <value>Отмененный</value>
+  </data>
+  <data name="card_number" xml:space="preserve">
+    <value>НОМЕР КАРТЫ</value>
+  </data>
+  <data name="change_language" xml:space="preserve">
+    <value>выбранный язык</value>
+  </data>
+  <data name="change_password" xml:space="preserve">
+    <value>изменение пароля</value>
+  </data>
+  <data name="chat" xml:space="preserve">
+    <value>Чат</value>
+  </data>
+  <data name="chat_list" xml:space="preserve">
+    <value>Список Чатов</value>
+  </data>
+  <data name="chat_listing" xml:space="preserve">
+    <value>Список Чатов</value>
+  </data>
+  <data name="check_list" xml:space="preserve">
+    <value>контрольный список</value>
+  </data>
+  <data name="choose_atleaset_one_subcategory" xml:space="preserve">
+    <value>Выберите хотя бы одну подкатегорию</value>
+  </data>
+  <data name="choose_payment_method" xml:space="preserve">
+    <value>Выберите Способ Оплаты</value>
+  </data>
+  <data name="choose_service" xml:space="preserve">
+    <value>Выберите Сервис</value>
+  </data>
+  <data name="choose_sub_service" xml:space="preserve">
+    <value>Выберите Дополнительную Службу</value>
+  </data>
+  <data name="choose_sub_sub_service" xml:space="preserve">
+    <value>Выберите Sub Sub Service</value>
+  </data>
+  <data name="choose_worker" xml:space="preserve">
+    <value>Выберите работника</value>
+  </data>
+  <data name="city" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="click_on_link" xml:space="preserve">
+    <value>Пожалуйста, нажмите на ссылку ниже, чтобы подтвердить свой адрес электронной почты</value>
+  </data>
+  <data name="client_price" xml:space="preserve">
+    <value>Цена Клиента</value>
+  </data>
+  <data name="client_rating" xml:space="preserve">
+    <value>Рейтинг Клиента</value>
+  </data>
+  <data name="comment" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="completed" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="completed_date_time" xml:space="preserve">
+    <value>Завершенный Datetime</value>
+  </data>
+  <data name="complete_job" xml:space="preserve">
+    <value>Полное Задание</value>
+  </data>
+  <data name="confirmation_email_sent" xml:space="preserve">
+    <value>Пожалуйста, проверьте свою электронную почту, мы отправили письмо с подтверждением на ваш зарегистрированный адрес электронной почты.</value>
+  </data>
+  <data name="confirm_password" xml:space="preserve">
+    <value>Подтвердите Пароль</value>
+  </data>
+  <data name="contact_us" xml:space="preserve">
+    <value>Связаться с нами</value>
+  </data>
+  <data name="country" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="created_date" xml:space="preserve">
+    <value>Дата Создания</value>
+  </data>
+  <data name="create_account" xml:space="preserve">
+    <value>Создать аккаунт</value>
+  </data>
+  <data name="create_account_as_customer" xml:space="preserve">
+    <value>Создать Учетную Запись В Качестве Клиента</value>
+  </data>
+  <data name="customers" xml:space="preserve">
+    <value>Клиенты</value>
+  </data>
+  <data name="customer_details" xml:space="preserve">
+    <value>Детали Клиента</value>
+  </data>
+  <data name="customer_details_info" xml:space="preserve">
+    <value>Данные по деталей клиента</value>
+  </data>
+  <data name="customer_name" xml:space="preserve">
+    <value>имя клиента</value>
+  </data>
+  <data name="customer_not_exists" xml:space="preserve">
+    <value>Заказчик не существует.</value>
+  </data>
+  <data name="cvv" xml:space="preserve">
+    <value>ПРОВЕРОЧНЫЙ КОД</value>
+  </data>
+  <data name="dashboard" xml:space="preserve">
+    <value>Информационная панель</value>
+  </data>
+  <data name="day" xml:space="preserve">
+    <value>день</value>
+  </data>
+  <data name="days" xml:space="preserve">
+    <value>дни</value>
+  </data>
+  <data name="deactive" xml:space="preserve">
+    <value>Deactive</value>
+  </data>
+  <data name="dear" xml:space="preserve">
+    <value>Дорогой</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="details" xml:space="preserve">
+    <value>Подробные сведения</value>
+  </data>
+  <data name="dishwasher" xml:space="preserve">
+    <value>Посудомойка</value>
+  </data>
+  <data name="display_order" xml:space="preserve">
+    <value>порядок отображения</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="dont_have_account" xml:space="preserve">
+    <value>Нет аккаунта?</value>
+  </data>
+  <data name="doorman" xml:space="preserve">
+    <value>Швейцар</value>
+  </data>
+  <data name="duplex" xml:space="preserve">
+    <value>Дуплекс</value>
+  </data>
+  <data name="duvet_size" xml:space="preserve">
+    <value>Размер Пододеяльника</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="edit_profile" xml:space="preserve">
+    <value>Изменить Профиль</value>
+  </data>
+  <data name="edit_property" xml:space="preserve">
+    <value>Изменить Свойство</value>
+  </data>
+  <data name="edit_service" xml:space="preserve">
+    <value>Редактировать Сервис</value>
+  </data>
+  <data name="edit_service_provider" xml:space="preserve">
+    <value>Изменить Поставщика Услуг</value>
+  </data>
+  <data name="edit_sub_service" xml:space="preserve">
+    <value>Изменить Дополнительный Сервис</value>
+  </data>
+  <data name="edit_sub_sub_service" xml:space="preserve">
+    <value>Редактировать Sub Sub Сервис</value>
+  </data>
+  <data name="edit_worker" xml:space="preserve">
+    <value>Редактировать Работника</value>
+  </data>
+  <data name="elevator" xml:space="preserve">
+    <value>Лифт</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="email_address" xml:space="preserve">
+    <value>Эл. адрес</value>
+  </data>
+  <data name="email_already_exists" xml:space="preserve">
+    <value>Электронная почта уже существует.</value>
+  </data>
+  <data name="email_post" xml:space="preserve">
+    <value>Электронная почта:</value>
+  </data>
+  <data name="email_verified_sucess" xml:space="preserve">
+    <value>Ваша электронная почта проверяется успешно.</value>
+  </data>
+  <data name="end_date" xml:space="preserve">
+    <value>дата окончания</value>
+  </data>
+  <data name="end_date_time" xml:space="preserve">
+    <value>Дата И Время Окончания</value>
+  </data>
+  <data name="end_time" xml:space="preserve">
+    <value>конец времени</value>
+  </data>
+  <data name="end_timer" xml:space="preserve">
+    <value>Конечное Реле Времени</value>
+  </data>
+  <data name="end_time_job_validation" xml:space="preserve">
+    <value>Время окончания должно быть больше, чем время начала.</value>
+  </data>
+  <data name="english" xml:space="preserve">
+    <value>Английский</value>
+  </data>
+  <data name="enteremail" xml:space="preserve">
+    <value>Введите Адрес Электронной Почты</value>
+  </data>
+  <data name="enter_address" xml:space="preserve">
+    <value>Введите адрес</value>
+  </data>
+  <data name="enter_card_number" xml:space="preserve">
+    <value>Введите Номер Карты</value>
+  </data>
+  <data name="enter_confirm_password" xml:space="preserve">
+    <value>Введите Пароль Подтверждения</value>
+  </data>
+  <data name="enter_cvv" xml:space="preserve">
+    <value>Введите CVV</value>
+  </data>
+  <data name="enter_description" xml:space="preserve">
+    <value>Введите Описание</value>
+  </data>
+  <data name="enter_display_order" xml:space="preserve">
+    <value>Введите Порядок Отображения</value>
+  </data>
+  <data name="enter_email" xml:space="preserve">
+    <value>Введите Адрес Электронной Почты</value>
+  </data>
+  <data name="enter_expiry_date" xml:space="preserve">
+    <value>Введите Дату Истечения Срока Действия</value>
+  </data>
+  <data name="enter_first_name" xml:space="preserve">
+    <value>Введите имя пользователя</value>
+  </data>
+  <data name="enter_last_name" xml:space="preserve">
+    <value>Введите фамилию</value>
+  </data>
+  <data name="enter_message" xml:space="preserve">
+    <value>входящее сообщение</value>
+  </data>
+  <data name="enter_name" xml:space="preserve">
+    <value>ввести имя</value>
+  </data>
+  <data name="enter_new_password" xml:space="preserve">
+    <value>Введите Новый Пароль</value>
+  </data>
+  <data name="enter_old_password" xml:space="preserve">
+    <value>Введите Старый Пароль</value>
+  </data>
+  <data name="enter_password" xml:space="preserve">
+    <value>Введите Пароль</value>
+  </data>
+  <data name="enter_phone_number" xml:space="preserve">
+    <value>Введите номер телефона</value>
+  </data>
+  <data name="enter_title" xml:space="preserve">
+    <value>Введите Название</value>
+  </data>
+  <data name="enter_work_for_checklist" xml:space="preserve">
+    <value>Введите работу для контрольного списка</value>
+  </data>
+  <data name="error_occured" xml:space="preserve">
+    <value>Произошла ошибка!!</value>
+  </data>
+  <data name="error_requesting_password" xml:space="preserve">
+    <value>Произошла ошибка с запросом вашего пароля, ваша электронная почта не существует!</value>
+  </data>
+  <data name="expiration_date" xml:space="preserve">
+    <value>СРОК ГОДНОСТИ</value>
+  </data>
+  <data name="file_extension_invalid" xml:space="preserve">
+    <value>Расширение файла является недопустимым-только загрузить jpg / png / jpeg/JPG/PNG / JPEG файл</value>
+  </data>
+  <data name="fill_required_records" xml:space="preserve">
+    <value>Пожалуйста, заполните необходимые записи.</value>
+  </data>
+  <data name="fill_requirements" xml:space="preserve">
+    <value>Заполните Требования</value>
+  </data>
+  <data name="first_name" xml:space="preserve">
+    <value>имя</value>
+  </data>
+  <data name="floor" xml:space="preserve">
+    <value>Этаж</value>
+  </data>
+  <data name="floor_number" xml:space="preserve">
+    <value>Номер Этажа</value>
+  </data>
+  <data name="footer_text" xml:space="preserve">
+    <value>2019 Услуги Метлы. Все авторские права защищены</value>
+  </data>
+  <data name="forgot_password_heading" xml:space="preserve">
+    <value>Введите свой адрес электронной почты, и мы вышлем вам ссылку для сброса пароля.</value>
+  </data>
+  <data name="forgot_your_password" xml:space="preserve">
+    <value>Забыли Свой Пароль</value>
+  </data>
+  <data name="for_workers" xml:space="preserve">
+    <value>для работников</value>
+  </data>
+  <data name="french" xml:space="preserve">
+    <value>Французский</value>
+  </data>
+  <data name="garden" xml:space="preserve">
+    <value>Сад</value>
+  </data>
+  <data name="get_back_with_quote" xml:space="preserve">
+    <value>Мы свяжемся с вами с цитатой в ближайшее время.</value>
+  </data>
+  <data name="has_accepted_job_request" xml:space="preserve">
+    <value>принял ваше заявление о приеме на работу.</value>
+  </data>
+  <data name="has_assigned_job_to_you" xml:space="preserve">
+    <value>назначил вам эту новую работу.</value>
+  </data>
+  <data name="has_completed_job_for" xml:space="preserve">
+    <value>выполнил задание для</value>
+  </data>
+  <data name="has_ended_timer_for" xml:space="preserve">
+    <value>закончился таймер для</value>
+  </data>
+  <data name="has_price" xml:space="preserve">
+    <value>Имеет Цену</value>
+  </data>
+  <data name="has_sent_job_request" xml:space="preserve">
+    <value>отправил запрос на вакансию.</value>
+  </data>
+  <data name="has_sent_quote_for" xml:space="preserve">
+    <value>послал вам цитату для</value>
+  </data>
+  <data name="has_started_timer_for" xml:space="preserve">
+    <value>запустил таймер для</value>
+  </data>
+  <data name="has_sub_sub_categories" xml:space="preserve">
+    <value>Имеет Подсубкатегории</value>
+  </data>
+  <data name="header_title_text_one" xml:space="preserve">
+    <value>Впервые в Израиле 5-звездочное обслуживание номеров в вашей собственности</value>
+  </data>
+  <data name="header_title_text_two" xml:space="preserve">
+    <value>Свяжитесь с нами для получения выгодного предложения</value>
+  </data>
+  <data name="hebrew" xml:space="preserve">
+    <value>Иврит</value>
+  </data>
+  <data name="hello" xml:space="preserve">
+    <value>Привет</value>
+  </data>
+  <data name="here" xml:space="preserve">
+    <value>Здесь</value>
+  </data>
+  <data name="home" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="hour" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>часы</value>
+  </data>
+  <data name="icon" xml:space="preserve">
+    <value>Икона</value>
+  </data>
+  <data name="image" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="info_update_success" xml:space="preserve">
+    <value>Информация успешно обновляется</value>
+  </data>
+  <data name="invalid_user" xml:space="preserve">
+    <value>Неверный Пользователь.</value>
+  </data>
+  <data name="in_progress" xml:space="preserve">
+    <value>в процессе</value>
+  </data>
+  <data name="in_there_portal" xml:space="preserve">
+    <value>там есть портал.</value>
+  </data>
+  <data name="job_completed_date_time" xml:space="preserve">
+    <value>Дата И Время Выполнения Задания</value>
+  </data>
+  <data name="job_complete_success" xml:space="preserve">
+    <value>Работа Выполнена Успешно!!</value>
+  </data>
+  <data name="job_date_time" xml:space="preserve">
+    <value>Дата И Время Выполнения Задания</value>
+  </data>
+  <data name="job_details" xml:space="preserve">
+    <value>Сведения О Задании</value>
+  </data>
+  <data name="job_end_success" xml:space="preserve">
+    <value>Работа Закончилась Успешно!!</value>
+  </data>
+  <data name="job_not_exists" xml:space="preserve">
+    <value>Иова не существует.</value>
+  </data>
+  <data name="job_price" xml:space="preserve">
+    <value>Job Price</value>
+  </data>
+  <data name="job_rating" xml:space="preserve">
+    <value>Рейтинг Вакансий</value>
+  </data>
+  <data name="job_request" xml:space="preserve">
+    <value>Запрос На Вакансию</value>
+  </data>
+  <data name="job_request_accept_success" xml:space="preserve">
+    <value>Заявка на вакансию принимается успешно.</value>
+  </data>
+  <data name="job_request_add_success" xml:space="preserve">
+    <value>Ваш запрос на вакансию будет успешно добавлен.</value>
+  </data>
+  <data name="job_request_reject_success" xml:space="preserve">
+    <value>Запрос на вакансию успешно отклонен.</value>
+  </data>
+  <data name="job_review" xml:space="preserve">
+    <value>Job Review</value>
+  </data>
+  <data name="job_started_success" xml:space="preserve">
+    <value>Работа Началась Успешно!!</value>
+  </data>
+  <data name="job_successfully_assigned" xml:space="preserve">
+    <value>Задание успешно присвоено</value>
+  </data>
+  <data name="large" xml:space="preserve">
+    <value>Большой</value>
+  </data>
+  <data name="last_name" xml:space="preserve">
+    <value>фамилия</value>
+  </data>
+  <data name="location" xml:space="preserve">
+    <value>Расположение</value>
+  </data>
+  <data name="login_credentials" xml:space="preserve">
+    <value>Ваши Учетные Данные Для Входа Пользователя:</value>
+  </data>
+  <data name="login_to_admin_account" xml:space="preserve">
+    <value>войдите в учетную запись администратора</value>
+  </data>
+  <data name="logout" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="log_in" xml:space="preserve">
+    <value>вход</value>
+  </data>
+  <data name="medium" xml:space="preserve">
+    <value>Средний</value>
+  </data>
+  <data name="message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>минута</value>
+  </data>
+  <data name="minutes" xml:space="preserve">
+    <value>минут</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>месяц</value>
+  </data>
+  <data name="months" xml:space="preserve">
+    <value>месяцы</value>
+  </data>
+  <data name="my_bookings" xml:space="preserve">
+    <value>мое бронирование</value>
+  </data>
+  <data name="my_properties" xml:space="preserve">
+    <value>моя собственность</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="name_property" xml:space="preserve">
+    <value>Наименование объекта недвижимости</value>
+  </data>
+  <data name="new_password" xml:space="preserve">
+    <value>Новый Пароль</value>
+  </data>
+  <data name="new_password_sent_success" xml:space="preserve">
+    <value>Пожалуйста, проверьте свою электронную почту, ваш запрос на новый пароль отправлен успешно!</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>НЕТ</value>
+  </data>
+  <data name="notifications" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="no_customers" xml:space="preserve">
+    <value>НЕТ. О ЗАРЕГИСТРИРОВАННЫХ КЛИЕНТАХ</value>
+  </data>
+  <data name="no_data_canceled_bookings" xml:space="preserve">
+    <value>Мы, кажется, не можем найти какие-либо заказы, которые отменены. Когда бронирование будет отменено, они все появятся здесь, в этом разделе.</value>
+  </data>
+  <data name="no_data_completed_bookings" xml:space="preserve">
+    <value>Мы не можем, кажется, найти какие-либо заказы, которые завершены. Когда бронирование будет завершено, все они появятся здесь, в этом разделе.</value>
+  </data>
+  <data name="no_data_found" xml:space="preserve">
+    <value>Никаких данных не найдено.</value>
+  </data>
+  <data name="no_data_heading" xml:space="preserve">
+    <value>Нам Очень Жаль!!!</value>
+  </data>
+  <data name="no_data_notifications" xml:space="preserve">
+    <value>Мы не можем найти никаких уведомлений, связанных с вашим аккаунтом. Если есть какие-либо уведомления, они все появятся здесь, в этом разделе.</value>
+  </data>
+  <data name="no_data_pending_bookings" xml:space="preserve">
+    <value>Мы, кажется, не можем найти никаких заказов, которые находятся в ожидании. Когда заказы будут отложены, они все появятся здесь, в этом разделе.</value>
+  </data>
+  <data name="no_data_progress_booking" xml:space="preserve">
+    <value>Мы не можем, кажется, найти какие-либо заказы, которые в настоящее время находятся в процессе. Когда есть какое-либо бронирование, которое находится в процессе, они все появятся здесь, в этом разделе.</value>
+  </data>
+  <data name="no_data_property" xml:space="preserve">
+    <value>Мы не можем, кажется, найти какие-либо свойства, которые добавляются вами. Когда вы добавите любое свойство, они все появятся здесь, в этом разделе. Попробуйте добавить свойство с помощью кнопки добавить свойство ниже.</value>
+  </data>
+  <data name="no_of_bed_rooms" xml:space="preserve">
+    <value>Нет номеров с кроватями</value>
+  </data>
+  <data name="no_of_toilets" xml:space="preserve">
+    <value>Ни одного туалета</value>
+  </data>
+  <data name="no_providers" xml:space="preserve">
+    <value>НЕТ. ИЗ ЧИСЛА ЗАРЕГИСТРИРОВАННЫХ ПРОВАЙДЕРОВ</value>
+  </data>
+  <data name="no_text_box_to_remove" xml:space="preserve">
+    <value>Больше нет текстового поля для удаления</value>
+  </data>
+  <data name="no_workers" xml:space="preserve">
+    <value>НЕТ. ЗАРЕГИСТРИРОВАННЫХ РАБОТНИКОВ</value>
+  </data>
+  <data name="number_of_bathrooms" xml:space="preserve">
+    <value>Количество ванных комнат</value>
+  </data>
+  <data name="number_of_double_beds" xml:space="preserve">
+    <value>Количество двуспальных кроватей</value>
+  </data>
+  <data name="number_of_double_sopha_beds" xml:space="preserve">
+    <value>Количество двуспальных кроватей Sopha</value>
+  </data>
+  <data name="number_of_duvets" xml:space="preserve">
+    <value>Количество пуховых одеял</value>
+  </data>
+  <data name="number_of_pillows" xml:space="preserve">
+    <value>Количество подушек</value>
+  </data>
+  <data name="number_of_queen_beds" xml:space="preserve">
+    <value>Количество двуспальных кроватей</value>
+  </data>
+  <data name="number_of_single_beds" xml:space="preserve">
+    <value>Количество односпальных кроватей</value>
+  </data>
+  <data name="number_of_single_sopha_beds" xml:space="preserve">
+    <value>Количество односпальных кроватей Sopha</value>
+  </data>
+  <data name="old_password" xml:space="preserve">
+    <value>старый пароль</value>
+  </data>
+  <data name="orders" xml:space="preserve">
+    <value>Заказы</value>
+  </data>
+  <data name="order_detail" xml:space="preserve">
+    <value>деталь заказа</value>
+  </data>
+  <data name="our_services" xml:space="preserve">
+    <value>свои услуги</value>
+  </data>
+  <data name="parking" xml:space="preserve">
+    <value>Парковка</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="password_changed_success" xml:space="preserve">
+    <value>Ваш пароль был успешно изменен.</value>
+  </data>
+  <data name="password_confirm_mismatch" xml:space="preserve">
+    <value>Новый пароль и подтверждение пароля не совпадают.</value>
+  </data>
+  <data name="password_details" xml:space="preserve">
+    <value>Деталь пароля: - обслуживание веника</value>
+  </data>
+  <data name="password_post" xml:space="preserve">
+    <value>Пароль:</value>
+  </data>
+  <data name="pay" xml:space="preserve">
+    <value>Оплатить</value>
+  </data>
+  <data name="payment_method" xml:space="preserve">
+    <value>Способ оплаты</value>
+  </data>
+  <data name="payment_success" xml:space="preserve">
+    <value>Оплата успешно завершена.</value>
+  </data>
+  <data name="pay_now" xml:space="preserve">
+    <value>заплатить сейчас</value>
+  </data>
+  <data name="pending" xml:space="preserve">
+    <value>Ожидаемый</value>
+  </data>
+  <data name="penthouse" xml:space="preserve">
+    <value>Пентхаус</value>
+  </data>
+  <data name="personal_details" xml:space="preserve">
+    <value>личные данные</value>
+  </data>
+  <data name="phone_number" xml:space="preserve">
+    <value>номер телефона</value>
+  </data>
+  <data name="please_choose_category" xml:space="preserve">
+    <value>Пожалуйста, выберите категорию</value>
+  </data>
+  <data name="please_complete_checklist" xml:space="preserve">
+    <value>Пожалуйста, заполните контрольный список</value>
+  </data>
+  <data name="please_enter_display_order" xml:space="preserve">
+    <value>Пожалуйста, Введите Порядок Отображения</value>
+  </data>
+  <data name="please_enter_price_prcnt" xml:space="preserve">
+    <value>Пожалуйста, введите цену %</value>
+  </data>
+  <data name="please_enter_text" xml:space="preserve">
+    <value>Пожалуйста, введите текст.</value>
+  </data>
+  <data name="please_enter_valid_email" xml:space="preserve">
+    <value>Пожалуйста, введите действительный адрес электронной почты.</value>
+  </data>
+  <data name="please_enter_valid_old_password" xml:space="preserve">
+    <value>Пожалуйста, введите действительный старый пароль</value>
+  </data>
+  <data name="please_enter_valid_password" xml:space="preserve">
+    <value>Пожалуйста, введите правильный пароль.</value>
+  </data>
+  <data name="please_select_end_date" xml:space="preserve">
+    <value>Пожалуйста, выберите дату окончания</value>
+  </data>
+  <data name="please_select_start_date" xml:space="preserve">
+    <value>Пожалуйста, выберите дату начала</value>
+  </data>
+  <data name="pool" xml:space="preserve">
+    <value>Бассейн</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="price_of_service" xml:space="preserve">
+    <value>цена услуг</value>
+  </data>
+  <data name="price_percnt" xml:space="preserve">
+    <value>Цена %</value>
+  </data>
+  <data name="privacy_policy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="profile_update_success" xml:space="preserve">
+    <value>Ваш профиль будет успешно обновлен</value>
+  </data>
+  <data name="properties" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="properties_list" xml:space="preserve">
+    <value>список свойств</value>
+  </data>
+  <data name="property" xml:space="preserve">
+    <value>Собственность</value>
+  </data>
+  <data name="property_access" xml:space="preserve">
+    <value>Доступ К Собственности</value>
+  </data>
+  <data name="property_add_success" xml:space="preserve">
+    <value>Ваше имущество будет успешно сохранено.</value>
+  </data>
+  <data name="property_details" xml:space="preserve">
+    <value>Сведения О Недвижимости</value>
+  </data>
+  <data name="property_not_exists" xml:space="preserve">
+    <value>Property does not exists.</value>
+  </data>
+  <data name="property_update_success" xml:space="preserve">
+    <value>Свойство не существует.</value>
+  </data>
+  <data name="quote" xml:space="preserve">
+    <value>Цитата</value>
+  </data>
+  <data name="quote_accepted_success" xml:space="preserve">
+    <value>Цитата принята успешно.</value>
+  </data>
+  <data name="quote_already_accepted" xml:space="preserve">
+    <value>Цитата уже принята.</value>
+  </data>
+  <data name="quote_already_rejected" xml:space="preserve">
+    <value>Цитата уже отклонена.</value>
+  </data>
+  <data name="quote_already_sent" xml:space="preserve">
+    <value>Цитата уже отправлена.</value>
+  </data>
+  <data name="quote_canceled" xml:space="preserve">
+    <value>Цитата Отменена</value>
+  </data>
+  <data name="quote_rejected_success" xml:space="preserve">
+    <value>Цитата отклонена успешно.</value>
+  </data>
+  <data name="quote_sent" xml:space="preserve">
+    <value>Цитата Отправлена</value>
+  </data>
+  <data name="quote_sent_success" xml:space="preserve">
+    <value>Цитата Отправлена Успешно!!</value>
+  </data>
+  <data name="rating" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="read_more" xml:space="preserve">
+    <value>Читать дальше</value>
+  </data>
+  <data name="recent_chat" xml:space="preserve">
+    <value>недавний чат</value>
+  </data>
+  <data name="reference_images" xml:space="preserve">
+    <value>эталонное изображение</value>
+  </data>
+  <data name="reject" xml:space="preserve">
+    <value>Отклонять</value>
+  </data>
+  <data name="rejected_broom_service_request" xml:space="preserve">
+    <value>Вы отклонили запрос предложения службы метлы.</value>
+  </data>
+  <data name="rejected_your_quote_price" xml:space="preserve">
+    <value>отклонил ваш запрос цены цитаты.</value>
+  </data>
+  <data name="remember_me" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="required_validation" xml:space="preserve">
+    <value>Пожалуйста, заполните это поле</value>
+  </data>
+  <data name="review_success" xml:space="preserve">
+    <value>Ваш отзыв представлен успешно.</value>
+  </data>
+  <data name="review_success_submit" xml:space="preserve">
+    <value>Ваш отзыв представлен успешно.</value>
+  </data>
+  <data name="russian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="save_changes" xml:space="preserve">
+    <value>сохранить изменения</value>
+  </data>
+  <data name="second" xml:space="preserve">
+    <value>сохранить изменения</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>считанные секунды</value>
+  </data>
+  <data name="select" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="select_duvet_size" xml:space="preserve">
+    <value>Выберите размер одеяла</value>
+  </data>
+  <data name="select_no_of_double_sopha_beds" xml:space="preserve">
+    <value>Выберите количество двуспальных кроватей sopha</value>
+  </data>
+  <data name="select_no_of_single_sopha_beds" xml:space="preserve">
+    <value>Выберите количество односпальных кроватей sopha</value>
+  </data>
+  <data name="select_number_of_double_beds" xml:space="preserve">
+    <value>Выберите количество двуспальных кроватей</value>
+  </data>
+  <data name="select_number_of_queen_beds" xml:space="preserve">
+    <value>Выберите количество кроватей queen</value>
+  </data>
+  <data name="select_number_of_single_beds" xml:space="preserve">
+    <value>Выберите количество односпальных кроватей</value>
+  </data>
+  <data name="select_property" xml:space="preserve">
+    <value>свойство Select</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="send_quote" xml:space="preserve">
+    <value>Отправить Цитату</value>
+  </data>
+  <data name="service" xml:space="preserve">
+    <value>Обувь для обслуживающего персонала</value>
+  </data>
+  <data name="service_add_success" xml:space="preserve">
+    <value>Сервис успешно добавлен.</value>
+  </data>
+  <data name="service_list" xml:space="preserve">
+    <value>список услуг</value>
+  </data>
+  <data name="service_name_already_exists" xml:space="preserve">
+    <value>Имя службы уже существует.</value>
+  </data>
+  <data name="service_not_exists" xml:space="preserve">
+    <value>Сервис не существует.</value>
+  </data>
+  <data name="service_providers" xml:space="preserve">
+    <value>сфера услуг</value>
+  </data>
+  <data name="service_provider_detail" xml:space="preserve">
+    <value>Сведения о поставщике услуг</value>
+  </data>
+  <data name="service_provider_job_rating" xml:space="preserve">
+    <value>Рейтинг Вакансий Поставщика Услуг</value>
+  </data>
+  <data name="service_provider_job_rating_validation" xml:space="preserve">
+    <value>Пожалуйста, Добавьте Рейтинг Вакансий Поставщика Услуг</value>
+  </data>
+  <data name="service_provider_list" xml:space="preserve">
+    <value>Список Поставщиков Услуг</value>
+  </data>
+  <data name="service_provider_name" xml:space="preserve">
+    <value>Имя Поставщика Услуг</value>
+  </data>
+  <data name="service_provider_rating" xml:space="preserve">
+    <value>Рейтинг Поставщика Услуг</value>
+  </data>
+  <data name="service_provider_rating_validation" xml:space="preserve">
+    <value>Пожалуйста, Добавьте Рейтинг Поставщика Услуг</value>
+  </data>
+  <data name="service_update_success" xml:space="preserve">
+    <value>Сервис успешно обновлен.</value>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="short_term_airbnb_apartment" xml:space="preserve">
+    <value>Краткосрочная Аренда Апартаментов Airbnb</value>
+  </data>
+  <data name="size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="small" xml:space="preserve">
+    <value>Маленький</value>
+  </data>
+  <data name="some_error_occured" xml:space="preserve">
+    <value>Произошла какая-то ошибка, попробуйте еще раз.</value>
+  </data>
+  <data name="start_date" xml:space="preserve">
+    <value>дата начала</value>
+  </data>
+  <data name="start_date_time" xml:space="preserve">
+    <value>Дата И Время Начала Работы</value>
+  </data>
+  <data name="start_job" xml:space="preserve">
+    <value>Запуск Задания</value>
+  </data>
+  <data name="start_time" xml:space="preserve">
+    <value>время начала</value>
+  </data>
+  <data name="start_timer" xml:space="preserve">
+    <value>Пусковой Таймер</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="status_update_sucess" xml:space="preserve">
+    <value>состояние s успешно обновляется.</value>
+  </data>
+  <data name="subcategory_not_exists" xml:space="preserve">
+    <value>SubSubService не существует.</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="sub_category_not_exists" xml:space="preserve">
+    <value>Подсубкатегория не существует.</value>
+  </data>
+  <data name="sub_service" xml:space="preserve">
+    <value>Дополнительный Сервис</value>
+  </data>
+  <data name="sub_service_add_success" xml:space="preserve">
+    <value>Дополнительный сервис успешно добавлен.</value>
+  </data>
+  <data name="sub_service_list" xml:space="preserve">
+    <value>Список Дополнительных Услуг</value>
+  </data>
+  <data name="sub_service_name_already_exists" xml:space="preserve">
+    <value>Имя подсервиса уже существует в этой категории.</value>
+  </data>
+  <data name="sub_service_update_success" xml:space="preserve">
+    <value>Дочерняя служба успешно обновлена.</value>
+  </data>
+  <data name="sub_sub_service_add_success" xml:space="preserve">
+    <value>SubSubService успешно добавлен.</value>
+  </data>
+  <data name="sub_sub_service_list" xml:space="preserve">
+    <value>Sub Sub Список Услуг</value>
+  </data>
+  <data name="sub_sub_service_name_already_exists" xml:space="preserve">
+    <value>Имя субсервиса уже существует в этой подкатегории.</value>
+  </data>
+  <data name="sub_sub_service_not_exists" xml:space="preserve">
+    <value>SubSubService не существует.</value>
+  </data>
+  <data name="sub_sub_service_update_success" xml:space="preserve">
+    <value>SubSubService успешно обновлен.</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>Успех</value>
+  </data>
+  <data name="s_job_request" xml:space="preserve">
+    <value>s запрос на вакансию.</value>
+  </data>
+  <data name="s_quote_request" xml:space="preserve">
+    <value>запрос цитаты s.</value>
+  </data>
+  <data name="terms_conditins_job_request" xml:space="preserve">
+    <value>Пожалуйста, примите условия и положения, чтобы добавить запрос на вакансию.</value>
+  </data>
+  <data name="terms_conditions" xml:space="preserve">
+    <value>Условия использования</value>
+  </data>
+  <data name="terms_conditions_validation" xml:space="preserve">
+    <value>Пожалуйста, примите наши условия и положения</value>
+  </data>
+  <data name="testimonials" xml:space="preserve">
+    <value>Отзывы</value>
+  </data>
+  <data name="testimonials_list" xml:space="preserve">
+    <value>Список Отзывов</value>
+  </data>
+  <data name="testimonial_add_success" xml:space="preserve">
+    <value>Отзыв добавляется успешно.</value>
+  </data>
+  <data name="testimonial_delete_success" xml:space="preserve">
+    <value>Отзыв успешно удален.</value>
+  </data>
+  <data name="testimonial_not_exist" xml:space="preserve">
+    <value>Отзыва не существует.</value>
+  </data>
+  <data name="testimonial_update_success" xml:space="preserve">
+    <value>Отзыв будет успешно обновлен.</value>
+  </data>
+  <data name="text_here" xml:space="preserve">
+    <value>Текст здесь</value>
+  </data>
+  <data name="thank_you" xml:space="preserve">
+    <value>Спасибо.</value>
+  </data>
+  <data name="timer_already_ended" xml:space="preserve">
+    <value>Таймер уже закончился.</value>
+  </data>
+  <data name="timer_already_started" xml:space="preserve">
+    <value>Таймер уже запущен.</value>
+  </data>
+  <data name="timer_ended_success" xml:space="preserve">
+    <value>Таймер успешно завершен.</value>
+  </data>
+  <data name="timer_started_success" xml:space="preserve">
+    <value>Таймер запускается успешно.</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="title_text" xml:space="preserve">
+    <value>Услуги Метлы</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>Для</value>
+  </data>
+  <data name="transaction_does_not_exists" xml:space="preserve">
+    <value>Транзакция не существует.</value>
+  </data>
+  <data name="try_again" xml:space="preserve">
+    <value>Попробовать еще раз</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="type_of_property" xml:space="preserve">
+    <value>Вид собственности:</value>
+  </data>
+  <data name="type_of_service" xml:space="preserve">
+    <value>вид услуг</value>
+  </data>
+  <data name="update_payment_method" xml:space="preserve">
+    <value>Способ Оплаты Обновления</value>
+  </data>
+  <data name="update_profile" xml:space="preserve">
+    <value>Обновить Профиль</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="user_credentials" xml:space="preserve">
+    <value>Учетные данные пользователя: - Broom Service</value>
+  </data>
+  <data name="user_detail_add_success" xml:space="preserve">
+    <value>Сведения о пользователе успешно добавлены.</value>
+  </data>
+  <data name="user_detail_update_success" xml:space="preserve">
+    <value>Сведения о пользователе успешно обновляется.</value>
+  </data>
+  <data name="user_logged_in_successfully" xml:space="preserve">
+    <value>Пользователь успешно вошел в систему.</value>
+  </data>
+  <data name="user_name" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="user_not_exist" xml:space="preserve">
+    <value>Пользователь не существует</value>
+  </data>
+  <data name="verify_email" xml:space="preserve">
+    <value>Проверка Электронной Почты</value>
+  </data>
+  <data name="verify_email_before_signing" xml:space="preserve">
+    <value>Пожалуйста, подтвердите свой адрес электронной почты перед входом в систему.</value>
+  </data>
+  <data name="verify_email_broom_service" xml:space="preserve">
+    <value>Проверьте электронную почту : - Broom Service's</value>
+  </data>
+  <data name="view_details" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="view_profile" xml:space="preserve">
+    <value>Посмотреть профиль</value>
+  </data>
+  <data name="villa" xml:space="preserve">
+    <value>Вилла</value>
+  </data>
+  <data name="welcome" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+  <data name="welcome_to" xml:space="preserve">
+    <value>Добро пожаловать в</value>
+  </data>
+  <data name="workers" xml:space="preserve">
+    <value>Работники</value>
+  </data>
+  <data name="workers_list" xml:space="preserve">
+    <value>Список Работников</value>
+  </data>
+  <data name="worker_assigned_message" xml:space="preserve">
+    <value>назначил метлой сервис для вашей работы.</value>
+  </data>
+  <data name="worker_details" xml:space="preserve">
+    <value>Деталь работника</value>
+  </data>
+  <data name="write_apt_number" xml:space="preserve">
+    <value>Напишите номер apt</value>
+  </data>
+  <data name="write_building_code" xml:space="preserve">
+    <value>Напишите строительный кодекс</value>
+  </data>
+  <data name="write_here" xml:space="preserve">
+    <value>писать здесь</value>
+  </data>
+  <data name="write_number_of_bathrooms" xml:space="preserve">
+    <value>Напишите Количество ванных комнат</value>
+  </data>
+  <data name="write_number_of_bedrooms" xml:space="preserve">
+    <value>Напишите количество спален</value>
+  </data>
+  <data name="write_number_of_duvets" xml:space="preserve">
+    <value>Напишите количество пуховых одеял</value>
+  </data>
+  <data name="write_number_of_pillows" xml:space="preserve">
+    <value>Напишите количество подушек</value>
+  </data>
+  <data name="write_number_of_toilets" xml:space="preserve">
+    <value>Напишите количество туалетов</value>
+  </data>
+  <data name="write_size" xml:space="preserve">
+    <value>Размер записи</value>
+  </data>
+  <data name="write_the_address" xml:space="preserve">
+    <value>Напишите адрес</value>
+  </data>
+  <data name="write_the_floor_number" xml:space="preserve">
+    <value>Напишите номер этажа</value>
+  </data>
+  <data name="year" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="years" xml:space="preserve">
+    <value>годы</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>ДА</value>
+  </data>
+  <data name="your_login_credentials" xml:space="preserve">
+    <value>Ваши Учетные Данные Для Входа:</value>
+  </data>
+  <data name="you_have_accepted" xml:space="preserve">
+    <value>Вы уже согласились</value>
+  </data>
+  <data name="you_have_new_msg" xml:space="preserve">
+    <value>У вас есть новое сообщение от</value>
+  </data>
+  <data name="you_have_rejected" xml:space="preserve">
+    <value>Вы отвергли меня.</value>
+  </data>
+  <data name="you_have_to_pay" xml:space="preserve">
+    <value>Вы должны заплатить</value>
+  </data>
+  <data name="zip_code" xml:space="preserve">
+    <value>почтовый индекс</value>
+  </data>
+  <data name="forgot_password" xml:space="preserve">
+    <value>Забыли пароль</value>
+  </data>
+  <data name="check_card_details" xml:space="preserve">
+    <value>Пожалуйста, проверьте данные своей карты</value>
+  </data>
+</root>

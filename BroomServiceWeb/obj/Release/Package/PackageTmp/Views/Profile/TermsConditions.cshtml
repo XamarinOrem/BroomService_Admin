@@ -1,0 +1,15 @@
+﻿@model BroomServiceWeb.Models.TermsCondition
+@using BroomServiceWeb.Resources;
+@{
+    ViewBag.Title = "TermsConditions";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+}
+<div id="notifications_main" class="notifications_main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 terms_box">
+                <p>@Html.Raw(@Model.TermsConditionText)</p>
+            </div>
+        </div>
+    </div>
+</div>

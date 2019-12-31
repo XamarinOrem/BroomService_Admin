@@ -1,0 +1,328 @@
+﻿@model BroomServiceWeb.Models.PropertyModel
+@using BroomServiceWeb.Resources;
+@using BroomServiceWeb.Helpers;
+
+<div class="property_list_box" style="height: auto !important;margin-bottom: 40px;">
+    <div class="name_edit d-flex justify-content-between">
+        <h3>@Model.Name</h3>
+        @if (Session["UserType"] != null)
+        {
+            if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+            {
+                <div class="edit_del_icons">
+                    <a href="/Property/AddProperty?id=@Model.Id"><i class="fas fa-pencil-alt edit"></i></a>
+                </div>
+            }
+        }
+
+        @if (Session["AdminType"] != null)
+        {
+            if (Convert.ToInt32(Session["AdminType"]) != Enums.UserTypeEnum.Admin.GetHashCode())
+            {
+                <div class="edit_del_icons">
+                    <a href="/Property/AddProperty?id=@Model.Id"><i class="fas fa-pencil-alt edit"></i></a>
+                </div>
+            }
+        }
+
+    </div>
+    <h4>@Resource.type_of_property<span>@Model.Type</span></h4>
+    <div class="location_div">
+        <img src="~/Images/location_pin.png" alt="location pin" />
+        <div class="location_address">
+            @Model.Address
+        </div>
+    </div>
+    @if (Model.ShortTermApartment.Value)
+    {
+        <div class="apartment_div">
+            <div class="location_address">
+                @Resource.short_term_airbnb_apartment
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.floor</div>
+    <div class="work_value">@Model.FloorNumber</div>
+</div>
+
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.aparment_number</div>
+    <div class="work_value">@Model.ApartmentNumber</div>
+</div>
+
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.building_code</div>
+    <div class="work_value">@Model.BuildingCode</div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.AccessToProperty))
+{
+    <div class="repeat_div">
+        <div class="work_label">@Resource.access_property_details</div>
+        <div class="work_value">@Model.AccessToProperty</div>
+    </div>
+}
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_bathrooms</div>
+    @if (@Model.NoOfBathrooms != null)
+    {
+        <div class="work_value">@Model.NoOfBathrooms</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.no_of_toilets</div>
+    @if (@Model.NoOfToilets != null)
+    {
+        <div class="work_value">@Model.NoOfToilets</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.no_of_bed_rooms</div>
+    @if (@Model.NoOfBedRooms != null)
+    {
+        <div class="work_value">@Model.NoOfBedRooms</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+
+@if (!string.IsNullOrEmpty(Model.Size))
+{
+    <div class="repeat_div">
+        <div class="work_label">@Resource.size</div>
+        <div class="work_value">@Model.Size</div>
+    </div>
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+            @if (Model.Doorman == true)
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick.png">
+            }
+            else
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+            }
+            <label>@Resource.doorman</label>
+        </div>
+        <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+            @if (Model.Parking == true)
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick.png">
+            }
+            else
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+            }
+            <label>@Resource.parking</label>
+        </div>
+        <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+            @if (Model.Balcony == true)
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick.png">
+            }
+            else
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+            }
+            <label>@Resource.balcony</label>
+        </div>
+        <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+            @if (Model.Garden == true)
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick.png">
+            }
+            else
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+            }
+            <label>@Resource.garden</label>
+        </div>
+        <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+            @if (Model.Pool == true)
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick.png">
+            }
+            else
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+            }
+            <label>@Resource.pool</label>
+        </div>
+        <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+            @if (Model.Dishwasher == true)
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick.png">
+            }
+            else
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+            }
+            <label>@Resource.dishwasher</label>
+        </div>
+        <div class="form-group custom_radio d-inline-block mb-3 mr-3">
+            @if (Model.Elevator == true)
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick.png">
+            }
+            else
+            {
+                <img class="custom-radio-img" src="~/Images/ic_green_tick_unslct.png">
+            }
+            <label>@Resource.elevator</label>
+        </div>
+    </div>
+</div>
+
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.bed_size</div>
+    <div class="work_value">@Resource.medium</div>
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_queen_beds</div>
+    @if (@Model.NoOfQueenBeds != null)
+    {
+        <div class="work_value">@Model.NoOfQueenBeds</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_double_beds</div>
+    @if (@Model.NoOfDoubleBeds != null)
+    {
+        <div class="work_value">@Model.NoOfDoubleBeds</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_single_beds</div>
+    @if (@Model.NoOfSingleBeds != null)
+    {
+        <div class="work_value">@Model.NoOfSingleBeds</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_single_sopha_beds</div>
+    @if (@Model.NoOfSingleSofaBeds != null)
+    {
+        <div class="work_value">@Model.NoOfSingleSofaBeds</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_double_sopha_beds</div>
+    @if (@Model.NoOfDoubleSofaBeds != null)
+    {
+        <div class="work_value">@Model.NoOfDoubleSofaBeds</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+@if (!string.IsNullOrEmpty(Model.DuvetSize))
+{
+    <div class="repeat_div">
+        <div class="work_label">@Resource.duvet_size</div>
+        <div class="work_value">@Model.DuvetSize</div>
+    </div>
+}
+
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_duvets</div>
+    @if (@Model.NoOfDuvet != null)
+    {
+        <div class="work_value">@Model.NoOfDuvet</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+<div class="repeat_div">
+    <div class="work_label">@Resource.number_of_pillows</div>
+    @if (@Model.NoOfPillows != null)
+    {
+        <div class="work_value">@Model.NoOfPillows</div>
+    }
+    else
+    {
+        <div class="work_value">0</div>
+    }
+</div>
+
+@if (Session["UserType"] != null)
+{
+    if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+    {
+        <div class="col-12 mt-5 text-center">
+            <button type="button" class="property_submit" id="property-submit-btn">
+                <a style="color:#fff !important;">@Resource.add_job_request</a>
+            </button>
+        </div>
+    }
+}
+
+@if (Session["AdminType"] != null)
+{
+    if (Convert.ToInt32(Session["AdminType"]) != Enums.UserTypeEnum.Admin.GetHashCode())
+    {
+        <div class="col-12 mt-5 text-center">
+            <button type="button" class="property_submit" id="property-submit-btn">
+                <a style="color:#fff !important;">@Resource.add_job_request</a>
+            </button>
+        </div>
+    }
+}
+
+    <script type="text/javascript">
+    $(document).on("click", "#property-submit-btn", function (e) {
+        window.location.href = "/Bookings/AddJobRequest?propertyId=@Model.Id";
+    });
+
+    </script>
+

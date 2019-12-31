@@ -1,0 +1,758 @@
+﻿@model List<BroomServiceWeb.Models.JobRequestViewModel>
+@using BroomServiceWeb.Helpers;
+@using BroomServiceWeb.Resources;
+
+@{
+    ViewBag.Title = "MyBookings";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+    List<BroomServiceWeb.Models.JobRequestViewModel> GetPendingBookings = null;
+    List<BroomServiceWeb.Models.JobRequestViewModel> GetInProgressBookings = null;
+    List<BroomServiceWeb.Models.JobRequestViewModel> GetCompletedBookings = null;
+    List<BroomServiceWeb.Models.JobRequestViewModel> GetCanceledBookings = null;
+    if (Model != null)
+    {
+        if (Model.Count > 0)
+        {
+            if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+            {
+                GetPendingBookings = @Model.Where(a => a.JobStatus == Enums.RequestStatus.Pending.GetHashCode()).ToList();
+                GetInProgressBookings = @Model.Where(a => a.JobStatus == Enums.RequestStatus.InProgress.GetHashCode()).ToList();
+            }
+            else
+            {
+                GetPendingBookings = @Model.Where(a => a.JobStatus == Enums.RequestStatus.InProgress.GetHashCode() && a.TimerStartTime == null).ToList();
+                GetInProgressBookings = @Model.Where(a => a.JobStatus == Enums.RequestStatus.InProgress.GetHashCode() && a.TimerStartTime != null).ToList();
+            }
+
+            GetCompletedBookings = @Model.Where(a => a.JobStatus == Enums.RequestStatus.Completed.GetHashCode()).ToList();
+            GetCanceledBookings = @Model.Where(a => a.JobStatus == Enums.RequestStatus.Canceled.GetHashCode() || a.JobStatus == Enums.RequestStatus.QuoteCanceled.GetHashCode()).ToList();
+
+        }
+    }
+}
+
+<!-- My Bookings -->
+<div id="my_bookings" class="my_booking_main">
+    <input id="sessionInput" type="hidden" value='@Session["UserType"]' />
+    <div class="container-fluid">
+
+        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+            @*@if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                {*@
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="pill" href="#booking_pending" role="tab" aria-selected="true">@Resource.pending</a>
+            </li>
+            @*}*@
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#booking_in_progress" role="tab" aria-selected="false">@Resource.in_progress</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#booking_complete" role="tab" aria-selected="false">@Resource.completed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#booking_cancel" role="tab" aria-selected="false">@Resource.cancelled</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            @*@if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                {*@
+            <div class="tab-pane fade show active" id="booking_pending" role="tabpanel">
+                <div class="my_booking_tab_main">
+                    <div class="row">
+                        @if (GetPendingBookings != null)
+                        {
+                            if (GetPendingBookings.Count() > 0)
+                            {
+                                for (int i = 0; i < GetPendingBookings.Count; i++)
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="my_booking_list_box">
+                                            <div class="name_edit d-block d-sm-flex d-md-block d-lg-flex justify-content-between">
+                                                <h3 class="my_booking_box_heading">@GetPendingBookings[i].PropertyName</h3>
+                                                <div class="my_booking_view_detail_box">
+                                                    <a class="view-details" href="#" id="@GetPendingBookings[i].Id">
+                                                        <span>@Resource.view_details </span>
+                                                        <img src="~/Images/view_detail_arrow.png" alt="next">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="worker_box d-flex ">
+                                            </div>
+                                            <div class="my_boking_time_location">
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/calendar.png" alt="calendar" />
+                                                    <div class="location_time_details">@GetPendingBookings[i].JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")<span>|</span>@GetPendingBookings[i].JobStartDatetime.Value.ToString("hh:mm tt")</div>
+                                                </div>
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/location_pin.png" alt="pin" />
+                                                    <div class="location_time_details">@GetPendingBookings[i].PropertyAddress</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <div class="no_data">
+                                    <img src="~/Images/nodata.png" />
+                                    <label class="no_data_heading">@Resource.no_data_heading</label>
+                                    <label class="no_data_sub_heading">
+                                        @Resource.no_data_pending_bookings
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no_data">
+                                <img src="~/Images/nodata.png" />
+                                <label class="no_data_heading">@Resource.no_data_heading</label>
+                                <label class="no_data_sub_heading">
+                                    @Resource.no_data_pending_bookings
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            @*}*@
+            <div class="tab-pane fade" id="booking_in_progress" role="tabpanel">
+                <div class="my_booking_tab_main">
+                    <div class="row">
+                        @if (GetInProgressBookings != null)
+                        {
+                            if (GetInProgressBookings.Count() > 0)
+                            {
+                                for (int i = 0; i < GetInProgressBookings.Count; i++)
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="my_booking_list_box">
+                                            <div class="name_edit d-block d-sm-flex d-md-block d-lg-flex justify-content-between">
+                                                @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                                {
+                                                    <h3 class="my_booking_box_heading">@GetInProgressBookings[i].PropertyName</h3>
+                                                }
+                                                else
+                                                {
+                                                    if (GetInProgressBookings[i].Category != null)
+                                                    {
+                                                        <h3 class="my_booking_box_heading">@GetInProgressBookings[i].Category.Name</h3>
+                                                    }
+                                                }
+                                                <div class="my_booking_view_detail_box">
+                                                    <a class="view-details" href="#" id="@GetInProgressBookings[i].Id"><span>@Resource.view_details </span><img src="~/Images/view_detail_arrow.png" alt="next"></a>
+                                                </div>
+                                            </div>
+                                            @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                            {
+                                                <div class="worker_box d-flex ">
+                                                    @if (string.IsNullOrEmpty(GetInProgressBookings[i].ServiceProviderProfilePic))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@GetInProgressBookings[i].ServiceProviderProfilePic" alt="images" />
+                                                    }
+                                                    <div class="worker_category">
+                                                        @if (!string.IsNullOrEmpty(GetInProgressBookings[i].ServiceProviderName))
+                                                        {
+                                                            <h4>@GetInProgressBookings[i].ServiceProviderName</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>Broom Service</h4>
+                                                        }
+                                                        @if (GetInProgressBookings[i].Category != null)
+                                                        {
+                                                            <p>@GetInProgressBookings[i].Category.Name</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="worker_box d-flex ">
+                                                    @if (string.IsNullOrEmpty(GetInProgressBookings[i].CustomerImage))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@GetInProgressBookings[i].CustomerImage" alt="images" />
+                                                    }
+                                                    <div class="worker_category">
+                                                        @if (!string.IsNullOrEmpty(GetInProgressBookings[i].CustomerName))
+                                                        {
+                                                            <h4>@GetInProgressBookings[i].CustomerName</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>@Resource.customer_name</h4>
+                                                        }
+                                                        <p>@Resource.customer_name</p>
+
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="my_boking_time_location">
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/calendar.png" alt="calendar" />
+                                                    <div class="location_time_details">@GetInProgressBookings[i].JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")<span>|</span>@GetInProgressBookings[i].JobStartDatetime.Value.ToString("hh:mm tt")</div>
+                                                </div>
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/location_pin.png" alt="pin" />
+                                                    <div class="location_time_details">@GetInProgressBookings[i].PropertyAddress</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <div class="no_data">
+                                    <img src="~/Images/nodata.png" />
+                                    <label class="no_data_heading">@Resource.no_data_heading</label>
+                                    <label class="no_data_sub_heading">
+                                        @Resource.no_data_progress_booking
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no_data">
+                                <img src="~/Images/nodata.png" />
+                                <label class="no_data_heading">@Resource.no_data_heading</label>
+                                <label class="no_data_sub_heading">
+                                    @Resource.no_data_progress_booking
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="booking_complete" role="tabpanel">
+                <div class="my_booking_tab_main">
+                    <input id="sessionInputUserID" type="hidden" value='@Session["UserId"]' />
+                    <input id="sessionInputUserType" type="hidden" value='@Session["UserType"]' />
+                    <div class="row">
+                        @if (GetCompletedBookings != null)
+                        {
+                            if (GetCompletedBookings.Count() > 0)
+                            {
+                                for (int i = 0; i < GetCompletedBookings.Count; i++)
+                                {
+                                    <input id="jobID" type="hidden" value='@GetCompletedBookings[i].Id' />
+                                    <div class="col-md-6 mb-3">
+                                        <div class="my_booking_list_box">
+                                            <div class="name_edit d-block d-sm-flex d-md-block d-lg-flex justify-content-between">
+
+                                                @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                                {
+                                                    <h3 class="my_booking_box_heading">@GetCompletedBookings[i].PropertyName</h3>
+                                                }
+                                                else
+                                                {
+                                                    if (GetCompletedBookings[i].Category != null)
+                                                    {
+                                                        <h3 class="my_booking_box_heading">@GetCompletedBookings[i].Category.Name</h3>
+                                                    }
+                                                }
+
+                                                <div class="my_booking_view_detail_box">
+                                                    <a class="view-details" href="#" id="@GetCompletedBookings[i].Id"><span>@Resource.view_details </span><img src="~/Images/view_detail_arrow.png" alt="next"></a>
+                                                </div>
+                                            </div>
+                                            @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                            {
+                                                <div class="worker_box d-flex ">
+                                                    @if (string.IsNullOrEmpty(GetCompletedBookings[i].ServiceProviderProfilePic))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@GetCompletedBookings[i].ServiceProviderProfilePic" alt="images" />
+                                                    }
+                                                    <div class="worker_category">
+                                                        @if (!string.IsNullOrEmpty(GetCompletedBookings[i].ServiceProviderName))
+                                                        {
+                                                            <h4>@GetCompletedBookings[i].ServiceProviderName</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>@Resource.broom_service</h4>
+                                                        }
+                                                        @if (GetCompletedBookings[i].Category != null)
+                                                        {
+                                                            <p>@GetCompletedBookings[i].Category.Name</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="worker_box d-flex ">
+                                                    @if (string.IsNullOrEmpty(GetCompletedBookings[i].CustomerImage))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@GetCompletedBookings[i].CustomerImage" alt="images" />
+                                                    }
+                                                    <div class="worker_category">
+                                                        @if (!string.IsNullOrEmpty(GetCompletedBookings[i].CustomerName))
+                                                        {
+                                                            <h4>@GetCompletedBookings[i].CustomerName</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>@Resource.customer_name</h4>
+                                                        }
+                                                        <p>@Resource.customer_name</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="my_boking_time_location">
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/calendar.png" alt="calendar" />
+                                                    <div class="location_time_details">@GetCompletedBookings[i].JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")<span>|</span>@GetCompletedBookings[i].JobStartDatetime.Value.ToString("hh:mm tt")</div>
+                                                </div>
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/location_pin.png" alt="pin" />
+                                                    <div class="location_time_details">@GetCompletedBookings[i].PropertyAddress</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                        {
+                                            <div class="row booking_pay_buttons text-center" style="cursor:pointer;">
+                                                <div class="col-6">
+                                                    <input id="customerPrice" type="hidden" value="@GetCompletedBookings[i].CustomerQuotePrice" />
+                                                    @if (!GetCompletedBookings[i].IsPaymentDone.Value)
+                                                    {
+                                                        <div>
+                                                            <a href="@Url.Action("DoPayment","Payment",new{userId=@Session["UserId"],requestId=GetCompletedBookings[i].Id ,price=GetCompletedBookings[i].CustomerQuotePrice})" class="pay_btn_book" id="property-submit-btn-pay">
+                                                                <i class="fas fa-money-check-alt"></i> <span>@Resource.pay_now</span>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="opacity:0.4">
+                                                            <a class="pay_btn_book">
+                                                                <i class="fas fa-money-check-alt"></i> <span>@Resource.already_paid</span>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div class="col-6">
+
+                                                    @if (GetCompletedBookings[i].UserRating == 0 ||
+                                                            GetCompletedBookings[i].UserRating == null
+                                                             || GetCompletedBookings[i].UserJobRating == 0 ||
+                                                             GetCompletedBookings[i].UserJobRating == null)
+                                                    {
+                                                        <div onclick="showPopup(@GetCompletedBookings[i].Id,@GetCompletedBookings[i].ServiceProviderId,@GetCompletedBookings[i].UserRating)">
+                                                            <a class="star_rating">
+                                                                <i class="fas fa-star"></i> <span>@Resource.rating </span>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div style="opacity:0.4">
+                                                            <a class="star_rating">
+                                                                <i class="fas fa-star"></i> <span>@Resource.rating </span>
+                                                            </a>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <div class="no_data">
+                                    <img src="~/Images/nodata.png" />
+                                    <label class="no_data_heading">@Resource.no_data_heading</label>
+                                    <label class="no_data_sub_heading">
+                                        @Resource.no_data_completed_bookings
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no_data">
+                                <img src="~/Images/nodata.png" />
+                                <label class="no_data_heading">@Resource.no_data_heading</label>
+                                <label class="no_data_sub_heading">
+                                    @Resource.no_data_completed_bookings
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="booking_cancel" role="tabpanel">
+                <div class="my_booking_tab_main">
+                    <div class="row">
+                        @if (GetCanceledBookings != null)
+                        {
+                            if (GetCanceledBookings.Count() > 0)
+                            {
+                                for (int i = 0; i < GetCanceledBookings.Count; i++)
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="my_booking_list_box">
+                                            <div class="name_edit d-block d-sm-flex d-md-block d-lg-flex justify-content-between">
+                                                @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                                {
+                                                    <h3 class="my_booking_box_heading">@GetCanceledBookings[i].PropertyName</h3>
+                                                }
+                                                else
+                                                {
+                                                    if (GetCanceledBookings[i].Category != null)
+                                                    {
+                                                        <h3 class="my_booking_box_heading">@GetCanceledBookings[i].Category.Name</h3>
+                                                    }
+                                                }
+                                                <div class="my_booking_view_detail_box">
+                                                    <a class="view-details" href="#" id="@GetCanceledBookings[i].Id"><span>@Resource.view_details </span><img src="~/Images/view_detail_arrow.png" alt="next"></a>
+                                                </div>
+                                            </div>
+                                            @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                            {
+                                                <div class="worker_box d-flex ">
+                                                    @if (string.IsNullOrEmpty(GetCanceledBookings[i].ServiceProviderProfilePic))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@GetCanceledBookings[i].ServiceProviderProfilePic" alt="images" />
+                                                    }
+                                                    <div class="worker_category">
+                                                        @if (!string.IsNullOrEmpty(GetCanceledBookings[i].ServiceProviderName))
+                                                        {
+                                                            <h4>@GetCanceledBookings[i].ServiceProviderName</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>@Resource.broom_service</h4>
+                                                        }
+                                                        @if (GetCanceledBookings[i].Category != null)
+                                                        {
+                                                            <p>@GetCanceledBookings[i].Category.Name</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="worker_box d-flex ">
+                                                    @if (string.IsNullOrEmpty(GetCanceledBookings[i].CustomerImage))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@GetCanceledBookings[i].CustomerImage" alt="images" />
+                                                    }
+                                                    <div class="worker_category">
+                                                        @if (!string.IsNullOrEmpty(GetCanceledBookings[i].CustomerName))
+                                                        {
+                                                            <h4>@GetCanceledBookings[i].CustomerName</h4>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h4>@Resource.customer_name</h4>
+                                                        }
+                                                        <p>@Resource.customer_name</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="my_boking_time_location">
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/calendar.png" alt="calendar" />
+                                                    <div class="location_time_details">@GetCanceledBookings[i].JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")<span>|</span>@GetCanceledBookings[i].JobStartDatetime.Value.ToString("hh:mm tt")</div>
+                                                </div>
+                                                <div class="my_boking_time_location_box d-flex">
+                                                    <img src="~/Images/location_pin.png" alt="pin" />
+                                                    <div class="location_time_details">@GetCanceledBookings[i].PropertyAddress</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+                                <div class="no_data">
+                                    <img src="~/Images/nodata.png" />
+                                    <label class="no_data_heading">@Resource.no_data_heading</label>
+                                    <label class="no_data_sub_heading">
+                                        @Resource.no_data_canceled_bookings
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no_data">
+                                <img src="~/Images/nodata.png" />
+                                <label class="no_data_heading">@Resource.no_data_heading</label>
+                                <label class="no_data_sub_heading">
+                                    @Resource.no_data_canceled_bookings
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="booking_view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content p-3">
+                <div class="modal-header border_custom">
+                    <h5 class="modal-title modal_heading" id="exampleModalLabel">Job Details</h5>
+                    <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                        <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<!-- Modal Rating-->
+<div class="modal fade" id="rating_modal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">@Resource.rating</h5>
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body-rating">
+                <form>
+                    <div class="popup_user_detail_box" id="provider-div">
+                        <div class="user_photo_name">
+                            <div class="rating_box">
+                                <h5>@Resource.service_provider_rating</h5>
+                                <div class="rating_stars_provider">
+                                    <i class="fas fa-star gray" id="1"></i>
+                                    <i class="fas fa-star gray" id="2"></i>
+                                    <i class="fas fa-star gray" id="3"></i>
+                                    <i class="fas fa-star gray" id="4"></i>
+                                    <i class="fas fa-star gray" id="5"></i>
+                                </div>
+                            </div>
+                            <div class="rating_box">
+                                <h5>@Resource.comment</h5>
+                                <textarea rows="5" class="form-control" id="provider_review" name="message" placeholder="Write Here"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup_user_detail_box">
+                        <div class="user_photo_name">
+                            <div class="rating_box">
+                                <h5>@Resource.service_provider_job_rating</h5>
+                                <div class="rating_stars_job">
+                                    <i class="fas fa-star gray" id="1"></i>
+                                    <i class="fas fa-star gray" id="2"></i>
+                                    <i class="fas fa-star gray" id="3"></i>
+                                    <i class="fas fa-star gray" id="4"></i>
+                                    <i class="fas fa-star gray" id="5"></i>
+                                </div>
+                            </div>
+                            <div class="rating_box">
+                                <h5>@Resource.comment</h5>
+                                <textarea rows="5" class="form-control" id="job_review" name="message" placeholder="@Resource.write_here"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-5 text-center">
+                        <button type="button" id="submit-button" class="property_submit">
+                            @Resource.submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var providerRating;
+    var jobRating;
+    var jobRequestId;
+    var serviceProviderId;
+
+    function showPopup(jobid, providerid, userrating) {
+        $(".rating_stars_provider i").attr("class", "fas fa-star gray")
+            .nextAll(".rating_stars_provider i").attr("class", "fas fa-star gray");
+
+        $(".rating_stars_job i").attr("class", "fas fa-star gray")
+            .nextAll(".rating_stars_job i").attr("class", "fas fa-star gray");
+
+        $('#rating_modal').modal('show');
+        if (userrating == 0 || userrating == null) {
+            $("#provider-div").css('display', 'block');
+        }
+        else {
+            providerRating = userrating;
+            $("#provider-div").css('display', 'none');
+        }
+        jobRequestId = jobid;
+        serviceProviderId = providerid;
+    }
+
+    $(function () {
+
+    //     var UserTypeEnum = {
+    //    Admin: 1,
+    //    ServiceProvider: 2,
+    //    Worker: 3,
+    //    Customer: 4
+    //}
+    //    if ($("#sessionInputUserType").val() == UserTypeEnum.Customer) {
+    //        $('#booking_complete').on('click', '#property-submit-btn-pay', function (e) {
+
+    //            if ($("#booking_complete #customerPrice").val().length > 0) {
+    //                window.location.href = "/Payment/DoPayment?userId=" + $("#sessionInputUserID").val() + "&requestId=" + $("#booking_complete #jobID").val() + "&price=" + $("#booking_complete #customerPrice").val();
+    //        }
+    //        });
+    //}
+
+        //var UserTypeEnum = {
+        //    Admin: 1,
+        //    ServiceProvider: 2,
+        //    Worker: 3,
+        //    Customer: 4
+        //}
+        //if ($("#sessionInput").val() != UserTypeEnum.Customer) {
+        //    $("#booking_in_progress").addClass('show active');
+        //    var aa = $("#pills-tab").children('li').eq(0);
+        //    aa.find('a').addClass('active');
+        //    aa.find('a').attr('aria-selected', true);
+        //}
+
+        var jobID;
+        $('#booking_pending').on('click', '.view-details', function (e) {
+            jobID = $(this).attr('id');
+            window.location.href = '/Bookings/JobDetails?jobId=' + jobID;
+        });
+
+        $('#booking_in_progress').on('click', '.view-details', function (e) {
+            jobID = $(this).attr('id');
+            window.location.href = '/Bookings/JobDetails?jobId=' + jobID;
+        });
+
+        $('#booking_complete').on('click', '.view-details', function (e) {
+            jobID = $(this).attr('id');
+            window.location.href = '/Bookings/JobDetails?jobId=' + jobID;
+        });
+
+        $('#booking_cancel').on('click', '.view-details', function (e) {
+            jobID = $(this).attr('id');
+            window.location.href = '/Bookings/JobDetails?jobId=' + jobID;
+        });
+    });
+
+    $(".rating_stars_provider i").click(function () {
+        if ($(this).hasClass('fas fa-star gray')) {
+            $(this).attr("class", "fas fa-star")
+                .prevAll(".rating_stars_provider i").attr("class", "fas fa-star");
+            providerRating = $(this).attr('id');
+        }
+        else {
+            $(this).attr("class", "fas fa-star gray")
+                .nextAll(".rating_stars_provider i").attr("class", "fas fa-star gray");
+            providerRating = $(this).attr('id');
+        }
+        $(this).css("cursor", "pointer");
+    });
+
+    $(".rating_stars_job i").click(function () {
+        if ($(this).hasClass('fas fa-star gray')) {
+            $(this).attr("class", "fas fa-star")
+                .prevAll(".rating_stars_job i").attr("class", "fas fa-star");
+            jobRating = $(this).attr('id');
+        }
+        else {
+            $(this).attr("class", "fas fa-star gray")
+                .nextAll(".rating_stars_job i").attr("class", "fas fa-star gray");
+            jobRating = $(this).attr('id');
+        }
+        $(this).css("cursor", "pointer");
+    });
+
+    $('#submit-button').click(function () {
+        var check = false;
+        // Check validations
+        if ($('#provider-div:visible').length != 0) {
+            if ($('.rating_stars_provider').find('.gray').length == 5) {
+                alert("@Resource.service_provider_rating_validation");
+                check = true;
+            }
+            else { check = false; }
+        }
+        else {
+            check = false;
+        }
+        if ($('.rating_stars_job').find('.gray').length == 5) {
+            alert("@Resource.service_provider_job_rating_validation");
+        }
+        if (check == false && $('.rating_stars_job').find('.gray').length != 5) {
+            var model =
+            {
+                UserReview: $("#provider_review").val(),
+                JobReview: $("#job_review").val(),
+                ToUserId: serviceProviderId,
+                UserRating: providerRating,
+                JobRating: jobRating,
+                JobRequestId: jobRequestId
+            }
+            $.ajax({
+                url: "/Bookings/SubmitUserReview",
+                data: { model },
+                type: 'POST',
+                dataType: "json",
+                success: function (data) {
+                    if (data == true) {
+                        alert("@Resource.review_success_submit");
+                        $('#rating_modal').modal('hide');
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    });
+
+
+</script>

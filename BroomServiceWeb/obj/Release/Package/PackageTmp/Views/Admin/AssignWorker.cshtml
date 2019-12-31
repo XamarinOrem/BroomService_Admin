@@ -1,0 +1,340 @@
+﻿@using BroomServiceWeb.Helpers;
+@using BroomServiceWeb.Resources;
+@model BroomServiceWeb.Models.JobRequestViewModel
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<h2 class="heading-top">@Resource.assign_worker</h2>
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMsg"]
+    </div>
+}
+@if (TempData["SuccessMsg"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMsg"]
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-title">
+
+                <a href="@Url.Action("Notifications","Admin",new { pageNumber = TempData["IndexPage"] })">
+                    <i class="fa fa-arrow-left mr-15 ">
+                    </i><span>@Resource.notifications</span>
+                </a>
+
+            </div>
+            <div class="card-body">
+                <div class="order_details_main">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="order_customer_image">
+                                <input type="hidden" id="requestId" name="requestId" value="@Model.Id" />
+                                @if (!string.IsNullOrEmpty(Model.CustomerImage))
+                                {
+                                    <img src="~/Images/User/@Model.CustomerImage" alt="image" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/image_placeholder.jpg" alt="image" />
+                                }
+
+                            </div>
+                            <h2>@Model.CustomerName</h2>
+                            <h6>@Resource.customer_details_info</h6>
+                            <a href="@Url.Action("Chat","Admin",new { userId=Model.CustomerId})" class="chat_button">
+                                <img src="/Content/images/chat_icon.png" alt="chat" />
+                                <span>@Resource.chat</span>
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="order_info_main">
+                                <h3>
+                                    @Resource.property
+                                    <a id="@Model.PropertyId" class="view-details">
+                                        <i class="fa fa-eye" style="width: 45px !important;
+margin-right: 0 !important;height: auto !important;cursor: pointer;font-size: 30px;
+color: rgb(26, 141, 255);" aria-hidden="true"></i>
+                                    </a>
+                                </h3>
+                                <div class="order_info_box">
+                                    <h5>@Model.PropertyName</h5>
+                                </div>
+                                @*<div class="order_info_box">
+                                        <h3>@Resource.property</h3>
+                                        <h5>@Model.PropertyName</h5>
+                                    </div>*@
+                                <div class="order_info_box">
+                                    <h3>@Resource.service</h3>
+                                    <h5>@Model.Category.Name</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.sub_service</h3>
+                                    <h5>@Model.SubCategory.Name</h5>
+                                    @if (!Model.IsShownQuote)
+                                    {
+                                        if (Model.SubCategory.Price != null && Model.SubSubCategories.Count == 0)
+                                        {
+                                            <div>$ @Model.SubCategory.Price</div>
+                                        }
+                                    }
+                                </div>
+                                @if (Model.SubSubCategories.Count != 0)
+                                {
+                                    <div class="order_info_box">
+                                        <h3>@Resource.type_of_service</h3>
+                                        <div class="row">
+                                            @foreach (var item in Model.SubSubCategories)
+                                            {
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="type_bg d-flex justify-content-between">
+
+                                                        <div>@item.Name</div>
+                                                        @if (!Model.IsShownQuote)
+                                                        {
+                                                            if (item.Price != null)
+                                                            {
+                                                                <div>$ @item.Price</div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="order_info_box">
+                                    <h3>@Resource.assigned_worker</h3>
+                                    <h5 id="h5ServiceProviderName">@Model.ServiceProviderName</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.start_date_time</h3>
+                                    @if (Model.JobStartDatetime != null)
+                                    {
+                                        <h5>@Model.JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy") @Resource.at @Model.JobStartDatetime.Value.ToString("hh:mm tt")</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5>@Model.JobStartDatetime</h5>
+                                    }
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.end_date_time</h3>
+                                    @if (Model.JobEndDatetime != null)
+                                    {
+                                        <h5>@Model.JobEndDatetime.Value.ToString("ddd, MMMM dd, yyyy") @Resource.at @Model.JobEndDatetime.Value.ToString("hh:mm tt")</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5>@Model.JobEndDatetime</h5>
+                                    }
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.address</h3>
+                                    <h5>@Model.PropertyAddress</h5>
+                                </div>
+                                @if (Model.IsShownQuote)
+                                {
+                                    <div class="order_info_box">
+                                        <h3>@Resource.description</h3>
+                                        <h5>@Model.Description</h5>
+                                    </div>
+                                    <div class="order_info_box">
+                                        <h3>@Resource.reference_images</h3>
+                                        @foreach (var item in Model.ReferenceImages)
+                                        {
+                                            <div class="r_image">
+                                                <a href="~/Images/JobRequest/@item.ToString()" target="_blank">
+                                                    <img src="~/Images/JobRequest/@item.ToString()" class="w-100 h-100" alt="image" />
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                @if (Model.JobStatus == (int)Enums.RequestStatus.Pending)
+                                {
+                                    <div class="order_buttons text-left">
+
+
+                                        <a href="@Url.Action("AcceptRejectJobRequest","Admin",new {id = TempData["NotificationId"] ,requestId=Model.Id,IsAccept=true, pageNumber = TempData["IndexPage"] })" class="o_accept"
+                                           id="btnAccept">@Resource.accept</a>
+
+                                        <a href="@Url.Action("AcceptRejectJobRequest","Admin",new {id = TempData["NotificationId"],requestId=Model.Id,IsAccept=false, pageNumber = TempData["IndexPage"] })" class="o_reject"
+                                           id="btnReject">@Resource.reject</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="order_buttons text-left">
+
+                                        @if (Model.IsShownQuote)
+                                        {
+
+                                            if (Model.IsQuoteApproved == true)
+                                            {
+                                                @Html.DropDownListFor(m => m.ServiceProviderId, new SelectList(ViewBag.Workers, "Value", "Text")
+                                                                   , new { @class = "form-control custom_assign", @id = "WorkerId" })
+                                                <button type="button" id="btnAssignJob" class="assign_done"> @Resource.assign_job</button>
+                                            }
+                                            else
+                                            {
+
+
+                                                if (Model.QuotePrice == null)
+                                                {
+                                                    <div id="dvQuote">
+                                                        <a href="#" class="o_quote" data-toggle="modal" data-target="#modal_quote"
+                                                           id="btnQuote">@Resource.quote</a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="o_accept"
+                                                       id="btnQuote">@Resource.quote_sent</a>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(m => m.ServiceProviderId, new SelectList(ViewBag.Workers, "Value", "Text")
+                                        , new { @class = "form-control custom_assign", @id = "WorkerId" ,@onchange = "SelectWorker()" })
+                                            <button type="button" class="assign_done" id="btnAssignJob"> @Resource.assign_job</button>
+                                        }
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal_quote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="p-4">
+                    <button type="button" class="close new_modal_close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>@Resource.price_of_service</h3>
+
+                    <form>
+                        <div class="form-group">
+                            <label class="sr-only">@Resource.text_here</label>
+                            <input class="form-control custom_text_area" id="quotePrice" name="quotePrice"
+                                   placeholder="Write Price Here" required="required" type="number" />
+                        </div>
+                        <div class="w-100 text-right">
+                            <button type="submit" class="quote_done">@Resource.done</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="booking_view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
+         style="top: 0px;transform: translateY(0%) !important;">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">@Resource.property_details</h5>
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body-booking">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+            var requestId = $("#requestId").val();
+            var price = $("#quotePrice").val();
+                    $.ajax({
+                url: "@Url.Action("SendQuote", "Admin")",
+                        data: { "requestId": requestId, "price": price},
+            dataType: "json",
+            type: "Post",
+            error: function () {
+                //alert(" An error occurred.");
+            },
+                        success: function (data) {
+                            alert(data.message);
+                            if (data.status) {
+                                $("#btnQuote").text('@Resource.quote_sent');
+                                $("#btnQuote").prop('disabled', true);
+                                $('#dvQuote a').removeClass("o_quote");
+                                $('#dvQuote a').addClass("o_accept");
+                                $("#modal_quote .close").click();
+                            }
+                            else {
+                                $("#btnQuote").prop('disabled', false);
+                    }
+                }
+            });
+              });
+
+
+        $("#btnAssignJob").click(function () {
+            var workerId = $('#WorkerId').val();
+            var workerText = $("#WorkerId option:selected").text();
+            if (workerId == null) {
+
+                alert("@Resource.choose_worker");
+                return false;
+            }
+            var requestId = $("#requestId").val();
+                    $.ajax({
+                url: "@Url.Action("AssignJobToWorker", "Admin")",
+                        data: { "requestId": requestId, "workerId": workerId},
+            dataType: "json",
+            type: "Post",
+            error: function () {
+            },
+                        success: function (data) {
+                            alert(data.message);
+                            if (data.status) {
+                                $("#h5ServiceProviderName").html(workerText);
+                            }
+                            else {
+
+                    }
+                }
+            });
+        });
+    });
+
+
+    $('.view-details').on('click', function (e) {
+        var propertyID = $(this).attr('id');
+        $(this).attr('data-target', '#booking_view_modal');
+        $(this).attr('data-toggle', 'modal');
+        $('#modal-body-booking').load('/Property/PropertyDetails?id=' + propertyID);
+    });
+
+</script>

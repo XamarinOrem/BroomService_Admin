@@ -1,0 +1,69 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using BroomServiceWeb.Resources
+
+@model IPagedList<BroomServiceWeb.ViewModels.SubCategoryViewModel>
+@{
+    ViewBag.Title = "SubService List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="heading-top">@Resource.sub_service_list</h2>
+
+<br />
+<div>
+    <a class="btn btn-outline-success btn-sm"
+       href="@Url.Action("AddSubCategory", "Category")"><i class="fa fa-plus"></i>@Resource.add_sub_service</a>
+</div>
+<br />
+<div class="custom_table_box">
+<table class="table table-striped">
+    <tr>
+        <th>@Resource.name</th>
+        <th>@Resource.service</th>
+        <th>@Resource.description</th>
+        <th>@Resource.status</th>
+        <th>@Resource.action</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.CategoryName</td>
+        <td>@item.Description</td>
+        <td>
+            @if (item.IsActive == true)
+            {
+                <a href="@Url.Action("UpdateSubCategoryStatus", "Category", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><span class="label-success label label-default" id="state">@Resource.active</span></a>
+            }
+            else
+            {
+                <a href="@Url.Action("UpdateSubCategoryStatus", "Category", new { id = item.Id, pageNumber = TempData["IndexPage"] })"><span class="label-warning label label-default" id="state">@Resource.deactive</span></a>
+            }
+        </td>
+        <td>
+            <a class="btn-primary btn-xs" style="padding: 5px;" href="@Url.Action("AddSubCategory", "Category", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><i class="fa fa-pencil"></i></a>
+        </td>
+
+    </tr>
+    }
+    @if (Model.Count == 0)
+    {
+        <tr>
+            <td colspan="6">
+                <center>@Resource.no_data_found</center>
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+
+<div class="row">
+    <div class="col-12 text-center pagingText">
+        @Html.PagedListPager(Model, pageNumber => Url.Action("SubCategoryList", new { pageNumber }))
+    </div>
+</div>
+</div>

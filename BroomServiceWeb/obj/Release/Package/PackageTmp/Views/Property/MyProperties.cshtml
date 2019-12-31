@@ -1,0 +1,159 @@
+﻿<style type="text/css">
+    .property_name_section, .property_name_section:focus {
+        width: 100%;
+        border-radius: 5px;
+        border: 2px solid #ccc;
+        padding: 10px 15px;
+        margin-bottom: 30px;
+        outline: none;
+        box-shadow: 0px 6px 11px 0px rgba(0, 0, 0, 0.1);
+        font-size: 22px;
+    }
+</style>
+@model List<BroomServiceWeb.Models.PropertyModel>
+@using BroomServiceWeb.Resources;
+
+@{
+    ViewBag.Title = "MyProperties";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+}
+
+<div id="my_bookings" class="my_booking_main">
+    <div class="container-fluid">
+        @if (TempData["ErrorMsg"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["ErrorMsg"]
+            </div>
+        }
+        @if (TempData["SuccessMsg"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMsg"]
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-12">
+                <input type="text" placeholder="Search Properties.." id="myInput" class="property_name_section" onkeyup="myFunction()" name="search">
+            </div>
+            @if (Model != null)
+            {
+                if (Model.Count > 0)
+                {
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="col-md-6 mb-3 property-main-div">
+                            <div class="property_list_box">
+                                <div class="name_edit d-flex justify-content-between">
+                                    <h3>@Model[i].Name</h3>
+                                    <div class="edit_del_icons">
+                                        <a href="/Property/AddProperty?id=@Model[i].Id"><i class="fas fa-pencil-alt edit"></i></a>
+                                    </div>
+                                </div>
+                                <h4>@Resource.type_of_property <span>@Model[i].Type</span></h4>
+                                <div class="location_div">
+                                    <img src="~/Images/location_pin.png" alt="location pin" />
+                                    <div class="location_address">
+                                        @Model[i].Address
+                                    </div>
+                                </div>
+                                @if (Model[i].ShortTermApartment.Value)
+                                {
+                                    <div class="apartment_div">
+                                        <div class="location_address">
+                                            @Resource.short_term_airbnb_apartment
+                                        </div>
+                                    </div>
+                                }
+                                <div class="view_detail_box">
+                                    <a class="view-details" href="#" id="@Model[i].Id"><span>@Resource.view_details </span><img src="~/Images/view_detail_arrow.png" alt="next" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <div class="no_data">
+                        <img src="~/Images/nodata.png" />
+                        <label class="no_data_heading">@Resource.no_data_heading</label>
+                        <label class="no_data_sub_heading">
+                            @Resource.no_data_property
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no_data">
+                    <img src="~/Images/nodata.png" />
+                    <label class="no_data_heading">@Resource.no_data_heading</label>
+                    <label class="no_data_sub_heading">
+                        @Resource.no_data_property
+                    </label>
+                </div>
+            }
+            <div class="col-12 mt-5 text-center">
+
+                <button type="button" class="property_submit" onclick="addPropertyClick()">
+                    <a style="color:#fff !important;">@Resource.add_property</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="booking_view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header border_custom">
+                <h5 class="modal-title modal_heading" id="exampleModalLabel">@Resource.property_details</h5>
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="~/Images/popup_close.png" alt="close" />
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('.property_list_box').on('click', '.view-details', function (e) {
+        var propertyID = $(this).attr('id');
+        $(this).attr('data-target', '#booking_view_modal');
+        $(this).attr('data-toggle', 'modal');
+        $('.modal-body').load('/Property/PropertyDetails?id=' + propertyID);
+    });
+
+    function myFunction() {
+        // Declare variables
+        var input, filter, mainDiv, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        mainDiv = document.getElementsByClassName("property-main-div");
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < mainDiv.length; i++) {
+            var findDiv = mainDiv[i].getElementsByClassName("property_list_box");
+            a = $(findDiv).find('.name_edit');
+            txtValue = a.find('h3').text();
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                mainDiv[i].style.display = "";
+            } else {
+                mainDiv[i].style.display = "none";
+            }
+        }
+    }
+
+    function addPropertyClick() {
+        window.location.href = "/Property/AddProperty?id=0";
+    }
+</script>
+

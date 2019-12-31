@@ -1,0 +1,54 @@
+﻿@model BroomServiceWeb.ViewModels.DashboardViewModel
+@using BroomServiceWeb.Resources
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="heading-top">@Resource.dashboard</h2>
+
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="orange-panel">
+                            <div class="orange-header green-color">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                            </div>
+                            <div class="green-color">                                
+                                <h3>@Resource.no_customers</h3>
+                                <h5>@Model.CustomerNo</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="orange-panel">
+                            <div class="orange-header purple-color">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                            </div>
+                            <div class="purple-color">
+                                
+                                <h3>@Resource.no_providers</h3>
+                                <h5>@Model.ProviderNo</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="orange-panel">
+                            <div class="orange-header red-color">
+                                <i class="fa fa-history" aria-hidden="true"></i>
+                            </div>
+                            <div class="red-color">                                
+                                <h3>@Resource.no_workers</h3>
+                                <h5>@Model.WorkerNo</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

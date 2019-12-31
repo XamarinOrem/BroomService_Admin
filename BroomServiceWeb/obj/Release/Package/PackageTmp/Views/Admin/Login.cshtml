@@ -1,0 +1,88 @@
+﻿@model BroomServiceWeb.ViewModels.LoginViewModel
+@using BroomServiceWeb.Resources
+@using BroomServiceWeb.Helpers;
+
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_AdminLoginLayout.cshtml";
+}
+<div class="title">@Resource.login_to_admin_account</div>
+@using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { @class = "login-form" }))
+{
+    if (TempData["LoginMsg"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["LoginMsg"]
+        </div>
+    }
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1" class="sr-only">@Resource.email_address</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = Resource.enteremail })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1" class="sr-only">@Resource.password</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = Resource.enter_password })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </div>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+        <div class="w-100 text-right">
+            <a class="forgot_password" href="@Url.Action("ForgotPassword","Admin")"> @Resource.forgot_your_password </a>
+        </div>
+        <button type="submit" class="btn btn-primary submit-button">@Resource.submit</button>
+    </form>
+}
+
+<div id="Choose_language_modal" class="choose_lang modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pop_close" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                <h4 class="modal-title">@Resource.change_language</h4>
+            </div>
+            <div class="modal-body">
+                <form class="my-4">
+                    @{
+                        for (int i = 0; i < LanguageMang.AvailableLanguages.Count; i++)
+                        {
+                            <div class="inputGroup">
+                                <input id="@LanguageMang.AvailableLanguages[i].LanguageCultureName" name="radio" type="radio" checked />
+                                <label for="@LanguageMang.AvailableLanguages[i].LanguageCultureName">@LanguageMang.AvailableLanguages[i].LanguageFullName</label>
+                            </div>
+                        }
+                    }
+                    <div class="w-100 text-center mt-5">
+                        <button type="button" class="btn btn-primary choose_language_done">@Resource.done</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var cookieValue = "@Request.Cookies["culture"].Value.ToLower()";
+
+        //if (cookieValue == '' || cookieValue == null) {
+            $("#Choose_language_modal").modal('show');
+        //}
+
+        $(".choose_language_done").click(function () {
+            var selectedValue=$('input[name=radio]:checked').attr('id');
+            window.location.href = "/Home/ChangeLanguage?lang=" + selectedValue;
+        });
+    });
+</script>
+
+

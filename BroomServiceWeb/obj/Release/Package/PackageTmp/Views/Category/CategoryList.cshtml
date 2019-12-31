@@ -1,0 +1,101 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using BroomServiceWeb.Resources
+
+@model IPagedList<BroomServiceWeb.ViewModels.CategoryViewModel>
+@{
+    ViewBag.Title = "Service List";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="heading-top">@Resource.service_list</h2>
+
+<br />
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMsg"]
+    </div>
+}
+@if (TempData["SuccessMsg"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMsg"]
+    </div>
+}
+<div>
+    <a class="btn btn-outline-success btn-sm"
+       href="@Url.Action("AddCategory", "Category")"><i class="fa fa-plus"></i>@Resource.add_service</a>
+</div>
+<br />
+<div class="custom_table_box">
+<table class="table table-striped">
+    <tr>
+        <th>@Resource.image</th>
+        <th>@Resource.name</th>
+        <th>@Resource.description</th>
+        <th>@Resource.display_order</th>
+        <th>@Resource.has_price</th>
+        <th>@Resource.for_workers</th>
+        <th>@Resource.status</th>
+        <th>@Resource.action</th>
+
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @if (!string.IsNullOrEmpty(item.Picture))
+            {
+                <img src="~/Images/Category/@item.Picture" data-zoom-image="~/Images/Category/@item.Picture" style="width: 35px;height: 35px;border-radius: 18px;" />
+            }
+            else
+            {
+                <img src="~/Content/images/image_placeholder.jpg" style="width: 35px;height: 35px; " />
+            }
+        </td>
+
+        <td>@item.Name</td>
+        <td>@item.Description</td>
+        <td>@item.DisplayOrder</td>
+        <td>@item.HasPrice</td>
+        <td>@item.ForWorkers</td>
+        <td>
+            @if (item.IsActive == true)
+            {
+                <a href="@Url.Action("UpdateCategoryStatus", "Category", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><span class="label-success label label-default" id="state">@Resource.active</span></a>
+            }
+            else
+            {
+                <a href="@Url.Action("UpdateCategoryStatus", "Category", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><span class="label-warning label label-default" id="state">@Resource.deactive</span></a>
+            }
+        </td>
+        <td>
+            <a class="btn-primary btn-xs" style="padding: 5px;" href="@Url.Action("AddCategory", "Category", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><i class="fa fa-pencil"></i></a>
+        </td>
+
+    </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="6">
+                <center>@Resource.no_data_found</center>
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+<div class="row">
+    <div class="col-12 text-center pagingText">
+        @Html.PagedListPager(Model, pageNumber => Url.Action("CategoryList", new { pageNumber }))
+    </div>
+</div>
+</div>
+
+

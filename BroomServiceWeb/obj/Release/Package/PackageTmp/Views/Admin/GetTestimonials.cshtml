@@ -1,0 +1,102 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using BroomServiceWeb.Resources
+@model IPagedList<BroomServiceWeb.Models.Testimonial>
+
+@{
+    ViewBag.Title = "GetTestimonials";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="heading-top">@Resource.testimonials_list</h2>
+<br /> 
+
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMsg"]
+    </div>
+}
+@if (TempData["SuccessMsg"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMsg"]
+    </div>
+}
+
+<div>
+    <a class="btn btn-outline-success btn-sm"
+       href="@Url.Action("AddTestimonials", "Admin")"><i class="fa fa-plus"></i> @Resource.add_testimonial</a>
+</div>
+<br />
+<div class="custom_table_box">
+<table class="table table-striped">
+    <tr>
+        <th>@Resource.image</th>
+        <th>@Resource.name</th>
+        <th>@Resource.title</th>
+        <th>@Resource.description</th>
+        <th>@Resource.status</th>
+        <th>@Resource.delete</th>
+        <th>@Resource.edit</th>
+
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @if (!string.IsNullOrEmpty(item.Image))
+            {
+                <img src="~/Images/Testimonial/@item.Image" data-zoom-image="~/Images/Testimonial/@item.Image" style="width: 35px;height: 35px;border-radius: 18px;" />
+            }
+            else
+            {
+                <img src="~/Content/images/image_placeholder.jpg" style="width: 35px;height: 35px; " />
+            }
+        </td>
+
+        <td>@item.Name</td>
+        <td>@item.Title</td>
+        <td>@item.Description</td>
+        <td>
+            @if (item.IsActive == true)
+            {
+                <a href="@Url.Action("UpdateTestimonialStatus", "Admin", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><span class="label-success label label-default" id="state">@Resource.active</span></a>
+            }
+            else
+            {
+                <a href="@Url.Action("UpdateTestimonialStatus", "Admin", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><span class="label-warning label label-default" id="state">@Resource.deactive</span></a>
+            }
+        </td>
+        <td>
+            <a class="color-danger" style="padding: 5px;" onclick="return confirm('Are you sure?')"
+               href="@Url.Action("DeleteTestimonial", "Admin", new { id = item.Id , pageNumber = TempData["IndexPage"]})">Delete</a>
+        </td>
+
+        <td>
+            <a class="btn-primary btn-xs" style="padding: 5px;" href="@Url.Action("AddTestimonials", "Admin", new { id = item.Id , pageNumber = TempData["IndexPage"]})"><i class="fa fa-pencil"></i></a>
+        </td>
+
+    </tr>
+        }
+    }
+    else 
+   {
+    <tr>
+        <td colspan="6">
+            <center>@Resource.no_data_found</center>
+        </td>
+    </tr>
+}
+</table>
+
+<div class="row">
+    <div class="col-12 text-center pagingText">
+        @Html.PagedListPager(Model, pageNumber => Url.Action("GetTestimonials", new { pageNumber }))
+    </div>
+</div>
+
+</div>
+ 

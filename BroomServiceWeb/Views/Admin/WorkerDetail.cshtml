@@ -1,0 +1,244 @@
+﻿@model BroomServiceWeb.Models.WorkerDetail
+@using BroomServiceWeb.Resources
+
+@{
+    /**/
+
+    ViewBag.Title = "Worker Detail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+
+@if (ViewBag.UserType == BroomServiceWeb.Helpers.Enums.UserTypeEnum.Worker.GetHashCode())
+{
+    <h2 class="heading-top">@Resource.worker_details</h2>
+}
+else
+{
+    <h2 class="heading-top">@Resource.service_provider_detail</h2>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-title">
+                @if (TempData["PreviousUrl"] != null)
+                {
+                    <a href="@TempData["PreviousUrl"]"><i class="fa fa-arrow-left mr-15 "></i><span>@Resource.back</span></a>
+                }
+            </div>
+            <div class="card-body">
+                <div class="order_details_main">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="order_customer_image">
+                                @if (!string.IsNullOrEmpty(Model.User.PicturePath))
+                                {
+                                    <img src="~/Images/User/@Model.User.PicturePath" alt="image" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/image_placeholder.jpg" alt="image" />
+                                }
+
+                            </div>
+                            <h2>@Model.User.FirstName @Model.User.LastName</h2>
+
+                        </div>
+                        <div class="col-md-9">
+                            <div class="order_info_main">
+                                <div class="order_info_box">
+                                    <h3>@Resource.email</h3>
+                                    <h5>@Model.User.Email</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.phone_number</h3>
+                                    <h5>@Model.User.PhoneNumber</h5>
+                                </div>
+                                <div class="order_info_box">
+                                    <h3>@Resource.address</h3>
+                                    <h5>@Model.User.Address</h5>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top:30px;margin-bottom:20px">Jobs</h3>
+
+            <div class="custom_table_box">
+                <table class="table table-striped allocate_orders">
+                    <tr>
+                        <th>@Resource.customer_name</th>
+                        <th>@Resource.job_date_time</th>
+                        <th>@Resource.price</th>
+                        <th>@Resource.client_price</th>
+                        <th>@Resource.completed_date_time</th>
+                        @if (ViewBag.UserType == BroomServiceWeb.Helpers.Enums.UserTypeEnum.Worker.GetHashCode())
+                        {
+                            <th>@Resource.hours</th>
+                        }
+                        <th>@Resource.status</th>
+                        <th>@Resource.client_rating</th>
+                        <th>@Resource.details</th>
+                    </tr>
+                    @foreach (var item in Model.Orders)
+                    {
+                        <tr>
+
+                            <td>@item.CustomerName</td>
+                            <td>
+                                @item.JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobStartDatetime.Value.ToString("hh:mm tt")
+                                <br />
+                                @item.JobEndDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobEndDatetime.Value.ToString("hh:mm tt")
+
+                            </td>
+
+                            <td>@item.QuotePrice</td>
+                            <td>@item.CustomerQuotePrice</td>
+                            @if (ViewBag.UserType == BroomServiceWeb.Helpers.Enums.UserTypeEnum.Worker.GetHashCode())
+                            {
+                                <td>
+                                    @if (item.TimerStartTime != null)
+                                    {
+                                    <span>
+                                        @item.TimerStartTime.Value.ToString("ddd, MMMM dd, yyyy")
+                                        @Resource.at @item.TimerStartTime.Value.ToString("hh:mm tt");
+                                    </span>
+
+                                    }
+                                    @if (item.TimerEndTime != null)
+                                    {<br />
+                                     <span>
+                                         @item.TimerEndTime.Value.ToString("ddd, MMMM dd, yyyy")
+                                         @Resource.at @item.TimerEndTime.Value.ToString("hh:mm tt")
+                                     </span>
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @if (item.TimerStartTime != null)
+                                    {
+                                    <p>
+                                        @item.TimerStartTime.Value.ToString("ddd, MMMM dd, yyyy")
+                                        @Resource.at @item.TimerStartTime.Value.ToString("hh:mm tt");
+                                    </p>
+                                    }
+                                </td>
+                            }
+                            @if (ViewBag.UserType == BroomServiceWeb.Helpers.Enums.UserTypeEnum.Worker.GetHashCode())
+                            {
+                                <td>
+                                    @item.Hours
+                                </td>
+                            }
+                            @if (item.JobStatus == BroomServiceWeb.Helpers.Enums.RequestStatus.Canceled.GetHashCode()
+                                || item.JobStatus == BroomServiceWeb.Helpers.Enums.RequestStatus.QuoteCanceled.GetHashCode())
+                            {
+                                <td style="color:red"> <b>@item.JobStatusStr </b></td>
+                            }
+                            else if (item.JobStatus == BroomServiceWeb.Helpers.Enums.RequestStatus.Completed.GetHashCode())
+                            {
+                                <td style="color:green"><b>@item.JobStatusStr</b></td>
+                            }
+                            else if (item.JobStatus == BroomServiceWeb.Helpers.Enums.RequestStatus.Pending.GetHashCode())
+                            {
+                                <td style="color:skyblue"><b>@item.JobStatusStr</b></td>
+                            }
+                            else if (item.JobStatus == BroomServiceWeb.Helpers.Enums.RequestStatus.InProgress.GetHashCode())
+                            {
+                                <td style="color:orange"><b>@item.JobStatusStr</b></td>
+                            }
+                                <td>
+                                    @if (item.UserJobRating == 5)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    }
+                                    else if (item.UserJobRating == 4)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else if (item.UserJobRating == 3)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else if (item.UserJobRating == 2)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else if (item.UserJobRating == 1)
+                                    {
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    }
+                                </td>
+                            <td>
+                                <a href="@Url.Action("OrderDetail","Admin",new {id = item.Id, pageNumber = TempData["IndexPage"] })"><span><i class="fa fa-eye"></i>@Resource.view_details</span></a>
+                            </td>
+                        </tr>
+                    }
+                    @if (Model.Orders.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="4">
+                                <center>@Resource.no_data_found</center>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+
+
+    });
+
+
+</script>
+

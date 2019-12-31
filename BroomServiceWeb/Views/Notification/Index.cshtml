@@ -1,0 +1,240 @@
+﻿@model IPagedList<BroomServiceWeb.ViewModels.NotificationViewModel>
+@using PagedList;
+@using PagedList.Mvc;
+@using BroomServiceWeb.Resources;
+
+@using BroomServiceWeb.Helpers;
+@{
+    ViewBag.Title = "Notifications";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+}
+
+<div id="notifications_main" class="notifications_main">
+    <div class="container-fluid">
+        <h2 class="text-center">@Resource.notifications</h2>
+        <div class="row no-gutters notifications_main_ul">
+            <div class="col-md-8">
+                @if (Model != null)
+                {
+                    if (Model.Count > 0)
+                    {
+                        <ul class="p-3">
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                <li>
+                                    <div class="d-block justify-content-between">
+                                        <a href="#" class="notifi_img_contnet d-flex">
+                                            @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                            {
+                                                if (Model[i].NotificationStatus != Enums.NotificationStatus.AcceptedQuotation.GetHashCode()
+                                                      && Model[i].NotificationStatus != Enums.NotificationStatus.RejectedQuotation.GetHashCode())
+                                                {
+                                                    if (string.IsNullOrEmpty(Model[i].FromUserImage))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@Model[i].FromUserImage" alt="images" />
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (string.IsNullOrEmpty(Model[i].ToUserImage))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@Model[i].ToUserImage" alt="images" />
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (Model[i].NotificationStatus == Enums.NotificationStatus.AcceptedQuotation.GetHashCode()
+                                                      ||Model[i].NotificationStatus == Enums.NotificationStatus.RejectedQuotation.GetHashCode()
+                                                      || Model[i].NotificationStatus == Enums.NotificationStatus.Assigned.GetHashCode()
+                                                      || Model[i].NotificationStatus == Enums.NotificationStatus.Pending.GetHashCode())
+                                                {
+                                                    if (string.IsNullOrEmpty(Model[i].FromUserImage))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@Model[i].FromUserImage" alt="images" />
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (string.IsNullOrEmpty(Model[i].ToUserImage))
+                                                    {
+                                                        <img src="~/Content/images/image_placeholder.jpg" alt="images" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Images/User/@Model[i].ToUserImage" alt="images" />
+                                                    }
+                                                }
+                                            }
+
+                                            <div class="notify_box_content align-self-center">
+                                                @if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                                {
+                                                    if (Model[i].NotificationStatus != Enums.NotificationStatus.AcceptedQuotation.GetHashCode()
+                                                            && Model[i].NotificationStatus != Enums.NotificationStatus.RejectedQuotation.GetHashCode()
+                                                            && Model[i].NotificationStatus != Enums.NotificationStatus.Rejected.GetHashCode())
+                                                    {
+                                                        <p><span>@Model[i].FromUserName</span></p>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (Model[i].NotificationStatus == Enums.NotificationStatus.AcceptedQuotation.GetHashCode()
+                                                            || Model[i].NotificationStatus == Enums.NotificationStatus.RejectedQuotation.GetHashCode()
+                                                            || Model[i].NotificationStatus == Enums.NotificationStatus.Pending.GetHashCode()
+                                                            || Model[i].NotificationStatus == Enums.NotificationStatus.Assigned.GetHashCode())
+                                                    {
+                                                        <p><span>@Model[i].FromUserName</span></p>
+                                                    }
+                                                }
+
+                                                <p> @Model[i].Text</p>
+
+                                                @if (Model[i].NotificationStatus == Enums.NotificationStatus.SentQuotation.GetHashCode())
+                                                {
+                                                    <span> @Model[i].QuotePrice</span>
+                                                }
+
+                                                <label class="notify_date">@Common.RelativeDate(Model[i].CreatedDate.Value)</label>
+                                            </div>
+                                        </a>
+                                        <div>
+                                            <div class="align-self-center mt-md-0 mt-3 d-flex">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-11">
+                                                    @if ((int)Session["UserType"] != Enums.UserTypeEnum.Customer.GetHashCode())
+                                                    {
+                                                        <a class="notify_view_details" id="@Model[i].JobRequestId"><i class="fa fa-list"></i>@Resource.view_details ></a>
+                                                    }
+
+                                                    @if (Model[i].NotificationStatus == Enums.NotificationStatus.SentQuotation.GetHashCode()
+                                                   || Model[i].NotificationStatus == Enums.NotificationStatus.Pending.GetHashCode())
+                                                    {
+                                                        if ((int)Session["UserType"] == Enums.UserTypeEnum.Customer.GetHashCode())
+                                                        {
+                                                            <a onclick="AcceptRejectJob(false,@Model[i].JobRequestId,@Model[i].Id)" class="notify_reject">@Resource.reject</a>
+                                                            <a onclick="AcceptRejectJob(true,@Model[i].JobRequestId,@Model[i].Id)" class="notify_accept">@Resource.accept</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a onclick="AcceptRejectJobRequest(false,@Model[i].JobRequestId)" class="notify_reject">@Resource.reject</a>
+                                                            <a onclick="AcceptRejectJobRequest(true,@Model[i].JobRequestId)" class="notify_accept">@Resource.accept</a>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="no_data">
+                            <img src="~/Images/nodata.png" />
+                            <label class="no_data_heading">@Resource.no_data_heading</label>
+                            <label class="no_data_sub_heading">
+                                @Resource.no_data_notifications
+                            </label>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="no_data">
+                        <img src="~/Images/nodata.png" />
+                        <label class="no_data_heading">@Resource.no_data_heading</label>
+                        <label class="no_data_sub_heading">
+                            @Resource.no_data_notifications
+                        </label>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-12 text-center pagingText">
+                        @Html.PagedListPager(Model, pageNumber => Url.Action("Index", new { pageNumber }))
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 pl-md-5 pl-0">
+                <div class="settings_notification_image">
+                    <div class="w-100 text-center">
+                        <img src="~/Images/notification_icon.png" alt="settings" class="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.p-3 li').on('click', '.notify_view_details', function (e) {
+            var jobID = $(this).attr('id');
+            window.location.href = '/Bookings/JobDetails?jobId=' + jobID;
+        });
+    });
+
+    function AcceptRejectJob(status, jobRequestId, notificationId) {
+        var AcceptRejectQuoteModel = {
+            JobRequestId: jobRequestId,
+            NotificationId: notificationId,
+            IsAccept: status
+        };
+
+        $.ajax({
+            url: "/Notification/AcceptRejectQuote",
+            data: JSON.stringify(AcceptRejectQuoteModel),
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data == "Success") {
+                    window.location.reload();
+                }
+            },
+            error: function () {
+                alert("@Resource.error_occured")
+            }
+        });
+    }
+
+
+    function AcceptRejectJobRequest(status, jobRequestId) {
+        var AcceptRejectJobReqModel = {
+            JobRequestId: jobRequestId,
+            IsAccept: status
+        };
+
+        $.ajax({
+            url: "/Notification/AcceptRejectRequest",
+            data: JSON.stringify(AcceptRejectJobReqModel),
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (data == "Success") {
+                    window.location.reload();
+                }
+            },
+            error: function () {
+                alert("@Resource.error_occured")
+            }
+        });
+    }
+
+</script>
+

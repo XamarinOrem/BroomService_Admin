@@ -1,0 +1,280 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using BroomServiceWeb.Resources
+@model BroomServiceWeb.Models.AllOrderViewModel
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+ 
+<h2 class="heading-top">@Resource.orders</h2>
+<div class="custom_table_box_main">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-pending-tab" data-toggle="tab" href="#nav-pending" role="tab" aria-controls="nav-pending" aria-selected="true">@Resource.pending</a>
+            <a class="nav-item nav-link" id="nav-inprogress-tab" data-toggle="tab" href="#nav-inprogress" role="tab" aria-controls="nav-inprogress" aria-selected="false">@Resource.in_progress</a>
+            <a class="nav-item nav-link" id="nav-completed-tab" data-toggle="tab" href="#nav-completed" role="tab" aria-controls="nav-completed" aria-selected="true">@Resource.completed</a>
+            <a class="nav-item nav-link" id="nav-canceled-tab" data-toggle="tab" href="#nav-canceled" role="tab" aria-controls="nav-canceled" aria-selected="false">@Resource.cancelled</a>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+            <div class="custom_table_box">
+                <table class="table table-striped allocate_orders">
+                    <tbody>
+                        <tr>
+                            @*<th style="width:70px">Image</th>*@
+                            <th>@Resource.customer_name</th>
+                            <th>@Resource.service_provider_name</th>
+                            <th>@Resource.status</th>
+                            <th>@Resource.start_date_time</th>
+                            <th>@Resource.end_date_time</th>
+                            <th style="width:150px">@Resource.location</th>
+                            <th>@Resource.action</th>
+                        </tr>
+                        @foreach (var item in Model.PendingOrders)
+                        {
+                            <tr>
+
+                                <td>@item.CustomerName</td>
+                                <td>@item.ServiceProviderName </td>
+                                <td>@item.JobStatusStr</td>
+                                @if (item.JobStartDatetime != null)
+                                {
+                                    <td>@item.JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobStartDatetime.Value.ToString("hh:mm tt")</td>
+                                }
+                                else
+                                {
+                                    <td>@item.JobStartDatetime</td>
+                                }
+                                  @if (item.JobEndDatetime != null)
+                                {
+                                    <td>@item.JobEndDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobEndDatetime.Value.ToString("hh:mm tt")</td>
+                                }
+                                else
+                                {
+                                    <td>@item.JobEndDatetime</td>
+                                }
+                                <td>@item.PropertyAddress</td>
+                                <td>
+                                    <a href="@Url.Action("OrderDetail","Admin",new {id = item.Id, pageNumber = TempData["IndexPage"] })"><span><i class="fa fa-eye"></i>@Resource.view_details</span></a>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.PendingOrders.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    <center>@Resource.no_data_found</center>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-12 text-center pagingText">
+                        @Html.PagedListPager(Model.PendingOrders, pageNumber => Url.Action("Orders", new { pageNumber }))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-inprogress" role="tabpanel" aria-labelledby="nav-inprogress-tab">
+            <div class="custom_table_box">
+                <table class="table table-striped allocate_orders">
+                    <tbody>
+                        <tr>
+                            @*<th style="width:70px">Image</th>*@
+                            <th>@Resource.customer_name</th>
+                            <th>@Resource.service_provider_name</th>
+                            <th>@Resource.status</th>
+                            <th>@Resource.start_date_time</th>
+                            <th>@Resource.end_date_time</th>
+                            <th style="width:150px">@Resource.location</th>
+                            <th>@Resource.action</th>
+                        </tr>
+                        @foreach (var item in Model.InProgressOrders)
+                        {
+                        <tr>
+                            <td>@item.CustomerName</td>
+                            <td>@item.ServiceProviderName </td>
+                            <td>@item.JobStatusStr</td>
+                            @if (item.JobStartDatetime != null)
+                            {
+                                <td>
+                                    @item.JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobStartDatetime.Value.ToString("hh:mm tt")
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@item.JobStartDatetime</td>
+                        }
+                            @if (item.JobEndDatetime != null)
+                            {
+                            <td>
+                                @item.JobEndDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobEndDatetime.Value.ToString("hh:mm tt")
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@item.JobEndDatetime</td>
+                        }
+                            <td>@item.PropertyAddress</td>
+                            <td>
+                                <a href="@Url.Action("OrderDetail","Admin",new {id = item.Id, pageNumber = TempData["IndexPage"] })"><span><i class="fa fa-eye"></i>@Resource.view_details</span></a>
+                            </td>
+                        </tr>
+                        }
+                        @if (Model.InProgressOrders.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    <center>@Resource.no_data_found</center>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-12 text-center pagingText">
+                        @Html.PagedListPager(Model.InProgressOrders, pageNumber => Url.Action("Orders", new { pageNumber }))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
+            <div class="custom_table_box">
+                <table class="table table-striped allocate_orders">
+                    <tbody>
+                        <tr>
+                            @*<th style="width:70px">Image</th>*@
+                            <th>@Resource.customer_name</th>
+                            <th>@Resource.service_provider_name</th>
+                            <th>@Resource.status</th>
+                            <th>@Resource.start_date_time</th>
+                            <th>@Resource.end_date_time</th>
+                            <th style="width:150px">@Resource.location</th>
+                            <th>@Resource.action</th>
+                        </tr>
+                        @foreach (var item in Model.CompletedOrders)
+                        {
+                        <tr>
+                            <td>@item.CustomerName</td>
+                            <td>@item.ServiceProviderName </td>
+                            <td>@item.JobStatusStr</td>
+                            @if (item.JobStartDatetime != null)
+                            {
+                                <td>
+                                    @item.JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobStartDatetime.Value.ToString("hh:mm tt")
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@item.JobStartDatetime</td>
+                        }
+                            @if (item.JobEndDatetime != null)
+                            {
+                            <td>
+                                @item.JobEndDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobEndDatetime.Value.ToString("hh:mm tt")
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@item.JobEndDatetime</td>
+                        }
+                            <td>@item.PropertyAddress</td>
+                            <td>
+                                <a href="@Url.Action("OrderDetail","Admin",new {id = item.Id, pageNumber = TempData["IndexPage"] })"><span><i class="fa fa-eye"></i>@Resource.view_details</span></a>
+                            </td>
+                        </tr>
+                        }
+                        @if (Model.CompletedOrders.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    <center>@Resource.no_data_found</center>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-12 text-center pagingText">
+                        @Html.PagedListPager(Model.CompletedOrders, pageNumber => Url.Action("Orders", new { pageNumber }))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-canceled" role="tabpanel" aria-labelledby="nav-canceled-tab">
+            <div class="custom_table_box">
+                <table class="table table-striped allocate_orders">
+                    <tbody>
+                        <tr>
+                            @*<th style="width:70px">Image</th>*@
+                            <th>@Resource.customer_name</th>
+                            <th>@Resource.service_provider_name</th>
+                            <th>@Resource.status</th>
+                            <th>@Resource.start_date_time</th>
+                            <th>@Resource.end_date_time</th>
+                            <th style="width:150px">@Resource.location</th>
+                            <th>@Resource.action</th>
+                        </tr>
+                        @foreach (var item in Model.CanceledOrders)
+                        {
+                        <tr>
+                            <td>@item.CustomerName</td>
+                            <td>@item.ServiceProviderName </td>
+                            <td>@item.JobStatusStr</td>
+                            @if (item.JobStartDatetime != null)
+                            {
+                                <td>
+                                    @item.JobStartDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobStartDatetime.Value.ToString("hh:mm tt")
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@item.JobStartDatetime</td>
+                        }
+                            @if (item.JobEndDatetime != null)
+                            {
+                            <td>
+                                @item.JobEndDatetime.Value.ToString("ddd, MMMM dd, yyyy")
+                                @Resource.at @item.JobEndDatetime.Value.ToString("hh:mm tt")
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@item.JobEndDatetime</td>
+                        }
+                            <td>@item.PropertyAddress</td>
+                            <td>
+                                <a href="@Url.Action("OrderDetail","Admin",new {id = item.Id, pageNumber = TempData["IndexPage"] })"><span><i class="fa fa-eye"></i>@Resource.view_details</span></a>
+                            </td>
+                        </tr>
+                        }
+                        @if (Model.CanceledOrders.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    <center>@Resource.no_data_found</center>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-12 text-center pagingText">
+                        @Html.PagedListPager(Model.CanceledOrders, pageNumber => Url.Action("Orders", new { pageNumber }))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

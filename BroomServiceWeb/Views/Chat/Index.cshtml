@@ -1,0 +1,186 @@
+﻿@model BroomServiceWeb.ViewModels.ChatDetailListModel
+@using BroomServiceWeb.Resources;
+@{
+    ViewBag.Title = "Chat";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+}
+
+<div id="notifications_main" class="notifications_main">
+    <div class="container-fluid">
+        <h2 class="text-center">@Resource.chat</h2>
+        <div class="row chat_main_box py-4">
+
+            <div class="col-md-12">
+                <div class="chat_box">
+                    @if (TempData["UserImage"] != null)
+                    {
+                        <img class="selected-img" src="~/Images/User/@TempData["UserImage"]">
+                    }
+                    else
+                    {
+                        <img class="selected-img" src="~/Content/images/image_placeholder.jpg">
+                    }
+
+                    <div class="selected_user_name">@TempData["UserName"]</div>
+                    <input id="userId" name="userId" type="hidden" value="@TempData["UserId"]" />
+                    <input id="sessionInput" type="hidden" value='@Session["UserId"]' />
+                    <div class="chat_detail_main">
+                        <div class="conversation" id="dvChat">
+
+                        </div>
+                    </div>
+                    <div class="message_send_box">
+                        <input type="text" name="text" id="text" class="form-control search_input">
+                        <button id="btnSend" class="btn search_btn"><img src="/Content/images/sent-mail.png"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+
+<script type="text/javascript">
+    jQuery('#text').on('input', function () {
+        if ($(this).val().length != 0)
+            $('#btnSend').attr('disabled', false);
+        else
+            $('#btnSend').attr('disabled', true);
+    });
+
+
+    bindChat();
+    function bindChat() {
+        var userId = $("#userId").val();
+                $.ajax({
+                url: "@Url.Action("GetChat", "Chat")",
+                    data: { "userId": userId},
+                dataType: "json",
+                type: "GET",
+                error: function () {
+                    // alert(" An error occurred.");
+                },
+                    success: function (data) {
+                        if (data == "Session Expired") {
+                            window.location.href = "/Account/Login";
+                        }
+                        else {
+                            var i;
+                            var html = '';
+                            for (i = 0; i < data.length; i++) {
+                                // text += data[i] + "<br>";
+                                if (data[i].IsSender) {
+                                    html += '<div class="chat_2">' + data[i].UserMessage + '<p>' + data[i].UserMessageTime + '</p></div>';
+                                }
+                                else {
+                                    html += '<div class="chat_1">' + data[i].UserMessage + '<p>' + data[i].UserMessageTime + '</p> </div>';
+                                }
+                            }
+                            $("#dvChat").html(html);
+                            var objDiv = document.getElementById("dvChat");
+                            if (objDiv != null) {
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
+                        }
+                }
+            });
+        }
+    window.setInterval(function () {
+         bindChat();
+    }, 5000);
+
+    $(document).ready(function () {
+        $('#btnSend').prop('disabled', true);
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAk37twU5CzSbzUGbu6k46DuQsbBJju7k0",
+            authDomain: "broomserviceapp-1cf32.firebaseio.com/",
+            databaseURL: "https://broomserviceapp-1cf32.firebaseio.com/",
+            projectId: "broomserviceapp-1cf32",
+            messagingSenderId: "679114337944"
+        };
+        firebase.initializeApp(config);
+    });
+
+    $("#btnSend").click(function () {
+        AddChatMessage();
+    });
+
+    $('#text').keypress(function (e) {
+        if (e.which == 13) {
+            if ($(this).val().length > 0) {
+                AddChatMessage();
+            }
+        }
+    });
+
+    function AddChatMessage() {
+        var userId = $("#userId").val();
+        var text = $("#text").val();
+        var timestamp = firebase.database.ServerValue.TIMESTAMP;
+            $("#text").val('');
+            var date = new Date();
+        date = date.toLocaleString('en-GB');
+
+        @*var relativeDate ="@Common.RelativeDate(DateTime.Now)";*@
+
+        var html = '<div class="chat_2">' + text + '<p>' + date + '</p></div>';
+         $("#dvChat").append(html);
+         var objDiv = document.getElementById("dvChat");
+         objDiv.scrollTop = objDiv.scrollHeight;
+        $('#btnSend').prop('disabled', true);
+
+        firebase.database().ref('Chat/' + $("#sessionInput").val() + '/' + userId +'/').push().set({
+            'IsSender': true,
+            'TimeStamp': timestamp,
+            'RecieverUserId': userId,
+            'SenderUserId': $("#sessionInput").val(),
+            'UserMessage': text,
+            'UserMessageTime': date,
+        });
+
+        firebase.database().ref('Chat/' + userId + '/' + $("#sessionInput").val() + '/').push().set({
+            'IsSender': false,
+            'TimeStamp': timestamp,
+            'RecieverUserId': $("#sessionInput").val(),
+            'SenderUserId': userId,
+            'UserMessage': text,
+            'UserMessageTime': date,
+        });
+
+                    $.ajax({
+                        url: "@Url.Action("SendMessage", "Chat")",
+                        data: { "userId": userId },
+            dataType: "json",
+            type: "Post",
+            error: function () {
+                //alert(" An error occurred.");
+            },
+                        success: function (data) {
+                            if (data.status) {
+
+                            }
+                            else if (data == "Session Expired") {
+                                window.location.href = "/Account/Login";
+                            }
+                }
+            });
+    }
+
+    $(window).load(function () {
+        $('.navbar-nav li a').each(function () {
+            $(this).parent().removeClass('active');
+            var $this = $(this);
+            matching_value = $this.attr('href');
+            if (matching_value == "/Chat/ChatListing") {
+                $(this).parent().addClass('active');
+            }
+        });
+    });
+
+
+</script>
+
+

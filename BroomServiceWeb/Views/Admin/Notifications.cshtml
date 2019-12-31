@@ -1,0 +1,121 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using BroomServiceWeb.Helpers;
+@using BroomServiceWeb.Resources;
+@model IPagedList<BroomServiceWeb.ViewModels.NotificationViewModel>
+@{
+    ViewBag.Title = "Notifications";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="heading-top">@Resource.notifications</h2>
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMsg"]
+    </div>
+}
+@if (TempData["SuccessMsg"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMsg"]
+    </div>
+}
+
+
+<div class="row">
+    <div class="col-12">
+        @foreach (var item in Model)
+        {
+            <div class="notification_box d-block d-md-flex justify-content-between">
+                <div class="notification_details">
+                    <div class="notify_photo_content d-block d-sm-flex">
+                        <div class="notifi_image">
+
+                            @if (item.NoOtherUser)
+                            {
+                                if (!string.IsNullOrEmpty(item.FromUserImage))
+                                {
+                                    <img src="~/Images/User/@item.FromUserImage" alt="image" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/image_placeholder.jpg" alt="image" />
+                                }
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(item.ToUserImage))
+                                {
+                                    <img src="~/Images/User/@item.ToUserImage" alt="image" />
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/image_placeholder.jpg" alt="image" />
+
+                                }
+                            }
+
+
+
+                        </div>
+                        <div class="notify_content align-self-center">
+                            @if (item.NoOtherUser)
+                            {
+                                <p>
+                                    <strong>@item.FromUserName</strong> @item.Text
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @item.Text
+                                </p>
+                            }
+
+                            @if (item.CreatedDate != null)
+                            {
+                                <p>@item.CreatedDate.Value.ToString("ddd, MMMM dd, yyyy") @Resource.at @item.CreatedDate.Value.ToString("hh:mm tt")</p>
+                            }
+                            else
+                            {
+                                <p>@item.CreatedDate  </p>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification_buttons allocate_orders  align-self-center">
+                    <a class="order_view" href="@Url.Action("AssignWorker","Admin",
+                                               new {id = item.Id,requestId=item.JobRequestId, pageNumber =
+                                               TempData["IndexPage"] })"><span><i class="fa fa-eye"></i>@Resource.view_details</span></a>
+                    @if (item.NotificationStatus == (int)Enums.NotificationStatus.Pending)
+                    {
+
+                        <a class="order_accept" href="@Url.Action("AcceptRejectJobRequest", "Admin", new
+                                             {
+                                                 id = item.Id,
+                                                 requestId = item.JobRequestId,
+                                                 IsAccept = true,
+                                                 pageNumber = TempData["IndexPage"]
+                                             })"><span><i class="fa fa-check"></i>@Resource.accept</span></a>
+                        <a class="order_reject" href="@Url.Action("AcceptRejectJobRequest", "Admin", new
+                                             {
+                                                 id = item.Id,
+                                                 requestId = item.JobRequestId,
+                                                 IsAccept = false,
+                                                 pageNumber = TempData["IndexPage"]
+                                             })"><span><i class="fa fa-times"></i>@Resource.reject</span></a>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 text-center pagingText">
+        @Html.PagedListPager(Model, pageNumber => Url.Action("Notifications", new { pageNumber }))
+    </div>
+</div>

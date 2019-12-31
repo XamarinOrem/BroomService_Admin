@@ -1,0 +1,71 @@
+﻿@model BroomServiceWeb.Models.UserModel
+@using BroomServiceWeb.Resources;
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+}
+
+<div id="my_profile_main" class="my_profile_main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                @if (TempData["ErrorMsg"] != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["ErrorMsg"]
+                    </div>
+                }
+                @if (TempData["SuccessMsg"] != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @TempData["SuccessMsg"]
+                    </div>
+                }
+                <div class="my_profile_pic">
+                    @if (!string.IsNullOrEmpty(@Model.PicturePath))
+                    {
+                        <img src="~/Images/User/@Model.PicturePath" alt="profile Pic" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/images/image_placeholder.jpg" alt="profile Pic">
+                    }
+                </div>
+                <h3 class="personal_details">@Resource.personal_details</h3>
+                <div class="my_profile_info">
+                    <div class="repeat_div">
+                        <div class="work_label">@Resource.first_name</div>
+                        <div class="work_value">@Model.FirstName</div>
+                    </div>
+                    <div class="repeat_div">
+                        <div class="work_label">@Resource.last_name</div>
+                        <div class="work_value">@Model.LastName</div>
+                    </div>
+                    <div class="repeat_div">
+                        <div class="work_label">@Resource.email</div>
+                        <div class="work_value" style="text-transform: none;">@Model.Email</div>
+                    </div>
+                    <div class="repeat_div">
+                        <div class="work_label">@Resource.phone_number</div>
+                        <div class="d-flex justify-content-md-start">
+                            @if (!string.IsNullOrEmpty(Model.CountryCode))
+                            {
+                                <div class="work_value" style="margin-right: 12px;border-right: 1px solid #484848;padding-right: 10px;">@Model.CountryCode</div>
+                            }
+                            <div class="work_value">@Model.PhoneNumber</div>
+                        </div>
+
+                    </div>
+                    <div class="repeat_div">
+                        <div class="work_label">@Resource.zip_code</div>
+                        <div class="work_value">@Model.Zipcode</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="/Profile/EditProfile" class="edit_profile">@Resource.edit_profile</a><a href="/Account/ChangePassword" class="change_password">@Resource.change_password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,155 @@
+﻿@using BroomServiceWeb.Resources;
+@model BroomServiceWeb.Models.UserModel
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_WebMainLayout.cshtml";
+}
+
+<div id="my_profile_main" class="my_profile_main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                @using (Html.BeginForm("EditProfile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mb-5" }))
+                {
+                    <div class="my_profile_pic" style="margin-bottom: 35px;">
+                        @if (!string.IsNullOrEmpty(@Model.PicturePath))
+                        {
+                            <img src="~/Images/User/@Model.PicturePath" id="profile_pic" alt="profile Pic" />
+                        }
+                        else
+                        {
+                            <img src="~/Content/images/image_placeholder.jpg" id="profile_pic" alt="profile Pic">
+                        }
+                        <div class="edit_profile_pic_wrapper">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" name="myfile" id="myfile">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.UserId)
+                        <div class="double_input d-flex justify-content-between">
+                            <div class="small_input_box ">
+                                <label class="sr-only">@Resource.first_name</label>
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input_box_small", placeholder = Resource.first_name, @required = "required" })
+                            </div>
+                            <div class="small_input_box">
+                                <label class="sr-only">@Resource.last_name</label>
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input_box_small", placeholder = Resource.last_name })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">@Resource.email_address</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control form_input", placeholder = "Email", @required = "required", @type = "email", @readonly = "readonly" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="double_input d-flex justify-content-between">
+                            <div class="counrty_select">
+                                    @Html.TextBoxFor(m => m.CountryCode
+                       , new { @class = "form-control", @required = "required", style = "height: 50px;border: transparent;color: rgba(0,0,0,.6);font-weight:300;font-size:18px;" })
+
+                                    @Html.HiddenFor(m => m.UserTypeText)
+                            </div>
+                            <div class="small_input_box">
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control input_box_small", placeholder = Resource.phone_number, @type = "number", @required = "required" })
+                                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.Countries, "Value", "Text"), Resource.country
+                               , new { @class = "form-control form_input", @id = "CountryId", @required = "required" })
+                        @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control form_input", placeholder = Resource.city })
+                        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control form_input", placeholder = Resource.address })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.Zipcode, new { @class = "form-control form_input", placeholder = Resource.zip_code, @type = "number" })
+                        @Html.ValidationMessageFor(m => m.Zipcode, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="text-center  mt-3">
+                        <button type="submit" class="changes_done">@Resource.save_changes</button>
+                        <a href="/Profile/MyProfile"><button type="button" class="changes_cancel">@Resource.cancel</button></a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCAW0qqikPYbOKLu_aobSw04z1Dnfhgpv4"></script>
+<script>
+
+    $(function () {
+        @*var aa =@Model.CountryCode+9
+
+         if (aa==9)
+         {
+         }
+         else
+         {
+             var selectedCountryCode = @Model.CountryCode
+             selectedCountryCode = "+" + selectedCountryCode
+             $('#CountryCode option')
+                 .filter(function () { return $.trim($(this).text()) == selectedCountryCode; })
+                 .attr('selected', true);
+         }*@
+
+    });
+
+    //$('#CountryCode').change(function () {
+    //    var selectedText = $('#CountryCode :selected').val();
+    //    var selectedValue = $('#CountryCode :selected').text();
+    //    $("#UserTypeText").val(selectedValue);
+    //    $('#CountryId').find('option[value="' + selectedText + '"]').attr('selected', 'selected');
+    //});
+
+    google.maps.event.addDomListener(window, 'load', function () {
+        var options = {
+            types: ['(cities)']
+        };
+
+        var input = document.getElementById('City');
+        var places = new google.maps.places.Autocomplete(input, options);
+
+        google.maps.event.addListener(places, 'place_changed', function () {
+            var place = places.getPlace();
+            var address = place.address_components;
+            for (var i = 0; i < address.length; i++) {
+
+                if (address[i].types[0] == "administrative_area_level_2") {
+                    $("#City").val(address[i].long_name);
+
+                }
+            }
+        });
+
+    });
+
+    $(function () {
+        $("input[name=myfile]").change(function () {
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profile_pic').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                $('#profile_pic').attr('src', '../Images/banner_bg.png');
+            }
+        });
+    });
+</script>

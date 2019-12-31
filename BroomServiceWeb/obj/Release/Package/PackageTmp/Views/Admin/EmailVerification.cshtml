@@ -1,0 +1,72 @@
+﻿@using BroomServiceWeb.Resources
+@{
+    ViewBag.Title = "EmailVerification";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+
+    <link rel="stylesheet" href="~/Content/css/example1.css">
+    <link rel="stylesheet" href="~/Content/css/example1-he.css">
+    <link rel="stylesheet" href="~/Content/css/page.css">
+    <!-- Include Client API Library in your page -->
+    <script src="https://cdn.paymeservice.com/hf/v1/hostedfields.js"></script>
+
+
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broom Service</title>
+    <link rel="icon" href="~/Content/images/logo.png" type="image/png" sizes="16x16">
+    <environment include="Development">
+        <link rel="stylesheet" href="~/Content/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+              asp-fallback-href="~/Content/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
+    </environment>
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+
+    <!-- Animation Css -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/sidebar.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div style="width: 80%; margin:0 auto; border-top:solid 4px #ffaf00;color:black">
+        <div style="text-align: center; padding:20px 0;">
+            <img src="/Content/images/logo_small.png" style="width: 200px;height:200px">
+        </div>
+        <button class="btn btn-primary back_home" type="button" onclick="HomeButtonClick()"><i class="fa fa-home"></i>@Resource.back_to_home</button>
+        <div style="background:#f2f2f2; text-align: center; font-family: calibri; font-weight: normal; font-size: 12px; padding:30px;">
+            <h1 style="margin:0">@Resource.welcome_to <span style="color:#ffaf00">@Resource.broom_service</span></h1>
+            <div style="width:80%; padding:2% 5%; background: #fff; margin:30px auto -90px; box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.15); text-align: left;">
+                <h5 style="color:#000; font-size:16px !important; font-family: calibri;">@Resource.dear <span style="color:#ffaf00;">@ViewBag.Username<span></h5>
+                <p style="font-size: 16px; color: #7b7b7b; text-align:justify">
+                    @Resource.email_verified_sucess
+                </p>
+
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>
+
+
+<script>
+    function HomeButtonClick() {
+        window.location.href = "/Home/Index";
+    }
+</script>

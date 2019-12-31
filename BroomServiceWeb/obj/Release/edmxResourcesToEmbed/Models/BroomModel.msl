@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BroomServiceModelStoreContainer" CdmEntityContainer="BroomServiceEntities">
+    <EntitySetMapping Name="AboutUs">
+      <EntityTypeMapping TypeName="BroomServiceModel.AboutU">
+        <MappingFragment StoreEntitySet="AboutUs">
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="AboutUsId" ColumnName="AboutUsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="BroomServiceModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="Description_French" ColumnName="Description_French" />
+          <ScalarProperty Name="Description_Hebrew" ColumnName="Description_Hebrew" />
+          <ScalarProperty Name="Description_Russian" ColumnName="Description_Russian" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name_French" ColumnName="Name_French" />
+          <ScalarProperty Name="Name_Hebrew" ColumnName="Name_Hebrew" />
+          <ScalarProperty Name="Name_Russian" ColumnName="Name_Russian" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="ForWorkers" ColumnName="ForWorkers" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="HasPrice" ColumnName="HasPrice" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContactUs">
+      <EntityTypeMapping TypeName="BroomServiceModel.ContactU">
+        <MappingFragment StoreEntitySet="ContactUs">
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="BroomServiceModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobRequestCheckLists">
+      <EntityTypeMapping TypeName="BroomServiceModel.JobRequestCheckList">
+        <MappingFragment StoreEntitySet="JobRequestCheckList">
+          <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+          <ScalarProperty Name="JobRequestId" ColumnName="JobRequestId" />
+          <ScalarProperty Name="TaskDetail" ColumnName="TaskDetail" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobRequestRefImages">
+      <EntityTypeMapping TypeName="BroomServiceModel.JobRequestRefImage">
+        <MappingFragment StoreEntitySet="JobRequestRefImages">
+          <ScalarProperty Name="JobRequestId" ColumnName="JobRequestId" />
+          <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobRequestSubSubCategories">
+      <EntityTypeMapping TypeName="BroomServiceModel.JobRequestSubSubCategory">
+        <MappingFragment StoreEntitySet="JobRequestSubSubCategory">
+          <ScalarProperty Name="JobRequestId" ColumnName="JobRequestId" />
+          <ScalarProperty Name="SubSubCategoryId" ColumnName="SubSubCategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="BroomServiceModel.Notification">
+        <MappingFragment StoreEntitySet="Notification">
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="NotificationStatus" ColumnName="NotificationStatus" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="JobRequestId" ColumnName="JobRequestId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Properties">
+      <EntityTypeMapping TypeName="BroomServiceModel.Property">
+        <MappingFragment StoreEntitySet="Property">
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="NoOfBedRooms" ColumnName="NoOfBedRooms" />
+          <ScalarProperty Name="NoOfToilets" ColumnName="NoOfToilets" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Elevator" ColumnName="Elevator" />
+          <ScalarProperty Name="Garden" ColumnName="Garden" />
+          <ScalarProperty Name="Pool" ColumnName="Pool" />
+          <ScalarProperty Name="Dishwasher" ColumnName="Dishwasher" />
+          <ScalarProperty Name="Balcony" ColumnName="Balcony" />
+          <ScalarProperty Name="Parking" ColumnName="Parking" />
+          <ScalarProperty Name="Doorman" ColumnName="Doorman" />
+          <ScalarProperty Name="NoOfPillows" ColumnName="NoOfPillows" />
+          <ScalarProperty Name="NoOfDuvet" ColumnName="NoOfDuvet" />
+          <ScalarProperty Name="DuvetSize" ColumnName="DuvetSize" />
+          <ScalarProperty Name="NoOfDoubleSofaBeds" ColumnName="NoOfDoubleSofaBeds" />
+          <ScalarProperty Name="NoOfSingleSofaBeds" ColumnName="NoOfSingleSofaBeds" />
+          <ScalarProperty Name="NoOfSingleBeds" ColumnName="NoOfSingleBeds" />
+          <ScalarProperty Name="NoOfDoubleBeds" ColumnName="NoOfDoubleBeds" />
+          <ScalarProperty Name="NoOfQueenBeds" ColumnName="NoOfQueenBeds" />
+          <ScalarProperty Name="NoOfBathrooms" ColumnName="NoOfBathrooms" />
+          <ScalarProperty Name="AccessToProperty" ColumnName="AccessToProperty" />
+          <ScalarProperty Name="BuildingCode" ColumnName="BuildingCode" />
+          <ScalarProperty Name="ApartmentNumber" ColumnName="ApartmentNumber" />
+          <ScalarProperty Name="FloorNumber" ColumnName="FloorNumber" />
+          <ScalarProperty Name="ShortTermApartment" ColumnName="ShortTermApartment" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RejectJobRequests">
+      <EntityTypeMapping TypeName="BroomServiceModel.RejectJobRequest">
+        <MappingFragment StoreEntitySet="RejectJobRequest">
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="JobRequestId" ColumnName="JobRequestId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="BroomServiceModel.Setting">
+        <MappingFragment StoreEntitySet="Setting">
+          <ScalarProperty Name="AdminPricePer" ColumnName="AdminPricePer" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubCategories">
+      <EntityTypeMapping TypeName="BroomServiceModel.SubCategory">
+        <MappingFragment StoreEntitySet="SubCategory">
+          <ScalarProperty Name="Description_French" ColumnName="Description_French" />
+          <ScalarProperty Name="Description_Hebrew" ColumnName="Description_Hebrew" />
+          <ScalarProperty Name="Description_Russian" ColumnName="Description_Russian" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name_French" ColumnName="Name_French" />
+          <ScalarProperty Name="Name_Hebrew" ColumnName="Name_Hebrew" />
+          <ScalarProperty Name="Name_Russian" ColumnName="Name_Russian" />
+          <ScalarProperty Name="HasSubSubCategories" ColumnName="HasSubSubCategories" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ClientPrice" ColumnName="ClientPrice" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="CatId" ColumnName="CatId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubSubCategories">
+      <EntityTypeMapping TypeName="BroomServiceModel.SubSubCategory">
+        <MappingFragment StoreEntitySet="SubSubCategory">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Description_Hebrew" ColumnName="Description_Hebrew" />
+          <ScalarProperty Name="Description_Russian" ColumnName="Description_Russian" />
+          <ScalarProperty Name="Description_French" ColumnName="Description_French" />
+          <ScalarProperty Name="Name_Hebrew" ColumnName="Name_Hebrew" />
+          <ScalarProperty Name="Name_French" ColumnName="Name_French" />
+          <ScalarProperty Name="Name_Russian" ColumnName="Name_Russian" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ClientPrice" ColumnName="ClientPrice" />
+          <ScalarProperty Name="SubCatId" ColumnName="SubCatId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempJobRequests">
+      <EntityTypeMapping TypeName="BroomServiceModel.TempJobRequest">
+        <MappingFragment StoreEntitySet="TempJobRequest">
+          <ScalarProperty Name="IsPaymentDone" ColumnName="IsPaymentDone" />
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="TimerEndTime" ColumnName="TimerEndTime" />
+          <ScalarProperty Name="TimerStartTime" ColumnName="TimerStartTime" />
+          <ScalarProperty Name="IsQuoteApproved" ColumnName="IsQuoteApproved" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+          <ScalarProperty Name="ServiceProviderId" ColumnName="ServiceProviderId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="JobEndDatetime" ColumnName="JobEndDatetime" />
+          <ScalarProperty Name="JobStartDatetime" ColumnName="JobStartDatetime" />
+          <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempJobRequestCheckLists">
+      <EntityTypeMapping TypeName="BroomServiceModel.TempJobRequestCheckList">
+        <MappingFragment StoreEntitySet="TempJobRequestCheckList">
+          <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+          <ScalarProperty Name="TempJobRequestId" ColumnName="TempJobRequestId" />
+          <ScalarProperty Name="TaskDetail" ColumnName="TaskDetail" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempJobRequestRefImages">
+      <EntityTypeMapping TypeName="BroomServiceModel.TempJobRequestRefImage">
+        <MappingFragment StoreEntitySet="TempJobRequestRefImages">
+          <ScalarProperty Name="TempJobRequestId" ColumnName="TempJobRequestId" />
+          <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempJobRequestSubSubCategories">
+      <EntityTypeMapping TypeName="BroomServiceModel.TempJobRequestSubSubCategory">
+        <MappingFragment StoreEntitySet="TempJobRequestSubSubCategory">
+          <ScalarProperty Name="TempJobRequestId" ColumnName="TempJobRequestId" />
+          <ScalarProperty Name="SubSubCategoryId" ColumnName="SubSubCategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TermsConditions">
+      <EntityTypeMapping TypeName="BroomServiceModel.TermsCondition">
+        <MappingFragment StoreEntitySet="TermsConditions">
+          <ScalarProperty Name="TermsConditionText" ColumnName="TermsConditionText" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Testimonials">
+      <EntityTypeMapping TypeName="BroomServiceModel.Testimonial">
+        <MappingFragment StoreEntitySet="Testimonials">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="BroomServiceModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="EmailVerified" ColumnName="EmailVerified" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="DeviceToken" ColumnName="DeviceToken" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserChats">
+      <EntityTypeMapping TypeName="BroomServiceModel.UserChat">
+        <MappingFragment StoreEntitySet="UserChat">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserJobReviews">
+      <EntityTypeMapping TypeName="BroomServiceModel.UserJobReview">
+        <MappingFragment StoreEntitySet="UserJobReview">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Review" ColumnName="Review" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="JobRequestId" ColumnName="JobRequestId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserReviews">
+      <EntityTypeMapping TypeName="BroomServiceModel.UserReview">
+        <MappingFragment StoreEntitySet="UserReview">
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Review" ColumnName="Review" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSubCategories">
+      <EntityTypeMapping TypeName="BroomServiceModel.UserSubCategory">
+        <MappingFragment StoreEntitySet="UserSubCategories">
+          <ScalarProperty Name="SubSubCategoryId" ColumnName="SubSubCategoryId" />
+          <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobRequests">
+      <EntityTypeMapping TypeName="BroomServiceModel.JobRequest">
+        <MappingFragment StoreEntitySet="JobRequest">
+          <ScalarProperty Name="HasPrice" ColumnName="HasPrice" />
+          <ScalarProperty Name="ClientQuotePrice" ColumnName="ClientQuotePrice" />
+          <ScalarProperty Name="IsPaymentDone" ColumnName="IsPaymentDone" />
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="TimerEndTime" ColumnName="TimerEndTime" />
+          <ScalarProperty Name="TimerStartTime" ColumnName="TimerStartTime" />
+          <ScalarProperty Name="IsQuoteApproved" ColumnName="IsQuoteApproved" />
+          <ScalarProperty Name="QuotePrice" ColumnName="QuotePrice" />
+          <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+          <ScalarProperty Name="ServiceProviderId" ColumnName="ServiceProviderId" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="JobEndDatetime" ColumnName="JobEndDatetime" />
+          <ScalarProperty Name="JobStartDatetime" ColumnName="JobStartDatetime" />
+          <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PrivacyPolicies">
+      <EntityTypeMapping TypeName="BroomServiceModel.PrivacyPolicy">
+        <MappingFragment StoreEntitySet="PrivacyPolicy">
+          <ScalarProperty Name="PrivacyPolicyText" ColumnName="PrivacyPolicyText" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

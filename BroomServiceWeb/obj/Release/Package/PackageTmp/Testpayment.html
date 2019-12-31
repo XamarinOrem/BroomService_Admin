@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+     
+    <link rel="stylesheet" href="Content/css/example1.css">
+    <link rel="stylesheet" href="Content/css/example1-he.css">
+    <link rel="stylesheet" href="Content/css/page.css">
+    <!-- Include Client API Library in your page -->
+    <script src="https://cdn.paymeservice.com/hf/v1/hostedfields.js"></script>
+
+</head>
+<body>
+
+
+    <!-- PAYMENT FORM STARTS HERE -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+
+                <div class="panel panel-default credit-card-box">
+                    <div class="panel-body">
+                        <form role="form" id="checkout-form">
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="form-group" id="card-number-group">
+                                        <label for="card-number-container" class="control-label">CARD NUMBER</label>
+
+                                        <!-- Container for Credit Card number field -->
+                                        <div id="card-number-container" class="form-control input-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-7 col-md-7">
+                                    <div class="form-group" id="card-expiration-group">
+                                        <label for="card-expiration-container" class="control-label">EXPIRATION DATE</label>
+
+                                        <!-- Container for Credit Card expiration date field -->
+                                        <div id="card-expiration-container" class="form-control input-lg"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 col-md-5 pull-right">
+                                    <div class="form-group" id="card-cvv-group">
+                                        <label for="card-cvv-container" class="control-label">CVV</label>
+
+                                        <!-- Container for Credit Card CVV field -->
+                                        <div id="card-cvv-container" class="form-control input-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+
+                                    <!-- Form submit button -->
+                                    <button class="subscribe btn btn-success btn-lg btn-block" id="submit-button">
+                                        Pay 55.00 USD
+                                    </button>
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAYMENT FORM ENDS HERE -->
+
+
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <script>
+
+        var key = 'MPL15619-69223SA9-DM43Q9NW-6QQMKYVN'; // Merchant API key from Settings page in the dashboard
+
+        PayMe.create(key, { testMode: false }).then(function (instance) {
+
+            var fields = instance.hostedFields();
+
+            var cardNumber = fields.create('cardNumber');
+            var expiration = fields.create('cardExpiration');
+            var cvc = fields.create('cvc');
+
+            cardNumber.mount('#card-number-container');
+            expiration.mount('#card-expiration-container');
+            cvc.mount('#card-cvv-container');
+
+            $("form").submit(function (e) {
+                e.preventDefault();
+             
+                var saleData = {
+
+                    payerFirstName: 'Foo',
+                    payerLastName: 'Bar',
+                    payerEmail: 'foo-bar@domain.com',
+                    payerPhone: '1231231',
+                    payerSocialId: '12345',
+
+                    total: {
+                        label: 'Order #123123',
+                        amount: {
+                            currency: 'USD',
+                            value: '1.00',
+                        }
+                    }
+                };
+
+                // Call for tokenization
+
+                instance.tokenize(saleData)
+                    .then(function (tokenizationResult) {
+                        alert('Successfull tokenization');
+                        // Successfull tokenization
+                        //
+                        // Now you can send 'tokenizationResult' to
+                        // your server and call `generate-sale` on Core API
+                        console.log(tokenizationResult);
+                        var buyer_key = tokenizationResult.token;
+                        alert(buyer_key);
+                        var orderId = $("#orderId").val();
+                        var price = $("#price").val();
+                        $.ajax({
+                            url: '@Url.Action("Payment", "Admin")',
+                            data: { "orderId": orderId, "price": price, "buyer_key": buyer_key },
+                            dataType: "json",
+                            type: "Post",
+                            error: function () {
+                                //alert(" An error occurred.");
+                            },
+                            success: function (data) {
+                                if (data.payme_status == "success") {
+                                    window.location.href = data.redirect_url;
+                                }
+                                else {
+                                    alert("Some error has occured, please try again.");
+                                }
+                            }
+                        });
+
+                        
+                    })
+                    .catch(function (tokenizationError) {
+
+                        // Failed tokenization
+                        //
+                        // you can explore 'tokenizationError' object and show error message on your taste
+
+                        console.error(tokenizationError)
+                    });
+
+
+            });
+
+        }).catch(function (error) {
+            // Instantiation error occurs
+        });
+
+    </script>
+</body>
+</html>

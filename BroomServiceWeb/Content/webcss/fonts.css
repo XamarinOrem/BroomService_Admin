@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Appetite New';
+    src: url('../webfonts/AppetiteNew.eot');
+    src: url('../webfonts/AppetiteNew.eot?#iefix') format('embedded-opentype'),
+        url('../webfonts/AppetiteNew.woff2') format('woff2'),
+        url('../webfonts/AppetiteNew.woff') format('woff'),
+        url('../webfonts/AppetiteNew.ttf') format('truetype'),
+        url('../webfonts/AppetiteNew.svg#AppetiteNew') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Footlight MT';
+    src: url('../webfonts/FootlightMTLight.eot');
+    src: url('../webfonts/FootlightMTLight.eot?#iefix') format('embedded-opentype'),
+        url('../webfonts/FootlightMTLight.woff2') format('woff2'),
+        url('../webfonts/FootlightMTLight.woff') format('woff'),
+        url('../webfonts/FootlightMTLight.ttf') format('truetype'),
+        url('../webfonts/FootlightMTLight.svg#FootlightMTLight') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+
